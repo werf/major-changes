@@ -1,0 +1,12 @@
+id: plan-show-verbose-diffs-removed
+title: The `--show-verbose-diffs` option is removed, diffs of created and deleted resources are always shown
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [plan, cli]
+description: |
+  Before: `nelm release plan install`, `nelm release plan show`, `werf plan` and `werf bundle plan` had `--show-verbose-diffs` (default `true`); with `false`, diffs of created and deleted resources were replaced with `<hidden verbose changes>`.
+  Now: the option is removed and full diffs of created and deleted resources are always shown.
+migration: |
+  Remove `--show-verbose-diffs` and `WERF_SHOW_VERBOSE_DIFFS`/`NELM_*_SHOW_VERBOSE_DIFFS` from scripts: an unknown flag fails argument parsing.

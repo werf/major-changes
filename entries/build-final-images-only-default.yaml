@@ -1,0 +1,14 @@
+id: build-final-images-only-default
+title: "`werf build` and `werf config list` default to `--final-images-only=true`"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [cli, images]
+description: |
+  Before: `werf build` defaulted to `--final-images-only=false` and built every image of `werf.yaml`, including orphan non-final images (`final: false`) that no final image uses; `werf config list` listed non-final images too and accepted the deprecated `--images-only` alias.
+  Now: both commands default to `--final-images-only=true`, like `converge`, `render`, `export`, `plan`, `lint` and `bundle publish` already did. `werf build` builds final images and the non-final images they need via `from`, `import` or `dependencies`; orphan non-final images are no longer built. `werf config list` lists only final images, and `--images-only` is removed.
+migration: |
+  To keep the previous behavior, pass `--final-images-only=false` to `werf build` (or set `WERF_FINAL_IMAGES_ONLY=false`) and to `werf config list`. Replace the removed `--images-only` flag with `--final-images-only`.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#which-images-are-built-and-listed

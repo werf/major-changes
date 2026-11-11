@@ -1,0 +1,10 @@
+id: host-cleanup-faster-local-stage-listing
+title: "Listing local project stages is much faster on hosts with many images"
+type: fix
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [host-cleanup, performance]
+description: |
+  Before: listing a project's stages in local storage (used when werf works without `--repo`, e.g. `werf purge`, project-scoped host purge, `werf stages copy` from local storage) asked Docker to filter images by both repository reference and the `werf` label, which took seconds per request on hosts with many images.
+  Now: Docker filters by reference only and werf checks the `werf` label itself, with the same result much faster.

@@ -1,0 +1,12 @@
+id: deploy-report-api-version
+title: 'Deploy, rollback and uninstall reports identify their format with `"apiVersion": "v3"`'
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [deploy-report]
+description: |
+  Before: the JSON reports saved with `--save-report-to` (Nelm) or `--save-deploy-report`, `--save-rollback-report`, `--save-uninstall-report` (werf) had a numeric `"version": 3` field.
+  Now: the field is replaced with the string `"apiVersion": "v3"`; `version` is no longer written. In the Go API, `ReleaseReportV3.Version int` is replaced with `ReleaseReportV3.APIVersion string`.
+migration: |
+  Update scripts that read or validate `version` to check `apiVersion == "v3"` instead.

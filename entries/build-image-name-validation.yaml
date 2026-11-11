@@ -1,0 +1,14 @@
+id: build-image-name-validation
+title: "Image names in werf.yaml are validated when the configuration is loaded"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [config, validation]
+description: |
+  Before: any image name was accepted at config loading; a name that a Go template rendered empty or malformed (for example `/api` or `<no value>`) failed only later in the build phase with an `invalid reference format` error.
+  Now: names are checked when the configuration is loaded and an invalid name is a configuration error pointing at the offending line. Latin letters, digits, `_`, `.`, `-` and `+` are allowed, with optional `/`-separated segments; each segment must start with a letter or digit. For example `modules/controller` and `libstdc++` are valid, while an empty name, whitespace, `/api` and `modules//controller` are not. In `werf compose` and env-file build reports, `+` in an image name is replaced with `_` in environment variable names (`libstdc++` uses the `WERF_LIBSTDC___` prefix).
+migration: |
+  Rename images whose names do not match the rules, including names produced by Go templates.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#image-names

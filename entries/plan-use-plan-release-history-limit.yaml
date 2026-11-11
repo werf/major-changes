@@ -1,0 +1,14 @@
+id: plan-use-plan-release-history-limit
+title: "Installing from a saved plan respects `--release-history-limit`"
+type: fix
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [plan, release-storage, go-api]
+description: |
+  Before: `nelm release install --use-plan` (werf: `werf converge --use-plan`) took the release history limit from the saved plan, where it was always `0`, so old release revisions were never pruned and the history grew without limit.
+  Now: the history limit comes from `--release-history-limit` of the install command (default `10`), as without `--use-plan`.
+  Go API: `ReleaseHistoryLimit` moved from `common.ReleaseInstallRuntimeOptions` to `action.ReleaseInstallOptions` (as in `ReleaseRollbackOptions` and `ReleaseUninstallOptions`) and is no longer stored in plan artifacts.
+  In werf, `werf converge --use-plan` and `werf bundle apply --use-plan` now respect `--releases-history-max` (`$WERF_RELEASES_HISTORY_MAX`).
+migration: |
+  Go API callers that set `ReleaseHistoryLimit` inside a `common.ReleaseInstallRuntimeOptions` literal must set `action.ReleaseInstallOptions.ReleaseHistoryLimit` instead. Releases installed from saved plans may have accumulated many revisions; the next install prunes them down to the limit.

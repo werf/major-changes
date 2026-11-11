@@ -1,0 +1,12 @@
+id: annotations-lookalike-keys-ignored
+title: "Lookalike keys such as `werf-io/weight` no longer act as `werf.io/*` and `helm.sh/*` annotations"
+type: fix
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [annotations]
+description: |
+  Before: the patterns for Nelm's annotation and label keys didn't escape the dot, so any character in place of a `.` matched: `werf-io/weight`, `helm-sh/hook`, `werfXio/deploy-dependency-foo` etc. were validated and applied as `werf.io/weight`, `helm.sh/hook` and so on (e.g. `werf-io/weight: "abc"` failed the deploy with `invalid value "abc" for annotation "werf-io/weight"`).
+  Now: only the exactly spelled `werf.io/*`, `helm.sh/*`, `meta.helm.sh/*` and `app.kubernetes.io/*` keys are recognized; lookalike keys are ignored by Nelm.
+migration: |
+  If a chart relied on a misspelled key such as `werf-io/weight` or `helm-sh/hook`, rename it to the dotted key (`werf.io/weight`, `helm.sh/hook`).

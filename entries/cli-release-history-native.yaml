@@ -1,0 +1,13 @@
+id: cli-release-history-native
+title: "`nelm release history` is a native command with `-r`/`-n` flags, `--revisions-limit` and structured output"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, release-storage]
+description: |
+  Before: `nelm release history RELEASE_NAME` was the Helm `history` command: the release was a positional argument, the number of revisions was limited with `--max` (default `256`), output was chosen with `-o table|json|yaml` and had Helm's columns.
+  Now: `nelm release history -r RELEASE -n NAMESPACE` is a native implementation. The release is passed with `--release`/`-r`, the namespace with `--namespace`/`-n`; `--revisions-limit` (default `0`, no limit) replaces `--max`; `--output-format table|json|yaml` (default `table`) replaces `-o`. The table has `REVISION`, `STATUS`, `DEPLOYED` (RFC 822 date), `CHART`, `CHART VERSION` and `APP VERSION` columns. JSON/YAML output is `{apiVersion: v1, releases: [{name, namespace, revision, status, deployedAt: {human, unix}, annotations, chart: {name, version, appVersion}}]}`. Release storage is chosen with `--release-storage` and `--release-storage-sql-connection`; the usual kube connection flags apply.
+  The Helm flags and `HELM_*` variables are replaced by the Nelm ones: `--kubeconfig` → `--kube-config` (`$KUBECONFIG` is still read), `--kube-context` (`$HELM_KUBECONTEXT` → `$NELM_KUBE_CONTEXT`), `--kube-apiserver` → `--kube-api-server`, `--kube-as-user` → `--kube-impersonate-user`, `--kube-as-group` → `--kube-impersonate-group`, `--kube-ca-file` → `--kube-ca`, `--kube-tls-server-name` → `--kube-api-server-tls-name`, `--kube-insecure-skip-tls-verify` → `--no-verify-kube-tls`, `--kube-token` (`$HELM_KUBETOKEN` → `$NELM_KUBE_TOKEN`), `--burst-limit` → `--kube-burst-limit`, `--qps` (default `0`) → `--kube-qps-limit` (default `30`), `$HELM_NAMESPACE` → `$NELM_NAMESPACE`, `$HELM_DRIVER` → `--release-storage` (`$NELM_RELEASE_STORAGE`), `$HELM_DRIVER_SQL_CONNECTION_STRING` → `--release-storage-sql-connection` (`$NELM_RELEASE_STORAGE_SQL_CONNECTION`), `--debug`/`$HELM_DEBUG` → `--log-level debug`; `--registry-config`, `--repository-config` and `--repository-cache` are removed.
+migration: |
+  Replace `nelm release history NAME [-n NS] --max N -o json` with `nelm release history -r NAME -n NS --revisions-limit N --output-format json`, rename the kube connection flags and `HELM_*` environment variables as listed above, and update parsers of the JSON/YAML output to the new structure.

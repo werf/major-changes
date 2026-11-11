@@ -1,0 +1,14 @@
+# Every commit of lockgate reachable from v0.2.1 and not from v0.1.1, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: 5f7b046f4df8, date: 2024-05-17, subject: "Acquirer Queue", skip: internal, note: "optional AcquirerId queue for the distributed locker; werf never passes AcquirerId, so behavior is unchanged" }
+- { commit: 891347c9170d, date: 2024-05-27, subject: "Merge pull request #42 from cwarden/acquirer-queue", skip: merge }
+- { commit: 6c5133cce712, date: 2024-05-27, subject: "Add AcquirerId Description to README", skip: docs }
+- { commit: 33f6b505310d, date: 2024-05-28, subject: "Merge pull request #43 from cwarden/acquirerid-use-case", skip: merge }
+- { commit: b6bf346d6251, date: 2024-05-29, subject: "Add HoldLease Function", skip: internal, note: "new HoldLease library function, unused by werf" }
+- { commit: 0f887561e036, date: 2024-07-04, subject: "Merge pull request #44 from cwarden/hold-lease", skip: merge }
+- { commit: 1acbd7fb84f2, date: 2024-07-04, subject: "Write Debug Output to stderr", entries: [logging-lockgate-debug-stderr] }
+- { commit: a03017298b88, date: 2024-07-04, subject: "Merge pull request #45 from cwarden/debug-logs-to-stderr", skip: merge }
+- { commit: 8d77d5d1eea0, date: 2026-07-04, subject: "fix(file_lock): GC stale lock files, guard acquire against the flock+unlink race", entries: [host-cleanup-stale-lock-files], note: "used by werf 1c8eb885b6b1 (GCLockFileDir)" }
+- { commit: b9aa1ac8fced, date: 2026-07-04, subject: "Merge pull request #48 from werf/feat/file-lock/gc-inode-safe", skip: merge }
+- { commit: 1a37f08b6184, date: 2026-10-22, subject: "fix(file_lock): avoid deadlock when lock acquired at timeout boundary", entries: [file-lock-timeout-deadlock], note: "bumped by werf d6c1329e298d" }
+- { commit: 5f579cc25807, date: 2026-10-22, subject: "Merge pull request #49 from werf/fix/pollock-timeout-deadlock", skip: merge }

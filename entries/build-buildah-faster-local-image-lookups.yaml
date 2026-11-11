@@ -1,0 +1,10 @@
+id: build-buildah-faster-local-image-lookups
+title: "Native Buildah builds look up local images faster on hosts with many images"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [buildah, performance]
+description: |
+  Before: on hosts with a populated local image store, the native Buildah backend resolved image references repeatedly for every inventory candidate, slowing builds down.
+  Now: the inspected image ID is used directly, and project stage images are selected with an exact `<project>:*` filter.

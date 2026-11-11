@@ -1,0 +1,14 @@
+id: build-virtual-merge-removed
+title: "The `--virtual-merge` mode is removed"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [git, cli]
+description: |
+  Before: `--virtual-merge` (`$WERF_VIRTUAL_MERGE`) in `werf build`, `converge`, `run`, `bundle publish` and other building commands treated the current commit as an ephemeral merge commit (e.g. a CI merge-request merge result) and built git patches relative to its parents.
+  Now: the flag and the environment variable are removed; the current commit is always used as is.
+migration: |
+  Remove `--virtual-merge` and `WERF_VIRTUAL_MERGE` from scripts and CI configuration: passing the flag is an error.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#removed-flags-and-modes

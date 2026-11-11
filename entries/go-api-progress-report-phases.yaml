@@ -1,0 +1,10 @@
+id: go-api-progress-report-phases
+title: "Progress reports of install and uninstall can include preparation and namespace deletion phases"
+type: feature
+breaking: false
+products: [nelm]
+domain: go-api
+areas: [go-api, deploy-report]
+description: |
+  New: `LegacyProgressReportPhases: true` in `action.ReleaseInstallOptions` or `action.ReleaseUninstallOptions` makes the snapshots sent to `LegacyProgressReportCh` (`progrep.ProgressReport`) also describe the work outside plan execution: `CurrentPhase` (`Initializing`, `Rendering`, `Analyzing`, `Planning`, `Executing`, `DeletingNamespace`) with `RenderDetails.ResourceCount`, `AnalyzeDetails.Processed`/`Total` and `NamespaceDeleteDetails`. Defaults to `false`: only plan execution is reported, as before, and the phase fields are omitted.
+  Snapshots at phase boundaries and the final snapshot (sent after the optional release namespace deletion) are sent with a blocking send, so a slow consumer delays the action at these points; intermediate snapshots are still dropped when the channel is full. `BuildResourceInfosOptions.OnResourceAnalyzed` is called for each analyzed resource. See `docs/progress-report.md`.

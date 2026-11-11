@@ -1,0 +1,12 @@
+id: release-storage-sql-annotations-table
+title: "SQL release storage keeps release annotations in a new `nelm_release_annotations_v1` table"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [release-storage]
+description: |
+  Before: SQL (PostgreSQL) release storage used only Helm's `releases_v1` table and the `gorp_migrations` table.
+  Now: on first use Nelm runs an extra migration, recorded in a new `nelm_migrations` table, which creates the `nelm_release_annotations_v1` table (release annotations, referencing `releases_v1` with `ON DELETE CASCADE`), grants `SELECT, INSERT, UPDATE, DELETE` on it and `SELECT` on `nelm_migrations` to `PUBLIC`, and enables row-level security on it. Release annotations are written there in the same transaction as the release and read from it without loading release bodies; the annotations are still kept in the release body for Helm compatibility. If the table can't be read, annotations are read from the body. A write denied by permissions fails with `access to table "nelm_release_annotations_v1" for release namespace "<ns>": check the current role's table privileges and row-level security (RLS) policies`.
+migration: |
+  If Nelm/werf connects to PostgreSQL with a role that can't create tables, run the first deploy of the new version with a role that can (or apply the migration as a database administrator), so that `nelm_migrations` and `nelm_release_annotations_v1` are created. Row-level security is enabled on `nelm_release_annotations_v1` without policies, so a role that doesn't own the table can't access its rows: create RLS policies for the roles that deploy releases, e.g. per release namespace, matching the policies you use for `releases_v1`.

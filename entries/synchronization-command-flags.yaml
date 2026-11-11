@@ -1,0 +1,11 @@
+id: synchronization-command-flags
+title: "`werf synchronization` accepts the full set of Kubernetes connection flags; its legacy storage flags are documented as ignored"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [locking, cli]
+description: |
+  The synchronization subsystem (`--synchronization`/`-S`, `WERF_SYNCHRONIZATION`, the `werf synchronization` server) works as in v2.
+  Before: `werf synchronization` accepted only `--kube-config`, `--kube-config-base64` and `--kube-context` for connecting to Kubernetes; `--local`, `--local-lock-manager-base-dir`, `--local-stages-storage-cache-base-dir`, `--kubernetes-namespace-prefix` and `--ttl` were described as configuring storage although they had no effect.
+  Now: `werf synchronization` accepts the same Kubernetes connection flags as other commands (`--kube-api-server`, `--kube-token`, `--kube-token-path`, `--kube-auth-*`, `--kube-context-cluster`, `--kube-context-user`, `--kube-impersonate-*`, `--kube-proxy-url`, `--kube-burst-limit` and their `WERF_*` variables). The five legacy flags are still accepted and are documented as compatibility flags that are ignored: without `--kubernetes`, locks are kept in process memory; with it, they are stored in ConfigMaps of the `werf-synchronization` namespace. When `--synchronization` is set explicitly, werf prints the synchronization server it uses.

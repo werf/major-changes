@@ -1,0 +1,12 @@
+id: go-api-helm-fork-packages-restructured
+title: "The packages of the embedded Helm fork follow the Helm 4 layout"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: the Helm fork under `pkg/helm` had the Helm 3 package layout: `pkg/helm/pkg/chart`, `pkg/helm/pkg/chartutil`, `pkg/helm/pkg/release`, `pkg/helm/pkg/releaseutil`, `pkg/helm/pkg/time`, `pkg/helm/pkg/lint`, `pkg/helm/pkg/plugin`, `pkg/helm/pkg/postrender`, `pkg/helm/pkg/phases`, `pkg/helm/pkg/errs`, `pkg/helm/pkg/werf/...` and the Helm CLI in `pkg/helm/cmd/helm`.
+  Now: it has the Helm 4 layout: v2 charts in `pkg/helm/pkg/chart/v2` (with `.../chart/v2/loader` and `.../chart/v2/util`), version-independent chart code in `pkg/helm/pkg/chart`, `pkg/helm/pkg/chart/loader` and `pkg/helm/pkg/chart/common` (values, capabilities, `chartutil` helpers in `.../chart/common/util`), v3 charts in the internal `pkg/helm/intern/chart/v3`, releases in `pkg/helm/pkg/release/v1` and `pkg/helm/pkg/release/common` (statuses), `releaseutil` in `pkg/helm/pkg/release/v1/util`, post-renderers in `pkg/helm/pkg/postrenderer` and the Helm CLI in `pkg/helm/pkg/cmd`. `pkg/helm/pkg/time`, `pkg/helm/pkg/lint`, `pkg/helm/pkg/plugin`, `pkg/helm/pkg/phases`, `pkg/helm/pkg/errs` and `pkg/helm/pkg/werf/...` are gone. The werf chart options moved from `pkg/helm/pkg/werf/helmopts` to `pkg/common` (`common.HelmOptions`, `common.ContextWithHelmOptions`, `common.LegacyChartType`, `common.TypeScriptOptions`), and the `LegacyChartType` field of `ChartLintOptions`, `ChartRenderOptions`, `ReleaseInstallOptions` and `ReleasePlanInstallOptions` in `pkg/action` is now `common.LegacyChartType`. Many exported functions changed signatures with Helm 4 (e.g. chart loaders take `chart.Charter`, errors are standard `fmt`/`errors` errors instead of `github.com/pkg/errors`).
+migration: |
+  Update imports to the new package paths (e.g. `pkg/helm/pkg/chart` → `pkg/helm/pkg/chart/v2`, `pkg/helm/pkg/chartutil` → `pkg/helm/pkg/chart/common` or `pkg/helm/pkg/chart/v2/util`, `pkg/helm/pkg/release` → `pkg/helm/pkg/release/v1`, `pkg/helm/cmd/helm` → `pkg/helm/pkg/cmd`, `pkg/helm/pkg/werf/helmopts` → `pkg/common`) and adapt to the Helm 4 signatures; see the Helm 4 SDK changes.

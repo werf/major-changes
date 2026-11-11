@@ -1,0 +1,14 @@
+id: cli-chart-copy
+title: "`nelm chart copy` copies a chart with its images between registries and archives"
+type: feature
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [cli, charts, oci, registry]
+description: |
+  New: `nelm chart copy FROM TO` (Go API: `action.ChartCopy`) copies a chart together with every image listed in the `helm.sh/images` annotations of the chart and its dependencies. `FROM` and `TO` are an OCI repository (`oci://REPO[:TAG]`, `docker://REPO[:TAG]` or `REPO[:TAG]`; no tag means `latest`) or an archive (`archive:PATH`, or a path ending in `.tar`, `.tar.gz` or `.tgz`).
+  - Copied to a repository, the chart is renamed to the repository basename, images are copied by digest into the same repository under their source tags (multi-platform indexes and non-distributable layers included; signatures, SBOMs and other referrers are not), and the image references in `helm.sh/images` are rewritten to `REPO[:TAG]@DIGEST`.
+  - With `TO` `TAG`, the chart version becomes `TAG` if it is a semver version (without a leading `v`), otherwise `0.0.0-<unix time>-<TAG slug>`; the chart is pushed under the version and `TAG` (`+` pushed as `_`). Without `TAG` it keeps its version.
+  - Archives are written as an OCI image layout tar; legacy werf bundle archives are also read. `--archive-max-expanded-size` (default `64Gi`) bounds what an archive may expand to.
+  - An unchanged copy keeps the original chart manifest and provenance; a changed copy is re-signed with `--sign` (`--sign-key`, `--sign-keyring`, `--sign-passphrase-file`), otherwise its provenance is dropped with a warning.
+  - `--chart-repo-*` credentials and TLS options apply only to the source and destination chart hosts; other image hosts use the Docker credentials store. Loopback registries such as `localhost:5000` are reached over plain HTTP.

@@ -1,0 +1,12 @@
+id: build-buildah-dockerfile-network-honored
+title: "The native Buildah backend honors `network:` and `--backend-network` for Dockerfile images"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [buildah, dockerfile]
+description: |
+  Before: with the native Buildah backend (`WERF_BUILDAH_MODE=native-chroot` or `native-rootless`), `network:` of a Dockerfile image in `werf.yaml` and `--backend-network` were silently ignored for non-staged Dockerfile builds, and in a rootless build a `RUN` ran in the host network namespace when slirp4netns was absent.
+  Now: they are honored for non-staged Dockerfile images, and only `default`, `host` and `none` are supported: any other value, such as `bridge` or a named Docker network, fails with `unsupported network mode "bridge" for the native Buildah backend (supported: default, host, none)`. A `RUN` of a rootless Dockerfile build runs in its own network namespace configured by pasta. Images with `staged: true` still ignore the image-level setting; only `RUN --network=` applies there. In `native-chroot` mode Buildah forces host networking, so `network: none` does not isolate a `RUN`. The Docker backend is unchanged.
+migration: |
+  Review `network:` of Dockerfile images in `werf.yaml` and `--backend-network` (`WERF_BACKEND_NETWORK`) used with the native Buildah backend: replace Docker-specific values (`bridge`, named networks) with `default`, `host` or `none`, or remove them, and check that builds which used to get host networking still have the connectivity they need. Do not rely on `network: none` for isolation in `native-chroot` mode.

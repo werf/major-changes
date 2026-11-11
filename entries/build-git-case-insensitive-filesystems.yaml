@@ -1,0 +1,10 @@
+id: build-git-case-insensitive-filesystems
+title: "Git files that differ only by case keep their own contents on case-insensitive filesystems"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [git]
+description: |
+  Before: on a case-insensitive filesystem (macOS APFS by default), a Stapel git mapping or a Dockerfile context taken from Git that contained files differing only by case (for example `xt_connmark.h` and `xt_CONNMARK.h`) put both files into the image with the contents of one of them, and the broken stage was cached.
+  Now: each such file is archived with its own contents.

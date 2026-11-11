@@ -1,0 +1,19 @@
+id: cli-chart-commands-helm-4-flags
+title: "Helm-based chart and repository commands get the Helm 4 flags"
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [cli, charts]
+description: |
+  The commands built on Helm follow Helm 4 and get new flags.
+  Nelm (`nelm chart dependency download|update`, `nelm chart download` and the `nelm chart repo` commands):
+  - all of them: `--color`/`--colour` (`never`, `auto`, `always`) and `--content-cache` (default `~/.cache/helm/content`, a content-addressed cache of downloaded charts);
+  - `nelm chart dependency download|update`: `--username`, `--password`, `--ca-file`, `--cert-file`, `--key-file`, `--insecure-skip-tls-verify` and `--plain-http` for accessing the chart repository;
+  - `nelm chart repo login`: `--plain-http`;
+  - `nelm chart repo add` and `nelm chart repo update`: `--timeout` (default `2m0s`) for downloading the index file.
+  werf (`werf helm` subcommands; they do not get `--color`/`--colour` or `--content-cache`):
+  - `werf helm dependency build`, `werf helm dependency update` and `werf helm package`: `--username`, `--password`, `--ca-file`, `--cert-file`, `--key-file`, `--insecure-skip-tls-verify` and `--plain-http` for accessing the chart repository;
+  - `werf helm registry login`: `--plain-http`;
+  - `werf helm repo add` and `werf helm repo update`: `--timeout` (default `2m0s`);
+  - `werf helm repo list`: `--no-headers`.

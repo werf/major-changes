@@ -1,0 +1,10 @@
+id: build-export-use-build-report-final-repo
+title: "`werf export --use-build-report` exports images published to the final repository"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [images, build-report]
+description: |
+  Before: with `--final-repo` (in particular together with `--repo :local`), `werf export --use-build-report` looked up the reported final images in the primary storage and could fail to export them; with the Buildah backend, the ID of an inspected OCI image could be empty.
+  Now: when a build-report record points to the final repository, the image is exported from there, and the Buildah backend takes the image ID from the container storage.

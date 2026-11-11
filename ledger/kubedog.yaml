@@ -1,0 +1,24 @@
+# Every commit of kubedog reachable from nelm-main and not from nelm-v1.31.3, werf-v2.84.1, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: ba99f6727979, date: 2026-03-28, subject: "feat!: new major release 1.0", skip: internal, note: "kubedog 1.0: removes the kubedog CLI and legacy multitrack/rollout/display packages, moves dyntracker to pkg/dyntracker, bumps client-go; Nelm v2 uses only dyntracker, no behavior change" }
+- { commit: 7742723cb9e9, date: 2026-05-26, subject: "feat: case insensitive gvk for dynamic trackers (#394)", entries: [dependency-annotations-gvk-case-insensitive], note: "enabled in nelm by adf8a42899d5" }
+- { commit: eb21ccb6d6d1, date: 2026-06-15, subject: "chore(ci): update actions (#397)", skip: ci }
+- { commit: 5d578345082f, date: 2026-07-09, subject: "Merge branch 'main' into 1", skip: merge }
+- { commit: 63ca5500cf0a, date: 2026-08-06, subject: "fix: track CloudNativePG Cluster readiness and stop sharing matched values", skip: in-old, note: "same subject as 70d293d in nelm-v1.31.3 and werf-v2.84.1 (differs only in import paths)" }
+- { commit: e706a59fdbb6, date: 2026-08-06, subject: "feat: add opt-in case-insensitive condition type matching", skip: in-old, note: "same subject as 7594d35 in nelm-v1.31.3 and werf-v2.84.1 (opt-in via feature gate in v1.31.3)" }
+- { commit: beebbf089da3, date: 2026-08-06, subject: "test: cover generic resource status tracking", skip: test }
+- { commit: 4d83eb1dfe1e, date: 2026-08-06, subject: "test: harden generic status tracking coverage", skip: test }
+- { commit: 85087f97ed99, date: 2026-08-06, subject: "test: derive casing coverage from the rule table", skip: test }
+- { commit: e8f61a4bc90a, date: 2026-08-07, subject: "feat: always match resource condition types case-insensitively", entries: [tracking-condition-types-case-insensitive], note: "gate removed in nelm by 0585a1f4041e" }
+- { commit: 438ef109f804, date: 2026-09-15, subject: "Merge branch 'main' into 1", entries: [tracking-condition-types-case-insensitive], note: "drops main's opt-in CaseInsensitiveConditionTracking options, keeping always-case-insensitive matching; rest is conflict resolution" }
+- { commit: 6c647902c408, date: 2026-10-09, subject: "chore: reformat", skip: internal }
+- { commit: a6313e532fbe, date: 2026-10-09, subject: "chore: clean up code flagged by golangci-lint", skip: internal }
+- { commit: 14abc2720b73, date: 2026-10-09, subject: "chore: upgrade golangci-lint to v2.5.0 with a local config", skip: internal }
+- { commit: b201189bbc56, date: 2026-10-09, subject: "Merge pull request #389 from werf/1", skip: merge }
+- { commit: 10db28fc11a0, date: 2026-10-27, subject: "fix: fail Deployment tracking on ReplicaSet pod-create errors", entries: [tracking-deployment-pod-create-failures], note: "PR werf/kubedog#404, bumped in nelm by 109bfb44e86c" }
+- { commit: 38643e953de5, date: 2026-10-27, subject: "fix: handle ReplicaSet failure transitions consistently", entries: [tracking-deployment-pod-create-failures] }
+- { commit: 8ceef4c3c442, date: 2026-10-27, subject: "fix: keep ReplicaSet quota failures counted while the rollout can release quota", entries: [tracking-deployment-pod-create-failures] }
+- { commit: a20d88c9964e, date: 2026-10-27, subject: "chore: fix errorlint in deployment tracker test harness and document FailureMode field", skip: internal, note: "test lint fix and a doc comment" }
+- { commit: 8bcce864f0ad, date: 2026-10-29, subject: "fix: bound quota quantities parsed from a ReplicaSet failure message", entries: [tracking-deployment-pod-create-failures] }
+- { commit: 97f4f131413e, date: 2026-10-29, subject: "Merge pull request #404 from werf/fix/398-replicaset-pod-create-failures", skip: merge }
+- { commit: 1ed920dee18b, date: 2026-11-03, subject: "fix: stop leaking informers and their caches after tracking ends (#406)", skip: in-old, note: "same subject as f1eefb59d19a in nelm-v1.31.3; werf-v2.84.1 (60827212f828) lacks it, but the leak only matters for long-lived processes that track repeatedly (Nelm Go API users), not for a werf CLI run" }

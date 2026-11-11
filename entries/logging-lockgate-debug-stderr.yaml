@@ -1,0 +1,10 @@
+id: logging-lockgate-debug-stderr
+title: "`LOCKGATE_DEBUG=1` diagnostics of distributed locks go to stderr"
+type: change
+breaking: false
+products: [werf]
+domain: general
+areas: [logging, locking]
+description: |
+  Before: with the undocumented `LOCKGATE_DEBUG=1`, the debug messages of the lockgate distributed locker (used by `werf synchronization` and with an HTTP `--synchronization` server) were printed to stdout, mixed into the command output.
+  Now: they are printed to stderr.

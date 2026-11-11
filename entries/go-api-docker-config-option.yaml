@@ -1,0 +1,12 @@
+id: go-api-docker-config-option
+title: Action options take a `DockerConfig` directory, `common.DefaultRegistryCredentialsPath` is removed
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, registry]
+description: |
+  Before: `ChartRenderOptions`, `ChartLintOptions`, `ReleaseInstallOptions` and `ReleasePlanInstallOptions` defaulted `RegistryCredentialsPath` to `common.DefaultRegistryCredentialsPath` (`$DOCKER_CONFIG/config.json` or `~/.docker/config.json`).
+  Now: these options have a `DockerConfig` field (Docker config directory) and `RegistryCredentialsPath` defaults to `<DockerConfig>/config.json`. `common.DefaultRegistryCredentialsPath` is removed; `common.DefaultDockerConfig` (`~/.docker`, without `$DOCKER_CONFIG`) is added. With both fields empty, `config.json` is looked up relative to the current directory.
+migration: |
+  Set `DockerConfig` (e.g. to `common.DefaultDockerConfig` or `$DOCKER_CONFIG`) or `RegistryCredentialsPath` explicitly, and replace uses of `common.DefaultRegistryCredentialsPath`.

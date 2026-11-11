@@ -1,0 +1,10 @@
+id: release-rollback-normalized-stored-manifests
+title: "Rollback expands Lists and converts Secret `stringData` like install"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [rollback, resources]
+description: |
+  Before: `nelm release rollback` and `werf rollback` deployed and stored the manifests of the target revision as they were. For a revision stored without Nelm's normalization (for example by Helm), `kind: List` manifests were not expanded into their items and Secret `stringData` was not converted to `data`, unlike `nelm release install`.
+  Now: rollback expands Lists and converts Secret `stringData` to base64 `data` before storing the new revision and deploying it, like install. The manifests stored in the rollback revision can therefore differ in form from those of the target revision.

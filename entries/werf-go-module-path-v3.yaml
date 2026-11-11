@@ -1,0 +1,12 @@
+id: werf-go-module-path-v3
+title: "The werf Go module path is `github.com/werf/werf/v3`"
+type: change
+breaking: true
+products: [werf]
+domain: general
+areas: [distribution]
+description: |
+  Before: werf v2 was the Go module `github.com/werf/werf/v2` (e.g. `go install github.com/werf/werf/v2/cmd/werf@...`, imports `github.com/werf/werf/v2/pkg/...`).
+  Now: werf v3 is the Go module `github.com/werf/werf/v3`. The CLI, its flags and configuration formats are not affected; only building werf from source or importing its packages is.
+migration: |
+  Build or install werf v3 from `github.com/werf/werf/v3/cmd/werf`, and replace `github.com/werf/werf/v2/` with `github.com/werf/werf/v3/` in Go imports.

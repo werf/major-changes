@@ -1,0 +1,12 @@
+id: build-context-ignore-files-unified
+title: "werf alone filters the Dockerfile build context and also reads `.containerignore`"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [dockerfile, buildah]
+description: |
+  Before: werf filtered the build context with `<dockerfile>.dockerignore` or `.dockerignore`, but the Buildah backend then re-applied the context ignore files on its own: files added by `contextAddFiles` could be stripped again, the context `.dockerignore` could win over a Dockerfile-specific one, and `.containerignore` was honored by Buildah only, not by werf or the Docker backend.
+  Now: the build context is assembled and filtered only by werf, identically on Docker and Buildah. werf reads ignore files in this order: `<dockerfile>.dockerignore`, `<dockerfile>.containerignore`, `.dockerignore`, `.containerignore`. `.containerignore` files are governed by the same giterminism option as `.dockerignore` (`allowUncommittedDockerignoreFiles`).
+migration: |
+  If a project has a `.containerignore` but no `.dockerignore`, check its patterns: they now apply on both backends and change the build context and stage digests. On Buildah, check that `contextAddFiles` and Dockerfile-specific ignore files now produce the expected context.

@@ -1,0 +1,10 @@
+id: cleanup-dry-run-no-registry-writes
+title: "`werf cleanup --dry-run` no longer records a cleanup run in the repository"
+type: fix
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [cleanup]
+description: |
+  Before: `werf cleanup --dry-run` without a separate `--meta-repo` still pushed the last-cleanup record to the repository, so a dry run counted as a cleanup and suppressed the warning that cleanup is overdue.
+  Now: a dry run only calculates and reports what would be deleted and does not write anything to the repository.

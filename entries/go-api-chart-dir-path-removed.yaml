@@ -1,0 +1,12 @@
+id: go-api-chart-dir-path-removed
+title: The deprecated `ChartDirPath` action option is removed, use `Chart`
+type: removal
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, charts]
+description: |
+  Before: `ChartLintOptions`, `ChartRenderOptions`, `ReleaseInstallOptions` and `ReleasePlanInstallOptions` had a deprecated `ChartDirPath` field, used as the chart when `Chart` was empty.
+  Now: `ChartDirPath` is removed; only `Chart` is read (a local chart directory, archive, `repo/chart` reference or URL). When `Chart` is empty, the current directory is used.
+migration: |
+  Set `Chart` instead of `ChartDirPath`.

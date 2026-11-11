@@ -1,0 +1,20 @@
+id: go-api-release-chart-accessors
+title: "Release and chart functions work on Helm `Accessor` interfaces, and the release history API is reworked"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, release-storage, charts]
+description: |
+  Before: `pkg/release`, `pkg/plan`, `pkg/chart` and `pkg/ts` worked on concrete Helm v3 types (`*release.Release`, `*chart.Chart`, `chartutil.Values`), and `release.History` kept all release bodies in memory.
+  Now: they work on the version-independent accessors of the Helm fork, `release.Accessor` from `pkg/helm/pkg/release` and `chart.Accessor` from `pkg/helm/pkg/chart`, so v1 and v2 releases and v2 and v3 charts are handled alike (see `chart-api-version-v3`):
+  - `release.NewRelease(...)` takes a `chart.Accessor` and returns a `release.Accessor`; `release.IsReleaseUpToDate(oldRel, newRel)` takes accessors; `release.ReleaseToResourceSpecs(ctx, rel, releaseNamespace)` takes a context first and an accessor, and no longer has the `noCleanNullFields` argument.
+  - `plan.BuildReleaseInfos(ctx, deployType, prevReleases []release.Accessor, newRel release.Accessor)` takes accessors; `plan.ReleaseInfo.Release`, `plan.OperationConfigCreateRelease.Release` and `plan.OperationConfigUpdateRelease.Release` are `*release.VersionedRelease` from `pkg/release`, a wrapper with an `Accessor` field.
+  - `chart.RenderChartResult.Chart` is a `chart.Accessor`; `ts.BundleChartsRecursive` and `ts.RenderChart` take a `chart.Accessor`, and `ts.RenderChart` takes values as `common.Values` from `pkg/helm/pkg/chart/common`.
+  - The `Status` field of `action.ReleaseGetResultRelease`, `ReleaseInstallResultRelease` and `ReleaseListResultRelease` is `common.Status` from `pkg/helm/pkg/release/common`.
+  The release history reads revisions as metadata and loads bodies on demand (see `release-storage-metadata-reads`):
+  - `release.BuildHistory(ctx, releaseName, storage)` takes a context first and no `HistoryOptions`; `release.NewHistory`, `release.BuildHistories` and `release.HistoryOptions` are removed.
+  - `History.Releases()`, `History.FindAllDeployed()` and `History.FindRevision()` are removed, also from the `Historier` interface; use `History.Revisions()` (revision metadata) and `History.Release(ctx, version)` (loads one body).
+  - `History.CreateRelease(ctx, rel)` takes an accessor; `History.UpdateRelease(ctx, rel, release.UpdateReleaseOptions)` takes an accessor and options (`KeepDeployedTimestamps`).
+migration: |
+  Wrap Helm releases and charts with `release.NewAccessor(rel)` / `chart.NewAccessor(chrt)` from `pkg/helm/pkg/release` / `pkg/helm/pkg/chart` and read their data through the accessor methods (`Name()`, `Version()`, `Status()`, `Chart()`, ...). Replace `History.Releases()`/`FindAllDeployed()`/`FindRevision()` with `History.Revisions()` and `History.Release(ctx, version)`, `BuildHistories` with `ReleaseStorager.LatestRevisions` or `ListLatestSummaries`, and pass `release.UpdateReleaseOptions{}` to `UpdateRelease`. Custom `Historier` implementations must follow the new interface (`CreateRelease`, `UpdateRelease`, `DeleteRelease`).

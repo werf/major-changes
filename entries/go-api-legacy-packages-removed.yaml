@@ -1,0 +1,12 @@
+id: go-api-legacy-packages-removed
+title: "`pkg/export/helm`, `pkg/legacy/deploy`, `action.LegacyReleaseUninstall` and `resource.IsSensitive` are removed"
+type: removal
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: Nelm v1 had `pkg/export/helm/...`, aliases re-exporting parts of the Helm fork (`action`, `chart`, `chart/loader`, `chartutil`, `cli/values`, `cmd/helm`, `downloader`, `engine`, `getter`, `helmpath`, `kube`, `phases/stages`, `phases/stages/externaldeps`, `postrender`, `registry`, `release`, `releaseutil`, `werf/file`, `werf/helmopts`, `werf/secrets`, `werf/secrets/runtimedata`); `pkg/legacy/deploy` with the Helm-based `ResourcesWaiter` and `StagesSplitter`; `action.LegacyReleaseUninstall` with `LegacyReleaseUninstallOptions` and `DefaultLegacyReleaseUninstallLogLevel`; and `resource.IsSensitive(groupKind, annotations)`.
+  Now: all of them are removed.
+migration: |
+  Import the Helm fork packages directly from `pkg/helm/...` (see `go-api-helm-fork-packages-restructured` for the new paths). Use `action.ReleaseUninstall` with `ReleaseUninstallOptions` instead of `action.LegacyReleaseUninstall`. Replace `resource.IsSensitive(gk, annos)` with `resource.GetSensitiveInfo(gk, annos).IsSensitive`. `pkg/legacy/deploy` has no replacement: resource tracking is done by the Nelm plan executor.

@@ -1,0 +1,12 @@
+id: build-stapel-multiplatform-image
+title: "Stapel uses a new multi-platform stapel image and builds linux/arm64 on the Docker backend by default"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [stapel, platform]
+description: |
+  Before: Stapel used the `registry.werf.io/werf/stapel:0.6.2` image (glibc toolchain, linux/amd64 only). With the Docker server backend, Stapel images could be built only for `linux/amd64`; `linux/arm64` required `WERF_EXPERIMENTAL_STAPEL_ARM=1`.
+  Now: the stapel image is rebuilt as a multi-platform image (`registry.werf.io/werf/stapel:0.7.x`, `linux/amd64` and `linux/arm64`), and werf pulls the variant matching the build platform. Stapel images on the Docker server backend build for `linux/arm64` (and its variants) out of the box; `WERF_EXPERIMENTAL_STAPEL_ARM` is no longer needed. Platforms other than `linux/amd64` and `linux/arm64` are still unsupported with the Docker server backend.
+migration: |
+  If you mirror the stapel image and point werf to it with `WERF_STAPEL_IMAGE_NAME`/`WERF_STAPEL_IMAGE_VERSION`, mirror the new version used by werf v3 with all its platforms. Remove `WERF_EXPERIMENTAL_STAPEL_ARM` from the environment.

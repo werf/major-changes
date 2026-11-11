@@ -1,0 +1,12 @@
+id: values-schema-json-schema-2020-12
+title: "`values.schema.json` is validated with JSON Schema draft 2020-12 by default, and schemas themselves are checked"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [values, validation]
+description: |
+  Before: values were validated against `values.schema.json` with the `gojsonschema` library (JSON Schema drafts 4, 6 and 7); errors looked like `- a: Invalid type. Expected: integer, given: string`.
+  Now: the Helm 4 validator (`santhosh-tekuri/jsonschema/v6`) is used. A schema without `$schema` is treated as draft 2020-12 (drafts 4, 6, 7 and 2019-09 are used when `$schema` names them), the schema itself must be valid against its metaschema (otherwise rendering fails with `"file:///values.schema.json#" is not valid against metaschema`), `$ref` to `http(s)://` and `file://` URLs are resolved, and unresolved `urn:` references are ignored with a warning. Errors look like `- at '/a': got string, want integer`. A schema valid for the old validator may be rejected, or accept or reject different values, for example when it relies on draft-7-only keywords such as array-form `items`.
+migration: |
+  Render or lint charts with the new version. Fix schemas reported as invalid against the metaschema, or add `"$schema": "http://json-schema.org/draft-07/schema#"` to keep draft 7 semantics. Update scripts that parse schema validation error messages.

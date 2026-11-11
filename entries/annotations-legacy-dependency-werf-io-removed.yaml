@@ -1,0 +1,12 @@
+id: annotations-legacy-dependency-werf-io-removed
+title: The deprecated `<name>.dependency.werf.io` annotation is removed
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [annotations]
+description: |
+  Before: an undocumented, deprecated `<name>.dependency.werf.io: <apiVersion>:<kind>[:<namespace>]:<name>` annotation made the resource wait until the given release resource was present.
+  Now: the annotation is ignored without a warning.
+migration: |
+  Replace it with `werf.io/deploy-dependency-<name>: state=present,kind=<kind>,version=<version>[,group=<group>],name=<name>[,namespace=<namespace>]`.

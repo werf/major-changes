@@ -1,0 +1,14 @@
+id: build-stage-dependencies-unused-stage-error
+title: "`git.stageDependencies` for a stage without instructions is an error"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, git, validation]
+description: |
+  Before: a non-empty `git.stageDependencies.<stage>` (`install`, `beforeSetup` or `setup`) for a Stapel image with no instructions for that stage only printed a warning, and the masks had no effect.
+  Now: werf fails with `git.stageDependencies.<stage> is defined, but no <stage> instructions are provided for image "<name>"`.
+migration: |
+  Move the masks to the stage that has the corresponding commands, add the missing instructions, or remove the unnecessary `stageDependencies` entry.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#git-dependencies-of-build-stages

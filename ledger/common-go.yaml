@@ -1,0 +1,9 @@
+# Every commit of common-go reachable from nelm-main and not from nelm-v1.31.3, werf-v2.84.1, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: 7f4a363f201c, date: 2026-08-31, subject: "feat(secret): add versioned AES-GCM format and YAML scalar fidelity (#35)", skip: reverted, note: "reverted by 8924a95d7a6b; re-landed as d8516ceb7568" }
+- { commit: 8924a95d7a6b, date: 2026-08-31, subject: 'Revert "feat(secret): add versioned AES-GCM format and YAML scalar fidelity (#35)" (#36)', skip: reverted, note: "reverts 7f4a363f201c" }
+- { commit: 318322270174, date: 2026-10-09, subject: "feat!: new major release 1.0", skip: internal, note: "common-go 1.0: dependency bumps and removal of the unused pkg/secretvalues masking helpers (only the removed legacy werf helm code used them)" }
+- { commit: 09fe43329065, date: 2026-10-09, subject: "fix: correct order for scalar flags with multiple envs (#32)", entries: [cli-command-env-var-overrides-global], note: "nelm CLI only; werf v3 does not use common-go/pkg/cli" }
+- { commit: 366cad5174fe, date: 2026-10-09, subject: "refactor: remove deprecated missedSecretKeyMode functionality (#33)", skip: dependency, note: "removes missed-secret-key mode used by werf v2 bundle publish; user-visible effect catalogued from the werf ledger (2c7379fac909 / 31c36b71ef3a, bundle publish secret key requirement)" }
+- { commit: d8516ceb7568, date: 2026-10-09, subject: "feat(secret): add versioned AES-GCM format and YAML scalar fidelity (#35) (#37)", entries: [secrets-authenticated-encryption-format, secrets-yaml-value-types-preserved], note: "PR werf/common-go#37; bumped by nelm 16e45e2e628b and werf b48d43dcdd20" }
+- { commit: 993ea4351bc0, date: 2026-11-09, subject: "feat(secret): report YAML scalars decrypted without type metadata (#38)", entries: [secrets-warn-legacy-untyped-values], note: "used by nelm 9a28575ad253 and werf 9dd67b697805" }

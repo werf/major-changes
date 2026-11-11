@@ -1,0 +1,10 @@
+id: host-purge-stapel-continue-on-errors
+title: "`werf host purge` removes all Stapel containers and volumes it can and reports every failure"
+type: fix
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [host-cleanup, stapel]
+description: |
+  Before: `werf host purge` stopped at the first Docker error while removing Stapel containers, e.g. a container still used by a concurrent build: the remaining Stapel containers, their volumes and the stapel image stayed on the host, and only that first error was reported.
+  Now: `werf host purge` removes every Stapel container and volume werf owns even if removing another one fails, keeps a container whose volume is still mounted by another container, then tries to remove the stapel image (which fails while a container of that version is left), and reports all failures together.

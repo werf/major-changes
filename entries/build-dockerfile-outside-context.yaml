@@ -1,0 +1,10 @@
+id: build-dockerfile-outside-context
+title: "`dockerfile:` may point outside `context:` within the project directory"
+type: feature
+breaking: false
+products: [werf]
+domain: build
+areas: [dockerfile, config]
+description: |
+  Before: `dockerfile:` had to be inside `context:`; for example, `context: app` with `dockerfile: ../build/app.Dockerfile` failed with `'dockerfile: PATH' required and should be relative to context!`.
+  Now: `dockerfile:` may leave the context via `..` as long as the resulting path stays inside the project directory; absolute paths are still rejected. Such a Dockerfile is not added to the build context. The file must be committed like any other Dockerfile (giterminism).

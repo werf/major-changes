@@ -1,0 +1,14 @@
+id: ci-env-docker-auth-config-auto
+title: "`werf ci-env` uses `DOCKER_AUTH_CONFIG` automatically when it is set"
+type: change
+breaking: true
+products: [werf]
+domain: general
+areas: [ci-env, registry]
+description: |
+  Before: `werf ci-env` generated the session Docker config from `DOCKER_AUTH_CONFIG` only with `--use-docker-auth-config` (`$WERF_USE_DOCKER_AUTH_CONFIG=true`); otherwise it copied the current Docker config (`~/.docker/config.json` or `$DOCKER_CONFIG`).
+  Now: if `DOCKER_AUTH_CONFIG` is non-empty and neither `--use-docker-auth-config` nor `WERF_USE_DOCKER_AUTH_CONFIG` is set, `werf ci-env` generates the Docker config from `DOCKER_AUTH_CONFIG`. The generated config replaces the current one rather than being merged with it, so credentials and credential helpers from the existing Docker config are no longer used. An explicit flag or environment variable, including `false`, still takes precedence.
+migration: |
+  If your CI sets `DOCKER_AUTH_CONFIG` but relies on credentials from the existing Docker config, pass `--use-docker-auth-config=false` or set `WERF_USE_DOCKER_AUTH_CONFIG=false`, or add those credentials to `DOCKER_AUTH_CONFIG`.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#registry-credentials

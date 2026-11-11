@@ -1,0 +1,12 @@
+id: go-api-module-path-v2
+title: "The Go module path is `github.com/werf/nelm/v2`"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: Nelm v1 was imported as `github.com/werf/nelm` (e.g. `github.com/werf/nelm/pkg/action`).
+  Now: Nelm v2 follows Go semantic import versioning and is imported as `github.com/werf/nelm/v2` (e.g. `github.com/werf/nelm/v2/pkg/action`). The embedded Helm fork moved with it (`github.com/werf/nelm/v2/pkg/helm/...`).
+migration: |
+  Run `go get github.com/werf/nelm/v2@latest` and replace `github.com/werf/nelm/` with `github.com/werf/nelm/v2/` in your imports.

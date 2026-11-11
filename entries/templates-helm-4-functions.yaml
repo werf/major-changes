@@ -1,0 +1,10 @@
+id: templates-helm-4-functions
+title: "Templates can use the Helm 4 functions `fromToml`, `mustToToml`, `mustToYaml` and `toYamlPretty`"
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [templates]
+description: |
+  Before: `fromToml`, `mustToToml`, `mustToYaml` and `toYamlPretty` were not defined; using them failed rendering with `function "fromToml" not defined`.
+  Now: chart templates can use them, as in Helm 4: `fromToml` parses a TOML string into a map, `mustToToml` and `mustToYaml` are like `toToml` and `toYaml` but fail rendering on a serialization error instead of returning an empty string or an error message, and `toYamlPretty` renders YAML with 2-space indentation, lists included.

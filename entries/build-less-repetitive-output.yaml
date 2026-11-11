@@ -1,0 +1,10 @@
+id: build-less-repetitive-output
+title: "Build output, especially debug output, is less repetitive"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [logging]
+description: |
+  Before: builds printed the `Using git stages` detail line for every image, per-task worker-start messages, stage-digest lock progress on every lock, repeated repository/commit lines, and full `git show-ref`/`git ls-remote` output in debug logs.
+  Now: these lines are removed or printed once (lock progress only when the lock is contended); the full Git ref listing is printed only with `WERF_DEBUG_TRUE_GIT=1`.

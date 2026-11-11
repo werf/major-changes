@@ -1,0 +1,16 @@
+id: go-api-release-storage-interface
+title: "Release storage is Nelm's own `release` package with a context-aware `ReleaseStorager` and metadata reads"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, release-storage]
+description: |
+  Before: release storage was Helm's `storage`/`driver` packages with Nelm extensions; `release.ReleaseStorager` had `Create`, `Update`, `Delete`, `Query` and `GetRelease` working on `*release.Release` without a context, and `NewReleaseStorage` returned `*helmstorage.Storage`.
+  Now: `pkg/release` implements the Secret, ConfigMap, SQL and memory backends itself, keeping Helm's storage format.
+  - `ReleaseStorager` methods take `ctx` first and work on release accessors; `Query` and `ListLatestReleases` are removed in favor of `Revisions`, `LatestRevisions`, `LoadRevision`, `LoadRevisionSummary`, `ListRevisionSummaries` and `ListLatestSummaries`, which read metadata only or stream bodies; `UpdateLabels(ctx, name, version, labels)` is added to merge custom labels into a stored revision without creating a new one (existing labels are kept; Helm system labels are not changed).
+  - Storage errors are `release.ErrReleaseNotFound`, `release.ErrReleaseExists` and `release.ErrReleaseUndecodable`; `driver.ErrReleaseUndecodable` is removed, and `errors.Is(err, driver.ErrReleaseNotFound)` no longer matches errors returned by Nelm.
+  - `kube.ClientFactorier` gains `Metadata() metadata.Interface`; `kube.ClientFactory` creates the metadata client along with the static and dynamic ones.
+  - `LatestRevisionsOptions.SkipAnnotations` skips reading release annotations from metadata.
+migration: |
+  Pass a context to `ReleaseStorager` calls and replace `Query`/`ListLatestReleases` with `Revisions`/`LatestRevisions` (metadata only) or `ListRevisionSummaries`/`ListLatestSummaries` (with bodies). Match storage errors with `errors.Is(err, release.ErrReleaseNotFound)` and its siblings. Custom `kube.ClientFactorier` implementations must add `Metadata() metadata.Interface`.

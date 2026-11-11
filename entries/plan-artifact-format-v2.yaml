@@ -1,0 +1,12 @@
+id: plan-artifact-format-v2
+title: Saved plan artifacts use format `v2`, plans saved by the previous version are rejected
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [plan]
+description: |
+  Before: the plan file written by `nelm release plan install --save-plan` (werf: `werf plan --save-plan`) had `apiVersion: v1` and stored the release in the Helm 3 release format; the version was not checked on `--use-plan`.
+  Now: the plan file has `apiVersion: v2` and stores the release in a format that also covers `apiVersion: v3` charts. `nelm release install --use-plan`, `nelm release plan show` and `werf converge --use-plan` reject a plan file of another version with `plan artifact <version> is not supported by the current version`.
+migration: |
+  Do not carry plan files across the upgrade: re-run `plan --save-plan` with the new version before applying.

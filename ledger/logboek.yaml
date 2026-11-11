@@ -1,0 +1,3 @@
+# Every commit of logboek reachable from werf-main and not from v0.7.1, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: 236a5f8ae9dd, date: 2026-08-10, subject: "Fix concurrent stream indentation (#81)", entries: [logging-concurrent-indentation-race], note: "bumped by werf f80e82757789 / 672dbbeb854b; nelm still uses logboek v0.6.1" }

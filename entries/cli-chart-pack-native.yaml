@@ -1,0 +1,13 @@
+id: cli-chart-pack-native
+title: "`nelm chart pack` is a native Nelm command that records values, secrets and patches in the chart"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, charts]
+description: |
+  Before: `nelm chart pack` wrapped Helm's `package` with its flags (`--version`, `--app-version`, `--sign`, `--key`, `--keyring`, `--passphrase-file`, the kube connection flags, `--registry-config`, `--repository-cache`, `--repository-config`).
+  Now: `nelm chart pack [chart-dir]` (Go API: `action.ChartPack`) is a native Nelm command with Nelm flag names and `NELM_*` environment variables only: `--chart-version`, `--app-version`, `--chart-name`, `--destination`, `--dependency-update`, `--sign`, `--sign-key`, `--sign-keyring`, `--sign-passphrase-file`, the values flags (`--values`, `--set`, `--set-string`, `--set-json`, `--set-file`, `--set-literal`, `--set-root-json`, `--no-default-values`, `--secret-values`, `--no-default-secret-values`, `--reset-values`), `--patches`, `--no-default-patches`, TypeScript and chart repository flags, among them `--ts-no-rebuild` (`NELM_TS_NO_REBUILD`, `NELM_CHART_PACK_TS_NO_REBUILD`; reuse the existing TypeScript bundle instead of rebuilding it) and `--no-update-chart-repos` (`NELM_NO_UPDATE_CHART_REPOS`, `NELM_CHART_PACK_NO_UPDATE_CHART_REPOS`; don't update the chart repository indexes), both `false` by default. Values, secret values, patches and other inputs are recorded in `.werf-data/` of the packed chart and applied on deploy. Packing an already packed chart adds the new inputs to the recorded ones; `--reset-values` drops them first.
+  `Chart.yaml` in the packed archive keeps the comments, key order and formatting of the source; only `name`, `version`, `appVersion` and the `helm.sh/images` annotation change. The source `Chart.yaml` is not rewritten. Vendored dependencies are packed as they are; only a missing dependency is downloaded. Charts with `apiVersion: v3` can be packed. `export-values` and `import-values` skipped because of their values are reported as warnings.
+migration: |
+  Replace the Helm `package` flags in your scripts: `--version` → `--chart-version`, `--key` → `--sign-key`, `--keyring` → `--sign-keyring`, `--passphrase-file` → `--sign-passphrase-file`; drop the kube connection and Helm repository config flags, and use the `--chart-repo-*` flags for chart repositories.

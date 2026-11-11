@@ -1,0 +1,10 @@
+id: plan-use-plan-no-pod-logs
+title: "`--no-pod-logs` applies when installing from a saved plan and to tracking of dependencies"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [plan, tracking, logging]
+description: |
+  Before: `release plan install` didn't apply `--no-pod-logs` to the plan it saved, so `nelm release install --use-plan` (werf: `werf converge --use-plan`) always showed pod logs; readiness tracking for deploy dependencies ignored the flag too.
+  Now: `--no-pod-logs` is applied whenever a plan is executed, in addition to the `werf.io/skip-logs` annotation.

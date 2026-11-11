@@ -1,0 +1,12 @@
+id: build-multiple-imports-same-target
+title: "Several Stapel imports can target the same directory, without automatic excludes between them"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config]
+description: |
+  Before: two `import` entries of an image whose `to` paths were equal or nested failed configuration validation with `Conflict between imports!` unless werf could separate them with automatic excludes; when the imports had `includePaths`, werf silently added the included paths of one import to the `excludePaths` of the other.
+  Now: imports are no longer checked against each other, and werf no longer adds automatic excludes between them: several imports may copy into the same or nested target directories, applied one after another. Existing configurations that relied on automatic excludes now copy the previously excluded files too, so a later import can overwrite files of an earlier one. Conflicts between `git` mappings and between `git` mappings and imports are still checked.
+migration: |
+  Review `import` entries of each image whose `to` paths are equal or nested. To keep the previous separation, add the paths werf used to exclude automatically to `excludePaths` explicitly; otherwise order the imports deliberately and verify the resulting files in the image.

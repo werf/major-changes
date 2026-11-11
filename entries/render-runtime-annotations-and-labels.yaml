@@ -1,0 +1,12 @@
+id: render-runtime-annotations-and-labels
+title: Runtime annotations and labels appear in rendered manifests and changes to them alone do not update resources
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [render, annotations, plan]
+description: |
+  Before: `nelm chart render` and `werf render`/`werf bundle render` ignored runtime annotations: `--runtime-annotations` of Nelm and werf's service annotations (`werf.io/version`, `project.werf.io/name`, `project.werf.io/env`, `ci.werf.io/*`, `werf.io/release-channel`) were not in the output. During install, plan and rollback, only werf's own service annotations were ignored when deciding whether a resource needs an update; a change in the value of a custom `--runtime-annotations`/`--runtime-labels` entry alone triggered an update.
+  Now: runtime annotations and labels (`--runtime-annotations`, `--runtime-labels` in Nelm; the service annotations in werf) are added to the rendered manifests. Install, plan and rollback ignore all runtime annotations and labels when deciding whether a live resource differs from the chart, so changing only their values does not update resources; they are applied together with other changes.
+migration: |
+  If you compare render output with saved manifests or feed it to other tools, expect the additional runtime annotations and labels (in werf: `werf.io/version`, `project.werf.io/name`, `project.werf.io/env` and others). Use regular `--annotations`/`--labels` (werf: `--add-annotation`/`--add-label`) for metadata whose change must update resources.

@@ -1,0 +1,10 @@
+id: deploy-removed-pvc-no-absence-wait
+title: "Deploy doesn't wait for PVCs and PVs removed from the chart to disappear"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [resources, tracking]
+description: |
+  Before: a PersistentVolumeClaim or PersistentVolume removed from the chart was deleted before the release resources were deployed, and the deploy waited for it to disappear. A PVC stays `Terminating` while old Pods use it (a PV while it is bound), and those Pods are replaced only later in the same deploy, so the deploy hung until the timeout.
+  Now: on install, upgrade and rollback, removed PVCs and PVs are deleted without waiting for their absence. Explicit dependencies on their absence still wait for them, and `release uninstall` still waits.

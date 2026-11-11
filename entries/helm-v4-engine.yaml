@@ -1,0 +1,12 @@
+id: helm-v4-engine
+title: "The embedded Helm is upgraded from Helm 3 to Helm 4"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [charts, templates, render]
+description: |
+  Before: Nelm embedded a fork of Helm 3 for chart loading, values processing, template rendering, chart repositories and registries.
+  Now: the embedded fork is based on Helm 4 (v4.2.0): chart loading, values coalescing, `export-values`/`import-values`, the template engine and the chart, repository and registry code follow Helm 4. Root context keys passed with `--set-root-json` still reach templates of the root chart and all subcharts; they can't override the built-in `.Chart`, `.Values`, `.Release`, `.Capabilities`, `.Files` and `.Subcharts`.
+migration: |
+  Render your charts with the new version and compare the result before deploying: template functions, values coalescing and chart loading follow Helm 4 behavior. See the Helm 4 release notes for changes of the Helm engine.

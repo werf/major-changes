@@ -1,0 +1,11 @@
+id: go-api-helm-fork-lint-process-dependencies-deprecated
+title: "The Helm fork's chart linter and `ProcessDependencies` are deprecated"
+type: deprecation
+breaking: false
+products: [nelm]
+domain: go-api
+areas: [go-api, values]
+description: |
+  Deprecated: `lint.RunAll` and the template lint rules (`rules.Templates`, and `TemplatesWithKubeVersion`/`TemplatesWithSkipSchemaValidation` for v3 charts) of the embedded Helm fork, and `ProcessDependencies` of the chart v2 and v3 util packages. They compute values differently from Nelm's rendering: user values are one layer (`--set*` not separated from `--values`), the root chart's `secret-values.yaml` is coalesced at chart level, and `export-values` run before subcharts are disabled by conditions.
+migration: |
+  Use `action.ChartLint` instead of the Helm fork's linter, and `chart.RenderChart` instead of `ProcessDependencies`.

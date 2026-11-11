@@ -1,0 +1,12 @@
+id: cli-save-rollback-graph-to-removed
+title: The duplicate `--save-rollback-graph-to` option is removed from `release install` and `release rollback`
+type: removal
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, rollback]
+description: |
+  Before: `nelm release install` and `nelm release rollback` accepted `--save-rollback-graph-to` (`$NELM_RELEASE_INSTALL_SAVE_ROLLBACK_GRAPH_TO`, `$NELM_RELEASE_ROLLBACK_SAVE_ROLLBACK_GRAPH_TO`). In `release rollback` it duplicated `--save-graph-to`.
+  Now: the option is removed from both commands. `nelm release rollback` keeps `--save-graph-to`; `nelm release install` no longer saves the graph of an automatic rollback from the CLI.
+migration: |
+  For `nelm release rollback` use `--save-graph-to`. Remove `--save-rollback-graph-to` from `nelm release install` invocations.

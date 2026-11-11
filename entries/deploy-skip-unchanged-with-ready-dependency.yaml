@@ -1,0 +1,10 @@
+id: deploy-skip-unchanged-with-ready-dependency
+title: "A release with an internal `state=ready` deploy dependency is skipped when nothing changed"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [plan, tracking, annotations]
+description: |
+  Before: a chart with a resource having an internal `werf.io/deploy-dependency-<id>: state=ready,...` on a resource of the same stage was never considered up to date: every redeploy without changes created a new revision and ran hooks, because the dependency target was always forced into readiness tracking.
+  Now: readiness tracking of the target is forced only when a resource that depends on it is created, updated, recreated, applied or tracked in the same deploy, so an unchanged release is skipped. A changed target whose dependents are all unchanged is tracked according to its own annotations (`werf.io/fail-mode`, `werf.io/track-termination-mode`) instead of always failing the whole deploy immediately.

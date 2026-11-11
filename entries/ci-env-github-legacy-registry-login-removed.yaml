@@ -1,0 +1,12 @@
+id: ci-env-github-legacy-registry-login-removed
+title: "`werf ci-env github` no longer logs in to `docker.pkg.github.com`"
+type: removal
+breaking: true
+products: [werf]
+domain: general
+areas: [ci-env, registry]
+description: |
+  Before: in GitHub Actions, when `WERF_REPO` started with `docker.pkg.github.com`, `werf ci-env github` logged in to that legacy GitHub Packages registry instead of `ghcr.io`.
+  Now: `werf ci-env github` always logs in to `ghcr.io`.
+migration: |
+  Move images from `docker.pkg.github.com` to `ghcr.io` (GitHub has retired the old registry), or log in to the legacy registry yourself with `docker login`.

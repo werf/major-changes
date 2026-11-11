@@ -1,0 +1,10 @@
+id: deploy-numeric-set-values-up-to-date
+title: "A release with unchanged numeric `--set` values is skipped as up to date"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [values, plan]
+description: |
+  Before: with a number passed by `--set` (e.g. `--set replicas=3`), every `release install` created a new revision and reran hooks, and `release plan install` reported that the release values changed, because the number from `--set` and the same number read back from the stored release were compared as different types.
+  Now: values are compared by their JSON representation, so an unchanged release is skipped (`Skipped release ...: cluster resources already as desired`) and the plan shows no changes. Real changes, including a number replaced with a string, still create a new revision. Templates still see `--set` numbers as integers.

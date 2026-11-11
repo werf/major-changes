@@ -1,0 +1,12 @@
+id: resource-validation-enabled-by-default
+title: Resources are validated against Kubernetes JSON schemas by default
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [validation, resources]
+description: |
+  Before: validating rendered resources against Kubernetes JSON schemas, and the `--no-resource-validation`, `--resource-validation-*` flags, were available only with the `resource-validation` feature gate (`NELM_FEAT_RESOURCE_VALIDATION=true`).
+  Now: resource validation is on by default in `nelm release install`, `nelm release plan install`, `nelm release rollback` and `nelm chart lint`, and in `werf converge`, `werf plan`, `werf rollback`, `werf lint`, `werf bundle apply` and `werf bundle plan`; manifests that do not match the schema of their kind are rejected before being applied. The `--no-resource-validation`, `--resource-validation-skip`, `--resource-validation-extra-schema` and `--resource-validation-cache-lifetime` flags are always available. The feature gate is removed. Render commands (`nelm chart render`, `werf render`, `werf bundle render`) do not run this validation: use lint to check resources against the schemas.
+migration: |
+  Fix resources that fail validation. Skip specific resources with `--resource-validation-skip` (e.g. `kind=MyKind`), add schemas for custom resources with `--resource-validation-extra-schema`, or disable validation entirely with `--no-resource-validation`. Remove `NELM_FEAT_RESOURCE_VALIDATION` from the environment.

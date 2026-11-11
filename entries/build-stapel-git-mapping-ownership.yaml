@@ -1,0 +1,10 @@
+id: build-stapel-git-mapping-ownership
+title: "Git mapping `owner` and `group` are applied consistently to all added files and directories"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [stapel, git]
+description: |
+  Before: with the Docker backend, two git mappings of the same content with different `owner`/`group` shared one Git archive, so files could get the ownership of whichever mapping created the archive first. In incremental builds (Git patches) on both Docker and Buildah, directories that first appeared in a patch were owned by `root:root` instead of the mapping's `owner`/`group`, unlike a from-scratch build of the same commit.
+  Now: the mapping's `owner`/`group` (root when omitted) is applied to every extracted file, directory and symlink, including directories created by patches. Already built images are not repaired automatically; rebuild them if needed.

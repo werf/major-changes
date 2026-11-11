@@ -1,0 +1,14 @@
+id: config-nameless-image-removed
+title: "Nameless images (`image: ~`) are no longer supported"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [config, images]
+description: |
+  Before: `werf.yaml` could contain a single image without a name (`image: ~`, deprecated with a warning); its name in commands and templates was empty, and the service values contained `.Values.werf.is_nameless_image` and `.Values.werf.nameless_image`.
+  Now: `image: ~` fails with `nameless image (image: ~) is not supported, please specify an image name!`, and `is_nameless_image`/`nameless_image` are no longer in the service values.
+migration: |
+  Give the image a name (e.g. `image: app`), and use `.Values.werf.image.app` (or the corresponding name in commands such as `werf run app`) instead of `.Values.werf.nameless_image`.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#image-names

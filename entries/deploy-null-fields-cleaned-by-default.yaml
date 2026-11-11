@@ -1,0 +1,12 @@
+id: deploy-null-fields-cleaned-by-default
+title: Null fields are removed from rendered manifests by default
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [render, resources]
+description: |
+  Before: fields and list entries with a `null` value were kept in rendered manifests and sent to the cluster as is. Removing them was opt-in through the `clean-null-fields` or `preview-v2` feature gates (`NELM_FEAT_CLEAN_NULL_FIELDS=true`, `NELM_FEAT_PREVIEW_V2=true`).
+  Now: `null` fields and list entries are removed recursively from all rendered resources, as Helm does, both for deploy and for the manifests printed by `render` commands. The feature gate is removed and there is no switch to restore the previous behavior.
+migration: |
+  Check resources that intentionally set a field to `null` (an absent field and an explicit `null` are not always equivalent for Kubernetes and CRDs) and set an explicit value instead. Remove `NELM_FEAT_CLEAN_NULL_FIELDS` from the environment.

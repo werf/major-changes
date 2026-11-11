@@ -1,0 +1,10 @@
+id: build-native-image-config-mutation
+title: "Image config changes of `imageSpec` are committed natively instead of saving and reloading the image"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [images, performance]
+description: |
+  Before: to change the config of a built image (the `imageSpec` stage and the content-based tag), werf saved the image to a tar archive, edited its config and loaded it back into the Docker daemon or Buildah storage.
+  Now: with the Buildah backend and the Docker server backend, werf creates a container from the image, applies the config and commits it, without the save/load round trip of the whole image. The Docker backend takes this path only when the change is purely additive (no cleared fields, no removed labels, environment variables, volumes or exposed ports) and otherwise falls back to save/load; an image committed by Docker gets an additional history entry.

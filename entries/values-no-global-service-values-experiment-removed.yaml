@@ -1,0 +1,12 @@
+id: values-no-global-service-values-experiment-removed
+title: "`WERF_EXPERIMENT_NO_GLOBAL_SERVICE_VALUES` is removed; `.Values.global` service values are always set"
+type: removal
+breaking: true
+products: [werf]
+domain: deploy
+areas: [values]
+description: |
+  Before: `WERF_EXPERIMENT_NO_GLOBAL_SERVICE_VALUES=1` stopped werf from adding its service values to `.Values.global` (such as `global.werf` and `global.env`), leaving only `.Values.werf`.
+  Now: the variable is ignored; werf always adds its service values under `.Values.global` (such as `global.werf`) as well as `.Values.werf`. `.Values.global.env` is no longer set, use `.Values.global.werf.env` (see `values-global-env-removed`).
+migration: |
+  If you set `WERF_EXPERIMENT_NO_GLOBAL_SERVICE_VALUES`, remove it, and check that charts and `values.schema.json` accept the `global.werf` service values.

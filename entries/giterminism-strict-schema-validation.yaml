@@ -1,0 +1,14 @@
+id: giterminism-strict-schema-validation
+title: "Unknown keys in `werf-giterminism.yaml` are a validation error"
+type: change
+breaking: true
+products: [werf]
+domain: general
+areas: [giterminism, validation]
+description: |
+  Before: the `werf-giterminism.yaml` schema accepted any additional properties, so unknown or misspelled keys (for example, `config.allowUncommited`) were silently ignored.
+  Now: every object in the schema rejects unknown keys, and werf fails with an error naming the offending key, such as `config.allowUncommited in body is a forbidden property`. The valid `config.secrets` (`allowEnvVariables`, `allowFiles`, `allowValueIds`) and `includes.allowIncludesUpdate` keys are now part of the schema and are type-checked.
+migration: |
+  Fix or remove unknown and misspelled keys in `werf-giterminism.yaml`.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#validation-of-werf-giterminismyaml

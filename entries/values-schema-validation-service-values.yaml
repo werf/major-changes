@@ -1,0 +1,12 @@
+id: values-schema-validation-service-values
+title: Values schema errors are no longer turned into a warning because of service values
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [values, validation]
+description: |
+  Before: if validating values against `values.schema.json` failed with an error containing `(root): Additional property werf is not allowed` (a schema with `additionalProperties: false` rejecting the injected `werf` service values), the whole validation result was only printed as a warning — including errors about the user's own values — and rendering continued.
+  Now: on a validation failure caused by service values (`werf`, `global`, ...), validation is repeated without them. If the user's values pass, rendering continues; if they still fail, rendering fails with the error about the user's values. If removing the service values changes which subcharts are enabled, rendering fails and suggests `--no-values-schema-validation`.
+migration: |
+  Fix values that do not match `values.schema.json`, or fix the schema. To skip the check temporarily, pass `--no-values-schema-validation` (werf: also `WERF_NO_VALUES_SCHEMA_VALIDATION=true`).

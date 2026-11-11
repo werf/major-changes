@@ -1,0 +1,14 @@
+id: stapel-artifact-removed
+title: "The `artifact` image type is removed; use `image` with `final: false`"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config]
+description: |
+  Before: deprecated `artifact: NAME` documents described Stapel images used only as a source of imports; `fromArtifact` used an artifact as the base image, and `import.artifact` imported files from an artifact.
+  Now: the `artifact` document, `fromArtifact` and `import.artifact` are no longer supported and are configuration errors. An intermediate image is an ordinary `image` with `final: false`.
+migration: |
+  Replace `artifact: NAME` with `image: NAME` plus `final: false`, keeping the other settings; replace `fromArtifact: NAME` with `from: NAME` and `import.artifact: NAME` with `import.from: NAME`.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#images-instead-of-artifacts

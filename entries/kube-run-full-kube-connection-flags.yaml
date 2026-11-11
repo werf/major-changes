@@ -1,0 +1,10 @@
+id: kube-run-full-kube-connection-flags
+title: "`werf kube-run` accepts the full set of Kubernetes connection flags"
+type: feature
+breaking: false
+products: [werf]
+domain: general
+areas: [kube-run]
+description: |
+  Before: `werf kube-run` accepted only `--kube-config`, `--kube-config-base64` and `--kube-context` and connected to the cluster with the kubedog client.
+  Now: `werf kube-run` connects through the Nelm Kubernetes client and accepts the same connection flags as `werf converge`: `--kube-api-server`, `--kube-token`, `--kube-token-path`, `--kube-ca-path`, `--kube-ca-data`, `--kube-cert`, `--kube-cert-data`, `--kube-key`, `--kube-key-data`, `--kube-tls-server`, `--skip-tls-verify-kube`, `--kube-auth-username`, `--kube-auth-password`, `--kube-auth-provider`, `--kube-auth-provider-config`, `--kube-context-cluster`, `--kube-context-user`, `--kube-impersonate-user`, `--kube-impersonate-group`, `--kube-impersonate-uid`, `--kube-proxy-url`, `--kube-request-timeout`, `--kube-qps-limit` and `--kube-burst-limit` (with the corresponding `WERF_*` environment variables).

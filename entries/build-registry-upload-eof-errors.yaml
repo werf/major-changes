@@ -1,0 +1,10 @@
+id: build-registry-upload-eof-errors
+title: "A failed manifest upload is reported instead of being treated as published"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [registry]
+description: |
+  Before: an image or index manifest upload that ended with EOF could be reported as successful, so later operations failed on a tag that was never published; a failed stage lookup lost the registry's error.
+  Now: the upload fails with an error, and missing-stage errors include the image reference and the original registry error.

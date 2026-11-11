@@ -1,0 +1,10 @@
+id: charts-remote-charts-enabled
+title: Nelm commands accept remote charts and `--chart-version` without a feature gate
+type: feature
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [charts, cli]
+description: |
+  Before: `nelm release install`, `nelm release plan install`, `nelm chart render` and `nelm chart lint` accepted only a local chart directory unless the `remote-charts` or `preview-v2` feature gate was enabled (`NELM_FEAT_REMOTE_CHARTS=true`).
+  Now: these commands always accept a chart directory, `repo-name/chart-name`, a chart archive or a chart archive URL, and always have `--chart-version`. The feature gate is removed.

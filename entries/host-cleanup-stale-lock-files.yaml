@@ -1,0 +1,15 @@
+id: host-cleanup-stale-lock-files
+title: Host cleanup removes stale host lock files
+type: fix
+breaking: true
+products: [werf]
+domain: cleanup
+areas: [host-cleanup]
+description: |
+  Before: lock files under `~/.werf/service/locks/` (`$WERF_HOME/service/locks/`) were never removed after a lock was released, so on long-lived runners they accumulated into millions of empty files and could exhaust inodes; because they are empty, they never triggered automatic host cleanup.
+  Now: `werf host cleanup`, including the automatic one, removes lock files that are not held by any process and are older than 24 hours, and 10000 or more such files trigger automatic host cleanup on their own. Acquiring a lock detects a lock file removed concurrently and retries.
+  Older werf v2 binaries do not have this retry: when v2 and v3 run concurrently with the same `$WERF_HOME`, the v3 cleanup can remove a lock file that a v2 process has just opened, so both may hold the same lock. Separate `$WERF_HOME` directories do not help: the container backend has one image store per host, so a v3 host cleanup does not see image locks of a running v2 build and can delete its stage images.
+migration: |
+  Do not run werf v2 and werf v3 concurrently on the same runner or with the same container backend storage. Drain v2 jobs on a runner before switching it to v3, or migrate on separate runners or backend stores.
+refs:
+  - https://github.com/werf/werf/issues/6127

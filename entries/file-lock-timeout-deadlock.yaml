@@ -1,0 +1,10 @@
+id: file-lock-timeout-deadlock
+title: werf no longer crashes when a host lock is acquired exactly at its timeout
+type: fix
+breaking: false
+products: [werf]
+domain: general
+areas: [locking]
+description: |
+  Before: when a host file lock (e.g. a stage or Git cache lock) was acquired at the very moment its wait timeout expired, werf could crash with `fatal error: all goroutines are asleep - deadlock!`, and a lock acquired at that moment could stay held until the process exited.
+  Now: the timeout is reported as an error, and a lock acquired at that moment is released.

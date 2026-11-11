@@ -1,0 +1,14 @@
+id: bundle-chart-name-from-repository
+title: "Published bundles are always named after the repository; `--helm-compatible-chart` and `--rename-chart` are removed"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [bundles, charts]
+description: |
+  Before: `werf bundle publish` kept the chart name from `Chart.yaml` by default (`--helm-compatible-chart`/`-C`, `$WERF_HELM_COMPATIBLE_CHART`, defaulted to `false` there, but to `true` in `werf bundle copy`), and `--rename-chart` (`$WERF_RENAME_CHART`) set an arbitrary name.
+  Now: `werf bundle publish` and `werf bundle copy` always set the chart name in `Chart.yaml` of the published chart to the last path component of the repository (`REPO` for `REGISTRY/PATH/TO/REPO`), as Helm requires for OCI charts. `--helm-compatible-chart`, `--rename-chart` and their environment variables are removed. `.Chart.Name` and template paths of the published chart change accordingly.
+migration: |
+  Remove `--helm-compatible-chart`, `-C`, `--rename-chart`, `WERF_HELM_COMPATIBLE_CHART` and `WERF_RENAME_CHART` from scripts. Check templates that depend on `.Chart.Name` (e.g. resource names or `include` of templates by path), or publish to a repository named after the chart.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#charts-and-bundles

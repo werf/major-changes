@@ -1,0 +1,12 @@
+id: annotations-external-dependency-removed
+title: The `<id>.external-dependency.werf.io/resource` and `/namespace` annotations are removed
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [annotations, tracking]
+description: |
+  Before: `<id>.external-dependency.werf.io/resource: <kind>[.<version>.<group>]/<name>` together with `<id>.external-dependency.werf.io/namespace` made a resource wait until a resource outside the release was present and ready. The undocumented `<id>.external-dependency.werf.io: <apiVersion>:<kind>[:<namespace>]:<name>` form worked too.
+  Now: these annotations are not supported: a warning `annotation "..." in resource "..." is no longer supported, use "werf.io/deploy-dependency-<id>" or "werf.io/delete-dependency-<id>" instead` is printed and the resource does not wait for the external resource.
+migration: |
+  Replace them with `werf.io/deploy-dependency-<id>`, specifying `kind`, `version`, `name`, `group` for a resource of a non-core group, and `namespace` if it differs from the release namespace, e.g. `secret.external-dependency.werf.io/resource: secret/my-vault-secret` + `secret.external-dependency.werf.io/namespace: vault` become `werf.io/deploy-dependency-secret: state=ready,kind=Secret,version=v1,name=my-vault-secret,namespace=vault,external=true`.

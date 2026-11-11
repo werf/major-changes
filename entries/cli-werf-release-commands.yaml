@@ -1,0 +1,13 @@
+id: cli-werf-release-commands
+title: "werf release get, list and history inspect deployed releases"
+type: feature
+breaking: false
+products: [werf]
+domain: deploy
+areas: [cli, release-storage]
+description: |
+  New commands to inspect releases, backed by the Nelm `release get`, `release list` and `release history` actions:
+  - `werf release list [--namespace NS]` lists releases; `--output-format table|yaml|json` (default `table`).
+  - `werf release history --release NAME --namespace NS` shows the revisions of a release; `--revisions-limit N` (`$WERF_RELEASE_HISTORY_REVISIONS_LIMIT`, default `0`, no limit) and `--output-format table|yaml|json` (default `table`).
+  - `werf release get [REVISION] --release NAME --namespace NS` prints a release revision (the latest by default) with its chart, resources and labels; `--print-values` adds the computed values; `--output-format yaml|json` (default `yaml`).
+  All three accept the kube connection flags, `--release-storage` and `--release-storage-sql-connection`; `--output-format` also reads `$WERF_OUTPUT_FORMAT`. They do not read `werf.yaml`, so `--release` (`$WERF_RELEASE`) and `--namespace` (`$WERF_NAMESPACE`) have to be passed explicitly. With the default log settings their JSON/YAML output is machine-readable: no informational lines before the document and no ANSI colors added because of GitHub Actions or GitLab CI detection.

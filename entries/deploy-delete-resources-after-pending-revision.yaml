@@ -1,0 +1,10 @@
+id: deploy-delete-resources-after-pending-revision
+title: "Resources removed from the chart are deleted after a pending or failed revision"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [resources, plan, uninstall]
+description: |
+  Before: deletions were computed only against the last revision. If that revision hung (`pending-upgrade`) or failed before its deletions ran, resources that were in the last deployed revision and were removed from the chart stayed in the cluster forever; `release uninstall` had the same gap and then removed the release history.
+  Now: `release install`, `release plan install`, `release rollback`, remote `chart lint` and `release uninstall` (werf: `converge`, `plan`, `rollback`, `dismiss`, `bundle apply`, `bundle plan`) also delete the resources that only the last deployed revision has. They are only deleted, never validated or installed, and their hooks don't run. Resources adopted by another release, with `helm.sh/resource-policy: keep` or with `werf.io/ownership: anyone` are still not deleted. On the first deploy after such a revision the plan may show extra `delete` operations. Resources left over by earlier deploys whose following revision is already deployed are not cleaned up.

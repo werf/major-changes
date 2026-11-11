@@ -1,0 +1,23 @@
+id: go-api-resource-plan-building-changed
+title: "Resource and plan building functions take a context and no kube client, and use a single `resource.Dependency` type"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, resources, plan]
+description: |
+  Before: `pkg/resource` resolved external dependencies itself, querying the cluster through a `kube.ClientFactorier` when the `Remote` option was set, and kept internal and external dependencies in separate types.
+  Now: building resources never contacts the cluster, and external dependencies are resolved by the plan (see `dependency-annotations-external-auto`). In `pkg/resource`:
+  - `BuildResources(ctx, deployType, releaseNamespace, prevRelResSpecs, newRelResSpecs, patchers, opts)` no longer takes a `kube.ClientFactorier`; `BuildResourcesOptions.Remote` and `InstallableResourceOptions.Remote` are removed.
+  - `NewInstallableResource(ctx, res, otherResSpecs, releaseNamespace, opts)` takes a context first and no `kube.ClientFactorier`.
+  - `NewDeletableResource(ctx, resourceSpec, otherResourceSpecs, releaseNamespace, opts)` takes a context first and returns `(*DeletableResource, error)`.
+  - `InternalDependency` and `ExternalDependency` are replaced by `Dependency` (`ResourceMatcher`, `ResourceState`, `External`, `MinMatches`, `MaxMatches`). `InstallableResource.ManualInternalDependencies` and `ExternalDependencies` are replaced by `ManualDependencies`, `DeletableResource.ManualInternalDependencies` by `ManualDependencies`, and `AutoInternalDependencies` of both is `[]*Dependency`.
+  - `SensitiveInfo.FullySensitive()` is removed (it checked for the whole-resource redaction that no longer exists, see `deploy-sensitive-data-and-stringdata-only`); use the `IsSensitive` and `SensitivePaths` fields.
+  In `pkg/resource/spec`:
+  - `NewResourceSpecFromManifest(ctx, manifest, releaseNamespace, opts)` takes a context first.
+  - `BuildReleasableResourceSpecs` is renamed to `BuildPatchedResourceSpecs`.
+  - `DropInvalidAnnotationsAndLabelsTransformer`, `NewDropInvalidAnnotationsAndLabelsTransformer` and `TypeDropInvalidAnnotationsAndLabelsTransformer` are removed: invalid annotations and labels fail parsing unless `ResourceSpecOptions.DropInvalidAnnotationsAndLabels` is set (see `render-invalid-annotations-labels-fail`).
+  - `CleanUnstructOptions.CleanNullFields` and `ResourceSpecOptions.LegacyNoCleanNullFields` are removed: null fields are always cleaned (see `deploy-null-fields-cleaned-by-default`).
+  In `pkg/plan`, `BuildPlan(ctx, installableInfos, deletableInfos, releaseInfos, releaseNamespace, opts)` takes a context first and the release namespace.
+migration: |
+  Pass a context to these functions, drop the `kube.ClientFactorier` argument and the `Remote` options, and handle the error of `NewDeletableResource`. Replace `InternalDependency`/`ExternalDependency` with `Dependency` (external ones have `External: true`) and read `ManualDependencies` instead of `ManualInternalDependencies`/`ExternalDependencies`. Call `spec.BuildPatchedResourceSpecs` instead of `BuildReleasableResourceSpecs`, set `ResourceSpecOptions.DropInvalidAnnotationsAndLabels` instead of adding the removed transformer, and pass the release namespace to `plan.BuildPlan`.

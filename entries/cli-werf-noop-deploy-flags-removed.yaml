@@ -1,0 +1,16 @@
+id: cli-werf-noop-deploy-flags-removed
+title: "No-op deploy flags are removed from werf commands that ignored them"
+type: removal
+breaking: true
+products: [werf]
+domain: deploy
+areas: [cli]
+description: |
+  Before: several werf commands accepted deploy flags that had no effect there:
+  - `--insecure-helm-dependencies` on `werf build`, `werf bundle copy`, `werf cleanup`, `werf compose *`, `werf dismiss`, `werf export`, `werf managed-images add|ls|rm`, `werf purge`, `werf run` and `werf stage image`;
+  - `--hooks-status-progress-period` on `werf converge`, `werf bundle apply`, `werf dismiss`, `werf rollback`, `werf plan` and `werf render`;
+  - `--status-progress-period` and `--releases-history-max` on `werf plan` and `werf render`;
+  - `--timeout`/`-t` on `werf plan`.
+  Now: these flags are removed from those commands; passing them is an unknown-flag error. Commands where the flags work (for example `--insecure-helm-dependencies` on `werf converge`, `--status-progress-period` and `--releases-history-max` on `werf converge`) keep them.
+migration: |
+  Remove the listed flags from invocations of the listed commands. The corresponding `WERF_*` environment variables are simply ignored there.

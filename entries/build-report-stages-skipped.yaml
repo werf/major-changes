@@ -1,0 +1,14 @@
+id: build-report-stages-skipped
+title: "The build report marks whole-image reuse with `StagesSkipped: true` and may omit `Stages`"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [build-report]
+description: |
+  Before: every image record of the JSON build report (`--save-build-report`) had a `Stages` field (possibly `null`).
+  Now: when an image is reused as a whole by its content-based tag, its record contains `StagesSkipped: true` and no `Stages` field; `Stages` is omitted whenever it is empty. Image-level fields (`DockerTag`, `DockerImageName`, `DockerImageDigest` and others) describe the content-based tag image.
+migration: |
+  Make parsers of the build report tolerate a missing `Stages` field and do not treat `StagesSkipped: true` as an error or as a sign that the image is not ready.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#build-report-format

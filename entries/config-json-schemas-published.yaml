@@ -1,0 +1,9 @@
+id: config-json-schemas-published
+title: "JSON Schemas for `werf.yaml`, `werf-giterminism.yaml` and `werf-includes.yaml` are published for editors"
+type: feature
+breaking: false
+products: [werf]
+domain: general
+areas: [config]
+description: |
+  New: werf publishes JSON Schemas for its configuration files at `https://werf.io/docs/v3/schemas/werf.json`, `werf-giterminism.json` and `werf-includes.json`. Attached to an editor with a YAML language server (VS Code with Red Hat YAML, JetBrains IDEs, Neovim), e.g. with a `# yaml-language-server: $schema=...` comment, they provide completion, hover documentation and validation: unknown keys and mutually exclusive directives are reported, and deprecated directives (`fromImage`, `image` in `import`/`dependencies`, ...) are struck through. The schemas only help editing; werf's own validation of these files is unchanged.

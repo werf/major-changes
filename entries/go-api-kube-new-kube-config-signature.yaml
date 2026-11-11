@@ -1,0 +1,12 @@
+id: go-api-kube-new-kube-config-signature
+title: "`kube.NewKubeConfig` takes the kubeconfig paths from its options"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: `kube.NewKubeConfig(ctx, kubeConfigPaths []string, opts KubeConfigOptions)` took the kubeconfig paths as a separate argument, and each action split entries of `KubeConnectionOptions.KubeConfigPaths` containing several paths joined with the OS path list separator (`:` on Linux/macOS) itself.
+  Now: the signature is `kube.NewKubeConfig(ctx, opts KubeConfigOptions)`; the paths are taken from `opts.KubeConnectionOptions.KubeConfigPaths`. Splitting by the path list separator is done by `KubeConnectionOptions.ApplyDefaults`, which still falls back to `~/.kube/config` when neither paths nor `KubeConfigBase64` are set.
+migration: |
+  Drop the paths argument and set `KubeConfigOptions.KubeConnectionOptions.KubeConfigPaths` instead. Call `KubeConnectionOptions.ApplyDefaults(homeDir)` before `NewKubeConfig` if you pass `KUBECONFIG`-style lists with several paths in one entry.

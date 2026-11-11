@@ -1,0 +1,10 @@
+id: logging-helm-fork-messages-nelm-logger
+title: "Values and dependency messages of the embedded Helm go through the Nelm logger and `--log-level`"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [logging, values]
+description: |
+  Before: values coalescing warnings (e.g. `cannot overwrite table with non table for ...`) and the `requirements.yaml` deprecation warnings of the embedded Helm were printed only at `--log-level` `debug`/`trace` and to stdout, where they got mixed into `chart render` manifests.
+  Now: these messages go through the Nelm logger: warnings are shown on stderr at `warning` and `info` levels (hidden at `error`/`silent`, which includes the default level of `chart render`); Helm debug messages are shown at `debug`/`trace`. The values type mismatch error names the full path and types, e.g. `type mismatch on p.mid.leaf: expected a table, got string (some-string)` instead of `type mismatch on leaf: %!t(string=some-string)`, and dependency processing errors name the subchart.

@@ -1,0 +1,10 @@
+id: release-pending-revisions-marked-failed
+title: "Revisions left pending by an interrupted deploy are marked `failed` by the next successful deploy"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [release-storage]
+description: |
+  Before: if a deploy was interrupted (CI timeout, `kill`) while its revision was `pending-install`, `pending-upgrade` or `pending-rollback`, the revision stayed pending forever, and `release history` (`helm history`) showed an operation in progress that didn't exist.
+  Now: a successful install, upgrade, rollback or auto-rollback marks every earlier `pending-*` revision `failed` at the end of the deploy, keeping its deployment timestamps. A failed deploy doesn't change them. A pending revision whose body can't be read is skipped with a warning.

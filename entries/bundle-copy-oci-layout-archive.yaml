@@ -1,0 +1,21 @@
+id: bundle-copy-oci-layout-archive
+title: "werf bundle copy writes OCI image layout archives and copies all platforms of images"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [bundles, oci, registry]
+description: |
+  Before: `werf bundle copy --to archive:PATH` wrote werf's own archive format (`chart.tar.gz` plus one `images/*.tar.gz` per image, one platform per image) and dropped the provenance file of a signed chart. Images to copy were taken from the `werf.image` values.
+  Now: `werf bundle copy` uses Nelm's chart copy (see `cli-chart-copy`):
+  - archives are written as an OCI image layout tar (`oci-layout`, `index.json`, `blobs/`); werf v2 cannot read them, werf v3 still reads archives written by werf v2;
+  - every image listed in `helm.sh/images` of the chart and its dependencies (and, for bundles published by werf v2, in the `werf.image` values) is copied by digest with all platforms of multi-platform images and non-distributable layers; signatures, SBOMs and other referrers are not copied;
+  - when copying to another repository, the image and repo values in `.werf-data/extra-values.yaml` (or `werf.image`, `werf.repo`, `global.werf.*` in `values.yaml` of werf v2 bundles) are rewritten from the copied digests;
+  - `--to REPO:TAG` sets the chart version from `TAG` as `werf bundle publish` does; `--to REPO` keeps the source version and tag;
+  - an unchanged copy keeps the chart manifest digest and its provenance; a changed copy drops the provenance with a warning;
+  - `--platform` and `--container-registry-mirror` are removed from `werf bundle copy`;
+  - `--insecure-registry` makes the chart repository plain HTTP; loopback registries are reached over plain HTTP without flags.
+migration: |
+  Use werf v3 on both sides of an archive transfer. Remove `--platform` and `--container-registry-mirror` from `werf bundle copy` invocations. Copy image signatures and SBOMs separately if you need them.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#charts-and-bundles

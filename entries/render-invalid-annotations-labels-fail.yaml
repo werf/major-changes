@@ -1,0 +1,12 @@
+id: render-invalid-annotations-labels-fail
+title: Non-string annotation and label values fail rendering instead of being dropped
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [render, validation, annotations]
+description: |
+  Before: entries of `metadata.annotations` and `metadata.labels` in chart manifests whose value was not a string (e.g. an unquoted number or boolean) were dropped with a warning, and the resource was deployed without them.
+  Now: such a value fails rendering, linting, planning and installing with a `decode resource (file: "..."): ...` error. Resources already stored in a release are not rejected: their invalid entries are dropped with a warning. Go API users can restore the old behavior with the new `DropInvalidAnnotationsAndLabels` option of `ChartRenderOptions`, `ChartLintOptions`, `ReleaseInstallOptions` and `ReleasePlanInstallOptions`.
+migration: |
+  Quote numbers and booleans in annotations and labels in templates, e.g. `example.com/replicas: "3"` or `{{ .Values.x | quote }}`.

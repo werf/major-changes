@@ -1,0 +1,10 @@
+id: bundle-plan-artifacts
+title: "werf bundle plan saves and shows plan artifacts, werf bundle apply deploys them with `--use-plan`"
+type: feature
+breaking: false
+products: [werf]
+domain: deploy
+areas: [bundles, plan]
+description: |
+  Before: saving a plan and deploying exactly that plan was available only for `werf plan --save-plan` and `werf converge --use-plan`.
+  Now: the bundle commands support it too. `werf bundle plan --save-plan PATH` (`$WERF_SAVE_PLAN_PATH`) saves the gzip-compressed JSON install plan, `werf bundle plan --show-plan PATH` (`$WERF_SHOW_PLAN_PATH`) prints the changes of a saved plan, and `werf bundle apply --use-plan PATH` (`$WERF_USE_PLAN_PATH`) deploys the saved plan; `--plan-lifetime` (`$WERF_PLAN_LIFETIME`, default `2h`) limits how old the plan may be.

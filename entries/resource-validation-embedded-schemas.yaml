@@ -1,0 +1,12 @@
+id: resource-validation-embedded-schemas
+title: "Resource validation uses Kubernetes and CRD schemas embedded into the binary"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [validation]
+description: |
+  Before: resource validation downloaded JSON schemas from the network (`--resource-validation-schema`, by default the `yannh/kubernetes-json-schema` and `datreeio/CRDs-catalog` repositories) for one Kubernetes version (`--resource-validation-kube-version`, default `1.35.0`); `--local-resource-validation` disabled the network sources.
+  Now: the Kubernetes schemas of the last five Kubernetes minor versions (merged, newest wins) and the `datreeio/CRDs-catalog` CRD schemas are embedded into the binary, so validation works offline. A resource kind without a schema is skipped. `--resource-validation-extra-schema` adds schema sources that take precedence over the embedded ones. The `--resource-validation-schema`, `--resource-validation-kube-version` and `--local-resource-validation` flags are removed. The embedded schemas are refreshed with new releases.
+migration: |
+  Remove `--resource-validation-schema`, `--resource-validation-kube-version` and `--local-resource-validation` (and their environment variables) from your scripts. To validate against your own schemas, pass them with `--resource-validation-extra-schema`.

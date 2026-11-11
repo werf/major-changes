@@ -1,0 +1,12 @@
+id: build-time-env-not-in-image-config
+title: "Build-time variables `COLUMNS`, `WERF_COMMIT_*` and `SSH_AUTH_SOCK` no longer end up in the image `ENV`"
+type: fix
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, images]
+description: |
+  Before: Stapel images built with the Docker server or Buildah backend got `COLUMNS`, `WERF_COMMIT_HASH`, `WERF_COMMIT_TIME_HUMAN`, `WERF_COMMIT_TIME_UNIX` and `SSH_AUTH_SOCK` baked into the `ENV` of the image config, although these variables are meant only for build commands. When `imageSpec` was configured, werf additionally removed the `WERF_COMMIT_*` variables from the final image, including ones inherited from the base image.
+  Now: these variables are available to build commands only and are not stored in the image config. The implicit removal of `WERF_COMMIT_*` by `imageSpec` is gone, so such variables inherited from a base image built by an older werf stay in the image.
+migration: |
+  If your images are based on images built by werf v2 that contain `WERF_COMMIT_*` variables and you do not want them, list them in `imageSpec.config.removeEnv`. Do not rely on `COLUMNS`, `WERF_COMMIT_*` or `SSH_AUTH_SOCK` being present in the built image at runtime.

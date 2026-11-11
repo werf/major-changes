@@ -1,0 +1,14 @@
+id: build-buildah-netavark
+title: "The native Buildah backend requires netavark (and pasta for rootless networking) instead of CNI and slirp4netns"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [buildah, distribution]
+description: |
+  Before: the native Buildah backend (`WERF_BUILDAH_MODE=native-chroot` or `native-rootless`) used CNI plugins and slirp4netns for container networking.
+  Now: the backend uses netavark, and backend initialization fails with `could not find "netavark" in one of [...]` when the `netavark` binary is missing from the Podman helper directories (`/usr/local/libexec/podman`, `/usr/local/lib/podman`, `/usr/libexec/podman`, `/usr/lib/podman`), even if no instruction uses the network. A rootless build that configures a network (not `network: host`/`none`, not chroot mode) additionally needs `pasta` from the `passt` package. The official werf images ship `netavark`, `passt` (`pasta`) and `aardvark-dns`; their Alpine base moved from 3.18 to 3.24, the Fedora base from 38 to 44 and the Ubuntu base from 22.04 to 24.04 (the `build` and `build1001` users keep UIDs 1000 and 1001).
+migration: |
+  With the official werf image, switch to the v3 image (not only the binary) and rebuild images derived from it, checking that packages and commands they add still work on the new Alpine, Fedora or Ubuntu base. With your own installation or image, install the distribution `netavark` package (and `passt` for rootless builds with networking) where werf runs.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#buildah

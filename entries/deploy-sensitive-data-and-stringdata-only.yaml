@@ -1,0 +1,12 @@
+id: deploy-sensitive-data-and-stringdata-only
+title: Diffs of Secrets and resources marked `werf.io/sensitive` hide only `data` and `stringData` values
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [plan, annotations]
+description: |
+  Before: the whole diff of a `v1/Secret` and of any resource annotated `werf.io/sensitive: "true"` was replaced with `<hidden sensitive changes>`. The selective behavior was opt-in through the `field-sensitive` or `preview-v2` feature gates (`NELM_FEAT_FIELD_SENSITIVE=true`, `NELM_FEAT_PREVIEW_V2=true`).
+  Now: for such resources only values at `data.*` and `stringData.*` are hidden (replaced with length and hash information); metadata, key names and all other fields are shown in the diff. `werf.io/sensitive-paths` still overrides the default path list. The feature gate is removed.
+migration: |
+  If a resource keeps sensitive data outside `data`/`stringData` (e.g. in `spec`), annotate it with `werf.io/sensitive-paths` listing the JSONPath expressions to hide, e.g. `"$.spec.token"`; include `$.data.*` and `$.stringData.*` too if needed, since the annotation replaces the default list. Remove `NELM_FEAT_FIELD_SENSITIVE` from the environment.

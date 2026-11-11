@@ -1,0 +1,12 @@
+id: build-content-based-tag
+title: "Images are identified by a content-based tag and reused as a whole when their content inputs are unchanged"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [images, cache, performance]
+description: |
+  Before: the image tag was the tag of the last non-empty stage (`DIGEST-TIMESTAMP_MILLISEC`), and every build walked through all stages of every image, checking each stage in the stages storage.
+  Now: the last stage of each image is a content anchor whose digest is calculated up front from the target platform and all inputs of the image: instructions and stage digests, Git content (including file modes), build context, base images, dependencies and the cache version. The image is published with this content-based tag. When an image with the same content-based tag already exists in the stages storage (or can be copied from a secondary storage), werf reuses it without processing its stages and logs `Use previously built image for <image> by content-based tag`; a stored anchor is reused even if the Git commit it was built from is no longer available. Non-final images that no image being built needs are skipped.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#building

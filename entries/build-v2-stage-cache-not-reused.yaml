@@ -1,0 +1,14 @@
+id: build-v2-stage-cache-not-reused
+title: "Stages built by werf v2 are not reused: the first v3 build rebuilds all images"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [cache]
+description: |
+  Before: stage digests stayed compatible across werf v2 releases, so new versions reused stages already present in `--repo`.
+  Now: the build cache version is bumped (`1.2` → `2.0`) and digest calculation changed in several places (current stage names such as `dependenciesBeforeInstall` instead of legacy `importsBeforeInstall`, `linux/amd64` included in digests like other platforms, the base image reference always included in the `FROM` stage of staged Dockerfiles, new content-based tags). No stage built by v2 matches, so the first v3 build rebuilds every image and pushes new stages next to the v2 ones.
+migration: |
+  Plan time and registry space for a full rebuild when switching to v3. If v2 and v3 share `--repo`, protect the v2 images you need for rollback from `werf cleanup` (for example, with `--keep-list`).
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#building

@@ -1,0 +1,12 @@
+id: go-api-kubedog-1-types
+title: "Nelm's Go API uses kubedog 1.0 packages: `statestore.FailMode` and `statestore.TrackTerminationMode`"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, tracking]
+description: |
+  Before: Nelm v1 used the kubedog `pkg/trackers/...` layout: the `FailMode` and `TrackTerminationMode` fields of `resource.InstallableResource`, `plan.InstallableResourceInfo` and `plan.OperationConfigTrackReadiness` had the types `multitrack.FailMode` and `multitrack.TrackTerminationMode` from `github.com/werf/kubedog/pkg/trackers/rollout/multitrack`, and `plan.ExecutePlan` and `track.NewProgressTablesPrinter` took stores from `github.com/werf/kubedog/pkg/trackers/dyntracker/{statestore,logstore,util}`.
+  Now: Nelm depends on kubedog 1.0, where the dynamic tracker moved to `github.com/werf/kubedog/pkg/dyntracker/...` and the legacy `multitrack`, `rollout` and `display` packages are gone. These fields are `statestore.FailMode` and `statestore.TrackTerminationMode` from `github.com/werf/kubedog/pkg/dyntracker/statestore` (same values), and the stores passed to `plan.ExecutePlan` and `track.NewProgressTablesPrinter` come from `github.com/werf/kubedog/pkg/dyntracker/{statestore,logstore,util}`. Kubedog debug output is switched with `github.com/werf/kubedog/pkg/log.SetDebug` instead of `pkg/tracker/debug.SetDebug`.
+migration: |
+  Upgrade kubedog to the version required by Nelm v2 and replace imports of `github.com/werf/kubedog/pkg/trackers/dyntracker/...` with `github.com/werf/kubedog/pkg/dyntracker/...` and `multitrack.FailMode`/`multitrack.TrackTerminationMode` (and their constants) with the `statestore` ones.

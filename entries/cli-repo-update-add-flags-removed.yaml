@@ -1,0 +1,12 @@
+id: cli-repo-update-add-flags-removed
+title: "`--fail-on-repo-update-fail` and `--no-update` are removed from the repository commands; `repo update` fails when any repository fails"
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [cli, charts]
+description: |
+  Before: repository update (`nelm repo update`, `werf helm repo update`) only printed a warning when a repository index could not be downloaded and exited successfully unless `--fail-on-repo-update-fail` was passed; repository add (`nelm repo add`, `werf helm repo add`) accepted the deprecated, ignored `--no-update`.
+  Now: as in Helm 4, repository update always exits with an error `failed to update the following repositories: [...]` when any repository fails, and both `--fail-on-repo-update-fail` and `--no-update` are removed (passing them is an unknown-flag error).
+migration: |
+  Remove `--fail-on-repo-update-fail` and `--no-update` from scripts. If a failing repository must not fail the command, remove that repository or tolerate the command's exit code.

@@ -1,0 +1,22 @@
+id: values-export-import-all-layers
+title: "`export-values` and `import-values` apply to `--values`, `--secret-values`, `--set*` and service values"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [values, dependencies]
+description: |
+  Before: `export-values` and `import-values` of `Chart.yaml` dependencies were applied to the charts' `values.yaml`/`secret-values.yaml` only (plus maps from user values), so overriding a parent key with `--values`, `--set*` or werf service values (e.g. `global.werf.images.*`) did not reach the subchart, and overriding a child key did not reach the importing parent.
+  Now: they are applied within each values layer, from lowest to highest: `values.yaml` of all charts with `secret-values.yaml` of subcharts, the root chart's `secret-values.yaml`, `--values`, `--secret-values`, all `--set*` options together, service values. Within a layer an exported value overrides the child key and the parent's own key overrides an imported value; across layers the higher layer wins. Plain values, maps and nulls are exported; nested, multi-level and aliased dependencies are supported, also when the dependency's chart in `charts/` is out of the version range of `Chart.yaml`.
+  Behavior changes:
+  - An exported parent value overrides the child key from the same or a lower layer: `--set g.repo=a --set sub.image.repository=b` renders `a`, and service values exported to `sub.image.repository` override `--set sub.image.repository`. A `null` parent value deletes the exported child key.
+  - A value exported from `secret-values.yaml` overrides the child key set in the same file; a value imported from it overrides the parent key from `values.yaml`.
+  - Imported values follow user values: `--set sub.out.k=x` changes the parent's imported `k`.
+  - `--set-json` replacing an export or import source drops the copies exported or imported from lower layers; `--set list[i]=x` over an exported list patches it instead of replacing it.
+  - Dependency `condition:` values see plain values exported from user values; exported user values no longer appear under subcharts disabled by a condition.
+  - `--set sub=null` or `sub: null` for a dependency resets the subchart to its defaults instead of failing with `type mismatch on sub`.
+  - The values stored in the release hold `--values` < `--secret-values` < `--set*` with what `export-values` adds from them, so a release may be redeployed once after the upgrade. For charts with dependencies, the values of the chart stored in the release no longer include `--secret-values` and service values.
+  - Warnings: an export or import skipped because of its value (a scalar exported to a dependency root, a non-map imported) is reported as a warning, also by `chart pack` (werf: `werf bundle publish`); an `export-values` parent path or `import-values` child path set in no values (e.g. a typo) is reported as `Skipping export-values of "<path>" from chart "<chart>" to dependency "<dep>": the path is not set in any values` or `Skipping import-values of "<path>" from dependency "<dep>" to chart "<chart>": no map is set at the path in any values`. The `ImportValues missing table` warning of the Helm fork is no longer printed.
+  Go API: `values.Options.MergeSetValues` takes a new last argument `MergeSetValuesOptions`; `ExportUserValues` of the chart v2 util package takes one layer of values and returns the result; `ImportUserValues` is added.
+migration: |
+  Render your charts with the new version (`nelm chart render` / `werf render`) and compare the output if they use `export-values` or `import-values` together with `--values`, `--set*` or werf service values: a child key you set directly is now overridden by a value exported to it from the same or a higher layer. Set the parent key instead, or remove the export. Expect one redeploy of releases whose stored values change.

@@ -1,0 +1,10 @@
+id: host-cleanup-auto-cleanup-notice
+title: "werf reports the result of the last automatic host cleanup on the next run"
+type: feature
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [host-cleanup, logging]
+description: |
+  Before: automatic host cleanup ran in the background and wrote its output only to a service log, so images it removed and the rebuilds that followed were unexplained.
+  Now: when a background host cleanup frees space, the next suitable werf command prints once how long ago it ran, how many local images werf removed and how much space was freed in total, with the storage usage and the allowed limit. If usage is still above the allowed level (`--allowed-backend-storage-volume-usage` and related options), the message is a warning with ways to fix it. Commands with machine-readable output keep the notice for a later command (unless verbose or debug output is requested). Manual `werf host cleanup` and dry runs do not produce a notice.

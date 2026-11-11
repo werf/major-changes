@@ -1,0 +1,10 @@
+id: build-registry-token-cache-redirects
+title: "Registry tokens are refreshed correctly for registries that redirect to another host"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [registry]
+description: |
+  Before: the registry bearer-token cache could keep reusing a token that a redirected host (GHCR, Quay, ACR and similar redirect blob requests to storage hosts) had rejected, because the rejection could not invalidate the cache entry of the origin registry; the cache also stopped reusing tokens for such registries altogether, and deleting tags from a GitLab registry exchanged a new token for every tag.
+  Now: tokens whose scope was named by a redirected host's bearer challenge are exchanged afresh, tokens for the registry's own scopes keep being served from the cache, and GitLab tag deletion reuses one token per scope.

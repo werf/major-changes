@@ -1,0 +1,10 @@
+id: logging-concurrent-indentation-race
+title: Parallel log output no longer races on indentation
+type: fix
+breaking: false
+products: [werf]
+domain: general
+areas: [logging]
+description: |
+  Before: when several workers logged in parallel (e.g. parallel image builds), one of them temporarily resetting the indentation could affect the indentation of output being formatted concurrently by the others, producing misindented lines.
+  Now: indentation is updated atomically, so concurrent output keeps its own indentation.

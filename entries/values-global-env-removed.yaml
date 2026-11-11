@@ -1,0 +1,14 @@
+id: values-global-env-removed
+title: "werf no longer sets `.Values.global.env`; use `.Values.werf.env` or `.Values.global.werf.env`"
+type: removal
+breaking: true
+products: [werf]
+domain: deploy
+areas: [values]
+description: |
+  Before: werf set the service value `.Values.global.env` to the `--env` value (an empty string with stub values in `werf render`) in `werf converge`, `werf plan`, `werf render`, `werf lint` and the `werf bundle` deploy commands, in addition to `.Values.werf.env`.
+  Now: `.Values.global.env` is not set: templates that read it get an empty value without an error. The environment remains available as `.Values.werf.env` in the main chart and `.Values.global.werf.env` in the main chart and dependencies. For temporary compatibility `WERF_LEGACY_VALUES_GLOBAL_ENV=1` restores `.Values.global.env`.
+migration: |
+  Replace `.Values.global.env` with `.Values.global.werf.env` (or `.Values.werf.env` in the main chart) in templates and `values.schema.json`. Set `WERF_LEGACY_VALUES_GLOBAL_ENV=1` only as a temporary workaround.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#values-and-environment-variables

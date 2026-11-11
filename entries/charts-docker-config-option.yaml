@@ -1,0 +1,10 @@
+id: charts-docker-config-option
+title: "`--docker-config` option sets the Docker config directory for OCI chart registry credentials"
+type: feature
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [charts, registry, cli]
+description: |
+  Before: credentials for OCI chart repositories were read from `$DOCKER_CONFIG/config.json` or `~/.docker/config.json`, overridable only with `--oci-chart-repos-creds` (path to the file).
+  Now: `nelm chart render`, `nelm chart lint`, `nelm release install` and `nelm release plan install` have `--docker-config` (default `~/.docker`, also read from `$DOCKER_CONFIG` and `$NELM_DOCKER_CONFIG`); credentials are read from `<docker-config>/config.json` unless `--oci-chart-repos-creds` is given.

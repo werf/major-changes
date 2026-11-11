@@ -1,0 +1,14 @@
+id: build-import-cache-source-image
+title: "Stapel import cache depends on the source image, not on checksums of the imported files"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, cache]
+description: |
+  Before: by default, the digest of the stage that runs an `import` was calculated from checksums of the files selected by `add`, `includePaths` and `excludePaths`, and werf stored import metadata in the stages storage (and `werf cleanup`/`werf purge` cleaned it). The source-image-based calculation was only available with `WERF_EXPERIMENTAL_IMPORT_BY_SOURCE_IMAGE_TAG=1`.
+  Now: the digest depends on the content digest of the source image, plus `add`, `to`, `owner`, `group`, `includePaths` and `excludePaths`; the file-checksum mode, the import metadata and the `WERF_EXPERIMENTAL_IMPORT_BY_SOURCE_IMAGE_TAG` variable are gone. Any change of the source image rebuilds the importing image, even if the copied files are unchanged. `werf cleanup` and `werf purge` no longer process import metadata records, so the cleanup report no longer contains `importMetadata` items.
+migration: |
+  Expect additional rebuilds of images that import files. If they are expensive, put the imported output into a separate, narrowly scoped image and import from it. Remove `WERF_EXPERIMENTAL_IMPORT_BY_SOURCE_IMAGE_TAG` from CI settings.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#file-imports

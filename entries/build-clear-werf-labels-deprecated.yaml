@@ -1,0 +1,12 @@
+id: build-clear-werf-labels-deprecated
+title: "`imageSpec.config.clearWerfLabels` is deprecated"
+type: deprecation
+breaking: false
+products: [werf]
+domain: build
+areas: [config, images]
+description: |
+  Before: `imageSpec.config.clearWerfLabels` (and `build.imageSpec.config.clearWerfLabels` in the meta section) was accepted silently, although it never had any effect on built images.
+  Now: it still has no effect, and werf prints a deprecation warning when it is set to `true`.
+migration: |
+  Remove `clearWerfLabels` from `werf.yaml`. To drop werf labels, use `imageSpec.config.removeLabels` (essential werf labels are kept) or `werf export`, which removes all werf labels by default.

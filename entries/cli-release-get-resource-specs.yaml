@@ -1,0 +1,13 @@
+id: cli-release-get-resource-specs
+title: "`release get` structured output (`apiVersion: v3`) lists hooks and resources together in `resourceSpecs` and renames `storageLabels` to `labels`"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, go-api]
+description: |
+  Before: the JSON/YAML output of `nelm release get` (`apiVersion: v1`) had separate `hooks` and `resources` lists of raw manifests.
+  Now: the output has `apiVersion: v3` and a single `resourceSpecs` list with hooks and regular resources together. Each item is `{resourceMeta: {name, namespace, groupVersionKind, filePath, annotations, labels}, unstruct: <manifest>, storeAs}`; hooks are recognized by their `helm.sh/hook` annotation. In the Go API, `action.ReleaseGet` returns a new result type with a `ResourceSpecs []*spec.ResourceSpec` field instead of `ReleaseGetResultV1` with `Hooks` and `Resources`.
+  The release labels are reported as `release.labels` instead of `release.storageLabels` (Go API: `ReleaseGetResultV3`, field `Labels` instead of `StorageLabels`).
+migration: |
+  Update scripts that read `.hooks` or `.resources` to read `.resourceSpecs[].unstruct`, filtering hooks by `.resourceSpecs[].resourceMeta.annotations["helm.sh/hook"]` if needed, to read `.release.labels` instead of `.release.storageLabels`, and to accept `apiVersion: v3`.

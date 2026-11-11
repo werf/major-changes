@@ -1,0 +1,9 @@
+id: deploy-warn-terminating-resource
+title: "A warning is printed when a resource being deployed is already being deleted"
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [resources, logging]
+description: |
+  New: install, plan install, rollback and auto-rollback print a warning when the live object of a resource being deployed has `metadata.deletionTimestamp` set (Terminating, e.g. held by a finalizer), saying that it is being deleted and won't be recreated by this deploy; for PersistentVolumeClaims and PersistentVolumes it adds that Pods using it will fail to schedule once recreated and its data may be lost. Before, such an object was silently updated or left as is and could be reported ready. Resources planned for recreation don't get the warning. The plan, tracking and exit code are unchanged.

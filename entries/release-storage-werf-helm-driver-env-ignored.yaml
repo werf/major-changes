@@ -1,0 +1,12 @@
+id: release-storage-werf-helm-driver-env-ignored
+title: "werf no longer reads the release storage driver from `HELM_DRIVER`"
+type: removal
+breaking: true
+products: [werf]
+domain: deploy
+areas: [release-storage, cli]
+description: |
+  Before: when `$WERF_RELEASE_STORAGE` was not set, the default of `--release-storage` was taken from `$HELM_DRIVER` (for example `HELM_DRIVER=configmap` made werf store releases in ConfigMaps).
+  Now: only `--release-storage` and `$WERF_RELEASE_STORAGE` are read; `$HELM_DRIVER` is ignored and releases are stored in Secrets unless configured otherwise.
+migration: |
+  If you relied on `HELM_DRIVER`, set `WERF_RELEASE_STORAGE` to the same value (or pass `--release-storage`), otherwise werf will not find releases stored in ConfigMaps or SQL and will create new ones in Secrets.

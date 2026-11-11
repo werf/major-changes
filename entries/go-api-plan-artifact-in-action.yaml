@@ -1,0 +1,12 @@
+id: go-api-plan-artifact-in-action
+title: Plan artifacts are exposed in the `action` package and returned by `ReleasePlanInstall`
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, plan]
+description: |
+  Before: plan artifact types and helpers lived in `pkg/plan` (`plan.PlanArtifact`, `plan.ReadPlanArtifact`, `plan.ValidatePlanArtifact`, `plan.WritePlanArtifact`), and `action.ReleasePlanInstall` returned only `error`; the artifact could be passed between actions only through a file.
+  Now: they are in `pkg/action` (`action.PlanArtifact`, `action.ReadPlanArtifact`, `action.ValidatePlanArtifact`, `action.WritePlanArtifact`). `action.ReleasePlanInstall` returns `(*action.PlanArtifact, error)`, and `ReleaseInstallOptions.LegacyPlanArtifact` / `ReleasePlanShowOptions.LegacyPlanArtifact` accept an in-memory artifact instead of `PlanArtifactPath`.
+migration: |
+  Replace `plan.PlanArtifact` and the `plan.*PlanArtifact` functions with their `action.` counterparts, and handle the extra return value of `action.ReleasePlanInstall`.

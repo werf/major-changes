@@ -1,0 +1,14 @@
+id: build-disable-git-after-patch-removed
+title: "`disableGitAfterPatch` is removed"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, git, config]
+description: |
+  Before: `disableGitAfterPatch: true` in a Stapel image froze the Git sources after the patch stage, skipping the `gitCache` and `gitLatestPatch` stages so that later commits did not update the files in the image. v2 suggested it to keep artifact behavior when replacing `artifact` with `image`.
+  Now: the directive is not supported and is a configuration error. There is no equivalent switch.
+migration: |
+  Remove `disableGitAfterPatch` from `werf.yaml`. Use `git.stageDependencies` to control which changes rerun build instructions; this does not stop updates of the Git files themselves.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#images-instead-of-artifacts

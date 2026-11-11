@@ -1,0 +1,12 @@
+id: go-api-resource-policy-resolver-removed
+title: "`resource.ResolveResourcePolicies` is removed"
+type: removal
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, resources]
+description: |
+  Before: `pkg/resource` exported `ResolveResourcePolicies(localRes *InstallableResource, liveMeta *spec.ResourceMeta, releaseNamespace string) []common.ResourcePolicy`, which returned the resource policies of the manifest or, when it had none, the `keep`/`skip-delete` policy of the live object.
+  Now: the function is removed. Deployments still respect `helm.sh/resource-policy: keep` and `werf.io/resource-policy` set on the live object; this is resolved internally by the plan.
+migration: |
+  Callers of `resource.ResolveResourcePolicies` need their own logic: return `InstallableResource.ResourcePolicies` when it is not empty or when there is no live object (`liveMeta` is nil); otherwise return the `skip-delete` policies from `resource.ResourcePolicies(liveMeta, releaseNamespace)`, which must not be called with a nil `liveMeta`.

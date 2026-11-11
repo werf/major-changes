@@ -1,0 +1,12 @@
+id: charts-helm-path-env-vars-ignored
+title: Helm path environment variables `HELM_CACHE_HOME`, `HELM_CONFIG_HOME`, `HELM_DATA_HOME` and `HELM_REPOSITORY_*` are no longer read
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [charts, dependencies]
+description: |
+  Before: the Helm cache, config and data directories could be moved with `HELM_CACHE_HOME`, `HELM_CONFIG_HOME` and `HELM_DATA_HOME`, and chart download and dependency resolution during render, lint, plan and install also honored `HELM_REPOSITORY_CONFIG`, `HELM_REPOSITORY_CACHE` and `HELM_CONTENT_CACHE`.
+  Now: `HELM_CACHE_HOME`, `HELM_CONFIG_HOME` and `HELM_DATA_HOME` are ignored everywhere, and render, lint, plan and install commands also ignore `HELM_REPOSITORY_CONFIG`, `HELM_REPOSITORY_CACHE` and `HELM_CONTENT_CACHE` (the Helm-based `nelm chart repo` commands still read them). The chart repository list and the chart caches are located only via `XDG_CONFIG_HOME`, `XDG_CACHE_HOME` and `XDG_DATA_HOME`, by default `~/.config/helm`, `~/.cache/helm` and `~/.local/share/helm` on Linux. The XDG variables point to the parent directory: with `XDG_CONFIG_HOME=/custom/config`, `/custom/config/helm/repositories.yaml` is read.
+migration: |
+  If you set `HELM_CONFIG_HOME`/`HELM_REPOSITORY_CONFIG` or the cache variables, copy `repositories.yaml` to `$XDG_CONFIG_HOME/helm/repositories.yaml` (or `~/.config/helm/`) or add the repositories again, and set `XDG_CACHE_HOME`/`XDG_CONFIG_HOME` instead of the `HELM_*` variables.

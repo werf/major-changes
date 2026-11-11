@@ -1,0 +1,14 @@
+id: build-docker-legacy-builder-removed
+title: "Dockerfile builds on the Docker backend always use BuildKit; `DOCKER_BUILDKIT=0` no longer selects the legacy builder"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [dockerfile]
+description: |
+  Before: with the Docker server backend, Dockerfile images were built with BuildKit (buildx) by default, but `DOCKER_BUILDKIT=0` or `DOCKER_BUILDKIT=false` switched werf to the legacy Docker builder.
+  Now: werf builds Dockerfiles through the upstream buildx API only. The legacy builder is gone and `DOCKER_BUILDKIT` is ignored.
+migration: |
+  Remove `DOCKER_BUILDKIT=0`/`false` from the environment and check that your Dockerfiles build with BuildKit.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#builders-and-image-configuration

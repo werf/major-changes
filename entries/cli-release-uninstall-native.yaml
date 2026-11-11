@@ -1,0 +1,12 @@
+id: cli-release-uninstall-native
+title: "`nelm release uninstall` always uses the native plan-based implementation"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [uninstall, cli]
+description: |
+  Before: `nelm release uninstall` ran the Helm uninstall action by default; the native implementation was used only with `NELM_FEAT_NATIVE_RELEASE_UNINSTALL=true` or `NELM_FEAT_PREVIEW_V2=true`. In the default mode hook resources of the release were deleted unless `--no-delete-hooks` (`$NELM_RELEASE_UNINSTALL_NO_DELETE_HOOKS`) was set.
+  Now: the native implementation is always used and the feature gate is removed. Uninstall builds a deletion plan from the last release revision (plus resources present only in the last deployed revision), runs `pre-delete`/`post-delete` hooks, deletes the resources in dependency order and tracks their deletion with the same progress output as `release install`. `--no-delete-hooks` and `$NELM_RELEASE_UNINSTALL_NO_DELETE_HOOKS` are removed. New options: `--delete-propagation` (default `Background`), `--no-remove-manual-changes`, `--save-graph-to` (Graphviz uninstall graph), `--save-report-to` (uninstall report), `--release-storage-sql-connection`, plus `--patches`/`--no-default-patches` and `--log-width`. The kube connection, tracking, `--delete-namespace`, `--release-history-limit`, `--release-storage` and `--timeout` options are unchanged.
+migration: |
+  Remove `NELM_FEAT_NATIVE_RELEASE_UNINSTALL` and `--no-delete-hooks`/`NELM_RELEASE_UNINSTALL_NO_DELETE_HOOKS` (an unknown flag fails argument parsing). To keep a hook resource on uninstall, annotate it with `helm.sh/resource-policy: keep` instead. Check that the uninstall of your releases (hook execution, deletion order and tracking) works as expected; use `--delete-propagation`, `--save-graph-to` and `--save-report-to` to tune and inspect it.

@@ -1,0 +1,12 @@
+id: go-api-requires-go-1-26
+title: "Using Nelm as a Go library requires Go 1.26"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: the `go` directive of Nelm v1's `go.mod` was `go 1.23.1`.
+  Now: Nelm v2 declares `go 1.26.0`, so modules that import it must be built with Go 1.26 or newer.
+migration: |
+  Build your module with Go 1.26 or newer and raise the `go` directive in your `go.mod` to at least `1.26.0` (`go get` does it when adding `github.com/werf/nelm/v2`).

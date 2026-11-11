@@ -1,0 +1,12 @@
+id: cli-dismiss-native-uninstall
+title: "`werf dismiss` always uninstalls releases with the Nelm uninstall implementation"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [uninstall, cli]
+description: |
+  Before: `werf dismiss` uninstalled the release with the legacy Helm-based uninstall by default; the Nelm uninstall implementation was used only with `WERF_EXPERIMENT_NEW_DISMISS=1`. In the default mode `--with-hooks` (`$WERF_WITH_HOOKS`, default `true`) controlled whether hook resources from existing release revisions were deleted, and the flags `--delete-propagation`, `--save-uninstall-report`, `--uninstall-report-path` and `--uninstall-graph-path` were available only with `WERF_EXPERIMENT_NEW_DISMISS=1`.
+  Now: `werf dismiss` always uses the Nelm uninstall implementation (plan-based deletion with resource tracking, as `nelm release uninstall`). `WERF_EXPERIMENT_NEW_DISMISS` has no effect, `--with-hooks` and `$WERF_WITH_HOOKS` are removed, and `--delete-propagation`, `--save-uninstall-report`, `--uninstall-report-path` and `--uninstall-graph-path` are always available. `werf dismiss --use-deploy-report` reads the deploy report in the Nelm v2 format. The `Using kube context: <context>` line is no longer printed.
+migration: |
+  Remove `--with-hooks`, `WERF_WITH_HOOKS` and `WERF_EXPERIMENT_NEW_DISMISS` from your `werf dismiss` invocations and CI configuration. Check that the uninstall behavior (resource deletion order, tracking and hook handling) fits your release; use `--delete-propagation` and the uninstall report flags if needed.

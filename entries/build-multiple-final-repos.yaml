@@ -1,0 +1,10 @@
+id: build-multiple-final-repos
+title: "`werf build` publishes final images to several final repositories"
+type: feature
+breaking: false
+products: [werf]
+domain: build
+areas: [registry, cli]
+description: |
+  Before: `--final-repo` accepted one repository.
+  Now: `werf build` accepts `--final-repo` several times, or `WERF_FINAL_REPO` together with numbered `WERF_FINAL_REPO_1`, `WERF_FINAL_REPO_2`, ... variables; final images (complete multi-platform indexes included) and custom tags are published to every destination, sharing `--parallel-tasks-limit`. CLI flags replace the environment values, duplicates are processed once, and the build report refers to the first final repository. Other commands keep a single final repository.

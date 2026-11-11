@@ -1,0 +1,20 @@
+id: charts-helmignore-applied
+title: "werf applies `.helmignore` when reading the chart"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [charts, giterminism]
+description: |
+  Before: werf read every file of the chart directory (`.helm` by default) and ignored `.helmignore`, so files listed there still reached the rendered manifests (`werf render`, `werf converge`, `werf plan`, `werf lint`) and the bundle published by `werf bundle publish`.
+  Now: `.helmignore` is applied with Helm's rules, without a warning:
+  - files matched by `.helmignore` are excluded from rendering and from published bundles;
+  - Helm's default rules apply even without a `.helmignore`: dotfiles and dot-directories directly under `templates/` (e.g. `templates/.gitkeep`) are dropped;
+  - a leading `!` keeps only what the pattern matches and drops everything else, as in Helm;
+  - a `**` rule fails the command with `double-star (**) syntax is not supported`;
+  - a `file://` dependency is filtered by its own `.helmignore`, not by the parent's.
+  Excluded paths are not read and not checked by giterminism, so `.helmignore` can exclude uncommitted files. A chart with all files excluded fails with `no chart files found`. Excluded files are logged at debug level as `excluded by .helmignore`.
+migration: |
+  Check `.helmignore` of your charts and subcharts before upgrading: remove rules for files that must be deployed, replace `**` rules, and rename dotfiles under `templates/` that must be rendered. Compare `werf render` output (or run `werf plan`) before the first `werf converge` with werf v3.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#charts-and-bundles

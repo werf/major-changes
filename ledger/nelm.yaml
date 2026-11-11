@@ -1,0 +1,193 @@
+# Every commit of nelm reachable from main and not from v1.31.3, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: 28d5f541b451, date: 2026-03-24, subject: "Squashed 'pkg/helm/' content from commit f03cc04ca", skip: in-old, note: "same subject as ef78e7d0c in nelm v1.31.3 (Helm fork subtree import)" }
+- { commit: 07f2dfccdde2, date: 2026-03-24, subject: "Merge commit '28d5f541b451a05b362ec8c8dee9556d34eeefc8' as 'pkg/helm'", entries: [cli-release-list-native, cli-release-uninstall-native, feature-gate-preview-v2-removed, go-api-legacy-packages-removed, go-api-kube-new-kube-config-signature, go-api-kubedog-1-types, go-api-featgate-removed-gates], note: "evil subtree merge: besides adding pkg/helm, moves internal/ to pkg/, removes legacy Helm list/uninstall commands and native-release-list/uninstall gates, pkg/export/helm, pkg/legacy/deploy, LegacyReleaseUninstall, resource.IsSensitive; changes kube.NewKubeConfig; bumps kubedog to 1.0 layout" }
+- { commit: 961ca04a485a, date: 2026-03-28, subject: "feat!: new major release 2.0", entries: [helm-v4-engine, chart-api-version-v3, templates-helm-4-functions, templates-capabilities-helm-version-v4, values-schema-json-schema-2020-12, cli-chart-commands-helm-4-flags, cli-repo-update-add-flags-removed, go-api-helm-fork-packages-restructured, go-api-logging-setup-in-action, go-api-action-options-removed, go-api-release-chart-accessors], note: "Helm fork restructured from Helm v3.14 to the Helm v4.1 layout" }
+- { commit: ebc52bff0a68, date: 2026-03-31, subject: "chore: sync with main", skip: merge, note: "conflict resolution only (keeps v2 deletions of files re-added on main, import paths)" }
+- { commit: 8348f9be24bc, date: 2026-04-07, subject: "refactor: remove unnecessary flags and featgates", entries: [feature-gate-preview-v2-removed, charts-remote-charts-enabled, deploy-sensitive-data-and-stringdata-only, deploy-null-fields-cleaned-by-default, plan-detailed-exit-code, resource-validation-enabled-by-default, values-set-runtime-json-removed, plan-show-verbose-diffs-removed, cli-save-rollback-graph-to-removed, render-force-adoption-removed, go-api-action-options-removed, go-api-featgate-removed-gates, go-api-resource-plan-building-changed] }
+- { commit: c0894306fd9c, date: 2026-04-07, subject: "refactor: remove unnecessary ChartDirPath", entries: [go-api-chart-dir-path-removed] }
+- { commit: 3ef6dc9bdf4b, date: 2026-04-07, subject: "refactor: update dependency handling to support multiple operations", entries: [dependency-annotations-match-all-resources] }
+- { commit: be2f6f8e20d6, date: 2026-04-07, subject: "refactor: remove deprecated dependency annotation `<name>.dependency.werf.io`", entries: [annotations-legacy-dependency-werf-io-removed, go-api-common-constants-changed] }
+- { commit: 3406519a2a5d, date: 2026-04-07, subject: "deps: replace andremueller/cobra fork with werf/3p-cobra rebased on v1.10.2 (#591)", skip: dependency, note: "cobra fork moved to werf/3p-cobra on v1.10.2, pflag 1.0.9; no user-visible effect found" }
+- { commit: 074d3505764f, date: 2026-04-07, subject: "feat: new release history", entries: [cli-release-history-native] }
+- { commit: 56c19f14be53, date: 2026-04-07, subject: "refactor: rename release history --max to --revisions-limit and change table date format", entries: [cli-release-history-native] }
+- { commit: 1a42481cfbb2, date: 2026-04-08, subject: "feat: expose plan artifact in actions api (#586)", entries: [go-api-plan-artifact-in-action] }
+- { commit: 4c37982b7294, date: 2026-04-09, subject: "Merge branch 'main' into 2", entries: [go-api-helm-fork-packages-restructured], note: "adapts main's Deno TypeScript runtime to Helm 4 layout; helmopts.TypeScriptOptions becomes common.TypeScriptOptions" }
+- { commit: 2ee2d05ef533, date: 2026-04-09, subject: "chore: remove renaming step `main -> helm` from helm sync task", entries: [cli-release-history-native], note: "also widens the status and date columns of the history table and gives the chart column the remaining width" }
+- { commit: e2da8b7819b3, date: 2026-04-21, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only" }
+- { commit: 1e1068f13d24, date: 2026-04-21, subject: "fix: use v3 util for Chart.yaml load", entries: [helm-v4-engine], note: "fix in the reworked Helm fork: TS chart init loads Chart.yaml with the v3 chart util" }
+- { commit: 7a758a486e9d, date: 2026-04-22, subject: "fix: clientFactory=nil breaks werf tests", skip: internal, note: "nil clientFactory guard for werf tests" }
+- { commit: e9ec2eb21d2f, date: 2026-04-23, subject: "doc: add plan artifact feature description (#597)", skip: docs }
+- { commit: 8a3cba361006, date: 2026-04-23, subject: "chore: fix typo in the README.md (#598)", skip: docs }
+- { commit: d1b62972befb, date: 2026-04-24, subject: "feat: forbid resource recreation if helm.sh/resource-policy set", skip: reverted, note: "recreation ban for helm.sh/resource-policy removed again by 431777d40f77 (#781, nelm-2); v1.31.3 never had it" }
+- { commit: 3ebc0150106a, date: 2026-04-28, subject: "chore: helm test cleanup and linter fixes (#609)", skip: internal, note: "test cleanup and linter fixes" }
+- { commit: 3e7ff155a755, date: 2026-04-28, subject: "refactor: change Version to APIVersion in ReleaseReportV3 (#607)", entries: [deploy-report-api-version] }
+- { commit: 2159f962147e, date: 2026-04-29, subject: "feat: bump default local kube version for rendering to 1.36.0", entries: [render-default-kube-version-1-36, go-api-common-constants-changed] }
+- { commit: 55bc4628d79e, date: 2026-04-29, subject: "fix: simpler sorting for resources", entries: [render-resource-output-order] }
+- { commit: 365147407ec5, date: 2026-04-29, subject: "fix: don't hard-fail on unsupported env vars", skip: in-old, note: "same subject as 7bc47694c in nelm v1.31.3" }
+- { commit: 3a2264e5ca5b, date: 2026-04-29, subject: "fix: remove support for all legacy HELM_* env vars (#611)", entries: [charts-helm-path-env-vars-ignored] }
+- { commit: 64ef06036d51, date: 2026-05-05, subject: "fix: --set/set-file/set-string flags incorrectly split on commas", entries: [values-set-flags-no-comma-split] }
+- { commit: 7f6b86347afb, date: 2026-05-05, subject: "refactor: join Hooks and Resources as ResourceSpecs (#612)", entries: [cli-release-get-resource-specs] }
+- { commit: 4b380c79569a, date: 2026-05-07, subject: "refactor: use `encoding/json` for marshaling and unmarshaling (#613)", skip: internal, note: "json package swap, no output change" }
+- { commit: d0b1f53ad841, date: 2026-05-12, subject: "feat: add DockerConfig flag (#605)", entries: [charts-docker-config-option, go-api-docker-config-option] }
+- { commit: 73d4a88af39e, date: 2026-05-13, subject: "feat: improve runtime annotations and labels handling (#615)", entries: [render-runtime-annotations-and-labels, go-api-resource-plan-building-changed] }
+- { commit: a8c983f5ba68, date: 2026-05-13, subject: "feat: fail on invalid annotations or labels (#614)", entries: [render-invalid-annotations-labels-fail, go-api-resource-plan-building-changed, go-api-release-chart-accessors] }
+- { commit: ec40944e3424, date: 2026-05-13, subject: "feat: allow to disable values schema validation (#616)", entries: [values-schema-validation-disable-option] }
+- { commit: 46e98e9ce2cf, date: 2026-05-15, subject: "fix: pass NoPodLogs to kubedog (#621)", skip: in-old, note: "backported as 069609f63 in nelm v1.31.3" }
+- { commit: 4a0b1e832649, date: 2026-05-18, subject: "feat: set default delete propagation policy to backgound (#623)", entries: [deploy-delete-propagation-background, go-api-common-constants-changed] }
+- { commit: 581acf90db86, date: 2026-05-18, subject: "feat: support external dependencies for deploy-dependency and delete-dependency annotations (#617)", entries: [dependency-annotations-external-auto, go-api-resource-plan-building-changed] }
+- { commit: 438a1e2b2305, date: 2026-05-18, subject: "fix: add SetupColorLevel function for enhanced logging color configuration (for werf) (#620)", entries: [go-api-logging-setup-in-action] }
+- { commit: 18ad551d41f5, date: 2026-05-25, subject: "feat: use transformers and patchers on rollback (#624)", entries: [release-rollback-normalized-stored-manifests] }
+- { commit: 8528a0abf3f9, date: 2026-05-26, subject: "feat: remove deprecated external dependencies annotations (#625)", entries: [annotations-external-dependency-removed, go-api-common-constants-changed, go-api-resource-plan-building-changed] }
+- { commit: adf8a42899d5, date: 2026-05-26, subject: "feat: case insensitive group/version/kind for `deploy/delete-dependency` (#626)", entries: [dependency-annotations-gvk-case-insensitive] }
+- { commit: 74d3ea4ff724, date: 2026-05-27, subject: "fix: correct fork:helm:sync task", skip: internal, note: "Taskfile fork sync task" }
+- { commit: ea85faf1e8c8, date: 2026-06-04, subject: "feat: upgrade to helm v4.2.0 (#627)", entries: [helm-v4-engine] }
+- { commit: ae98e045c538, date: 2026-06-17, subject: "feat: native Chart v3 and Release v2 support", entries: [chart-api-version-v3, plan-artifact-format-v2, go-api-release-chart-accessors] }
+- { commit: 8f935db93024, date: 2026-06-17, subject: "refactor: refactor chart v3 and release v2 support", entries: [chart-api-version-v3, go-api-release-chart-accessors], note: "refactor of the same feature" }
+- { commit: ec0af5b0ee13, date: 2026-06-17, subject: "feat: move repo commands from root to chart repo (#640)", entries: [cli-repo-commands-under-chart] }
+- { commit: c22d5fd3c5dd, date: 2026-06-17, subject: "docs: enhance README with external dependency handling details for annotations (#639)", skip: docs }
+- { commit: 89f4783bb3dc, date: 2026-07-08, subject: "chore: add method to update release storage labels", entries: [go-api-release-storage-interface] }
+- { commit: 4acd2902631b, date: 2026-07-08, subject: "chore: reformat", skip: internal, note: "reformat" }
+- { commit: e2780d56b992, date: 2026-07-09, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only" }
+- { commit: d414ee7a2972, date: 2026-07-09, subject: "fix: resolve issues after conflicts", skip: internal, note: "merge conflict resolution" }
+- { commit: ee64bf7b1ad2, date: 2026-07-09, subject: "chore: bump kubedog", skip: dependency, note: "kubedog bump to 5d578345082f; kubedog changes catalogued in the kubedog ledger" }
+- { commit: 9241ea8a51d0, date: 2026-07-15, subject: "feat: add --diff-patches and patches.yaml support", entries: [resource-patches] }
+- { commit: deda7bcc0183, date: 2026-07-15, subject: "chore: fix tests", skip: test }
+- { commit: 5c9ccecdb898, date: 2026-07-15, subject: "chore: remove leaked test files", skip: test }
+- { commit: 8f85359dc1d4, date: 2026-07-21, subject: "fix: cleanup TODOs for major (#663)", entries: [go-api-kube-legacy-client-getter-removed] }
+- { commit: fec11597241b, date: 2026-07-27, subject: "fix: register go-client auth plugins (#670)", skip: internal, note: "restores client-go auth provider plugins (oidc etc.) lost during the v2 Helm fork rework; v1.31.3 registered them via pkg/helm/cmd/helm/helm.go, so no change vs old" }
+- { commit: 0d2b4e06f3a6, date: 2026-07-28, subject: "feat: port --lookup-resources and --no-create-namespace from main (#671)", skip: in-old, note: "ports a984242ee and 3d389efe5 from nelm v1.31.3" }
+- { commit: f6ce79b3fd4c, date: 2026-07-31, subject: "feat: embed kubeconform validation schemas into the binary (#673)", entries: [resource-validation-embedded-schemas, go-api-action-options-removed] }
+- { commit: 2a29517d8d19, date: 2026-07-31, subject: "fix: repair ai lookup tests after helm fork api changes (#676)", skip: test }
+- { commit: cb96a15b9c26, date: 2026-08-04, subject: "feat: embed deno binary into release binaries behind embeddeno tag", entries: [typescript-deno-embedded] }
+- { commit: bee47f9ccbfb, date: 2026-08-04, subject: "refactor: pass embedded Deno by context through TypeScriptOptions", entries: [typescript-deno-embedded] }
+- { commit: 615df530ca9d, date: 2026-08-04, subject: "feat: enhance Deno embedding process and sync platform lists", entries: [typescript-deno-embedded] }
+- { commit: 62d593ff8fb4, date: 2026-08-04, subject: "fix: harden deno embedding per review findings", entries: [typescript-deno-embedded] }
+- { commit: ee84ed77ac0d, date: 2026-08-04, subject: "fix: format taskfile", skip: internal, note: "Taskfile formatting" }
+- { commit: 3abafee7837e, date: 2026-08-04, subject: "fix: remove unsupported os/arch from getDownloadLink", entries: [typescript-deno-embedded] }
+- { commit: 9b5af8d8c453, date: 2026-08-04, subject: "fix: restore DENO_EMBED_ROOT for werf", skip: internal, note: "build env var for werf embedding" }
+- { commit: 4c91c3a739c5, date: 2026-08-04, subject: "fix: pin deno digests in the repository instead of fetching them", entries: [typescript-deno-embedded] }
+- { commit: bd6de22800ec, date: 2026-08-04, subject: "refactor: move embed-deno to scripts and drop the redundant sha option", entries: [typescript-deno-embedded] }
+- { commit: 0ed2a27bdefc, date: 2026-08-04, subject: "refactor: clear comments", skip: internal, note: "comments" }
+- { commit: 55abe9fe04f0, date: 2026-08-04, subject: "chore: add comment about unsupported platform", skip: internal, note: "comment" }
+- { commit: fa56ffe91cd9, date: 2026-08-04, subject: "refactor: use restify instead of http for denolock client", skip: internal, note: "denolock script HTTP client" }
+- { commit: 0b9d576a0c2e, date: 2026-08-04, subject: "chore: bump deno version and update deno lock", entries: [typescript-deno-embedded], note: "Deno 2.9.4" }
+- { commit: 45823a46d66c, date: 2026-08-04, subject: "chore: add check_deno_lock_upstream job to CI workflow", skip: ci }
+- { commit: 8b91b6d732f7, date: 2026-08-04, subject: "docs: update deno lock version in README.md", skip: docs }
+- { commit: 79ce86ac06de, date: 2026-08-04, subject: "fix: ignore helm.sh(werf.io)/resource-policy: keep from cluster", entries: [go-api-resource-policy-resolver-removed], note: "the live-resource skip-delete behavior change is reverted by 57f1772f2328; the removal of the exported resource.ResolveResourcePolicies stays" }
+- { commit: e9bbd6e25a02, date: 2026-08-04, subject: "feat: clean null fields in rendered manifests by default for better compat", entries: [deploy-null-fields-cleaned-by-default, go-api-resource-plan-building-changed, go-api-release-chart-accessors] }
+- { commit: 1c5d25ec2a27, date: 2026-08-04, subject: "fix: injected service values might break values.schema.json", entries: [values-schema-validation-service-values] }
+- { commit: 9d049189ce4e, date: 2026-08-05, subject: "fix: optimize validation args", entries: [resource-validation-embedded-schemas, go-api-action-options-removed], note: "removes --local-resource-validation" }
+- { commit: 26aa17edd9ac, date: 2026-08-06, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only (ports main's dependency namespace fix into v2 code)" }
+- { commit: b4771c646ede, date: 2026-08-06, subject: "fix: exclude external dependencies from readiness forcing", entries: [dependency-annotations-external-auto], note: "fix within the new feature" }
+- { commit: 56475887b199, date: 2026-08-06, subject: "feat: add case-insensitive-condition-tracking feature gate", skip: in-old, note: "same subject as 3d2d2d0bd in nelm v1.31.3; gate removed again by 0585a1f4041e" }
+- { commit: ec98995b35c2, date: 2026-08-07, subject: "fix(helm): serialize action configuration initialization (#686)", entries: [helm-v4-engine], note: "race in the reworked Helm fork's Configuration.Init, not present in v1.31.3" }
+- { commit: 9d7f0cb63f8c, date: 2026-08-07, subject: "Merge remote-tracking branch 'origin/2' into 2", skip: merge }
+- { commit: 91104e4309cd, date: 2026-08-07, subject: "chore: format", skip: internal, note: "format" }
+- { commit: f5a210321229, date: 2026-08-07, subject: "chore: bump kubedog", skip: dependency, note: "kubedog bump to 85087f97ed99; kubedog changes catalogued in the kubedog ledger" }
+- { commit: 6f46733610da, date: 2026-08-07, subject: "fix: prevent concurrent Helm configuration races (#688)", entries: [helm-v4-engine], note: "race in the reworked Helm fork's Configuration.Init, not present in v1.31.3" }
+- { commit: 0585a1f4041e, date: 2026-08-10, subject: "feat: always track resource conditions case-insensitively", entries: [tracking-condition-types-case-insensitive, go-api-featgate-removed-gates] }
+- { commit: 72d7f3dc1f0e, date: 2026-08-10, subject: "chore: bump kubedog", skip: dependency, note: "kubedog bump to e8f61a4bc90a; effect catalogued as tracking-condition-types-case-insensitive (kubedog ledger, nelm 0585a1f4041e)" }
+- { commit: 06096861c106, date: 2026-08-10, subject: "fix: prevent progress printer race (#690)", entries: [tracking-progress-printer-start-stop-race] }
+- { commit: 8ed239329cbc, date: 2026-08-20, subject: "chore: add AGENTS.md symlink for claude (#694)", skip: in-old, note: "patch-equivalent to 2771db668 in nelm v1.31.3" }
+- { commit: 191171c87ea1, date: 2026-08-24, subject: "feat: add `renderPatches` support for --patches/patches.yaml (#696)", entries: [resource-patches] }
+- { commit: 16e45e2e628b, date: 2026-08-31, subject: "feat: support authenticated secret values (#706)", entries: [secrets-authenticated-encryption-format] }
+- { commit: ca3aa25c8f4f, date: 2026-09-15, subject: "Merge branch 'main' into 2", entries: [tracking-condition-types-case-insensitive], note: "drops main's case-insensitive-condition-tracking feature gate (always on in v2); rest is conflict resolution" }
+- { commit: aee58c10797b, date: 2026-09-15, subject: "chore: bump kubedog version", skip: dependency, note: "kubedog bump e8f61a4->438ef10 (lint/reformat commits); effects catalogued from the kubedog ledger" }
+- { commit: 1d3e5bd1df42, date: 2026-09-21, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only" }
+- { commit: 3d5b49b5a814, date: 2026-09-21, subject: "test: port merged ai tests onto branch 2 API", skip: test }
+- { commit: e18841cece26, date: 2026-09-24, subject: "chore: add .pi/.gitignore", skip: internal }
+- { commit: e88808d66140, date: 2026-09-24, subject: "refactor: change Go module path to github.com/werf/nelm/v2 (#721)", entries: [go-api-module-path-v2] }
+- { commit: 41c5cce83ae8, date: 2026-09-24, subject: "chore(ci): merge main into 2 and bootstrap the 2.0.0-alpha.1 release (#724)", skip: release }
+- { commit: f01be4d5c50e, date: 2026-09-24, subject: "chore: release 2.0.0-alpha.1", skip: release }
+- { commit: 8103cd3dbbab, date: 2026-09-25, subject: "feat: add LegacyPatches option for programmatic patches (#720)", entries: [resource-patches] }
+- { commit: cfed6ee2b345, date: 2026-09-25, subject: "chore: clarify sensitive field redaction in v2 docs (#726)", skip: docs }
+- { commit: 4357fa2ba471, date: 2026-09-25, subject: "chore(ci): rescan branch 2 history for the 2.0.0-alpha.1 notes", skip: release }
+- { commit: 778e12cdae3a, date: 2026-09-28, subject: "feat: expose the render context to render patches as jq variables (#727)", entries: [resource-patches] }
+- { commit: 57f1772f2328, date: 2026-09-28, subject: "fix: respect resource-policy skip-delete set on the live resource (#729)", skip: reverted, note: "restores the v1 deploy behavior (live skip-delete/keep) removed by 79ce86ac06de; only the Go API removal of 79ce86ac06de remains (go-api-resource-policy-resolver-removed)" }
+- { commit: 0bbee61e2eef, date: 2026-09-28, subject: "feat: read release history as metadata instead of full bodies (#723)", entries: [release-storage-metadata-reads, go-api-release-chart-accessors] }
+- { commit: 40c15f4e3a8e, date: 2026-09-29, subject: "feat: speed up chart rendering by parsing each manifest once (#730)", entries: [render-performance-single-manifest-parse] }
+- { commit: 9f9884b9da09, date: 2026-09-29, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only (tests)" }
+- { commit: 52826b6fa665, date: 2026-09-29, subject: "chore: update the release builder image and compress release binaries (#731)", entries: [distribution-upx-compressed-binaries] }
+- { commit: 188bc716f1d3, date: 2026-09-30, subject: "chore(2): release 2.0.0-alpha.1", skip: release }
+- { commit: dc8942df5d26, date: 2026-10-01, subject: "Merge remote-tracking branch 'origin/main' into 2", skip: merge, note: "conflict resolution only (tests)" }
+- { commit: 387f78685e1a, date: 2026-10-01, subject: "chore: release 2.0.0-alpha.2", skip: release }
+- { commit: adada9d17020, date: 2026-10-01, subject: "chore(ci): run push checks on branch 2 and relabel release PRs per branch (#738)", skip: ci }
+- { commit: 280ab56f1250, date: 2026-10-01, subject: "Merge branch 'main' into 2", skip: merge, note: "conflict resolution only (CHANGELOG)" }
+- { commit: 026de682ab77, date: 2026-10-01, subject: "chore(release): adopt v2 release-please for main", skip: release }
+- { commit: 87dd3c7efe6a, date: 2026-10-01, subject: "feat: new major 2.0 release (#576)", skip: merge }
+- { commit: a486e730a193, date: 2026-10-01, subject: "chore(ci): run push checks on branch 1 instead of 2 (#740)", skip: ci }
+- { commit: 8a091b36a85c, date: 2026-10-07, subject: "fix: pass root context from --set-root-json to templates (#743)", entries: [helm-v4-engine], note: "fixes a regression of the Helm 4 engine migration (961ca04a485a); v1 passed --set-root-json keys to templates" }
+- { commit: 476d20183e9c, date: 2026-10-07, subject: "fix: preserve release info annotations in release storage (#742)", entries: [helm-v4-engine, chart-api-version-v3], note: "v2-only regression: release info annotations dropped on serialization after the Helm 4 migration; v1 stored them" }
+- { commit: 018c4dbf7404, date: 2026-10-08, subject: "chore(main): release 2.0.0-alpha.2", skip: release }
+- { commit: 1f4e809aad96, date: 2026-10-08, subject: "chore: bump v2 dev channel", skip: release }
+- { commit: 5416f866760c, date: 2026-10-10, subject: "fix: set content cache for the chart downloader", entries: [helm-v4-engine], note: "ContentCache is required only by the Helm 4 downloader; v1 had no such requirement" }
+- { commit: 87e88d4a7089, date: 2026-10-10, subject: "chore(main): release 2.0.1-alpha.2", skip: release }
+- { commit: df53be6f703b, date: 2026-10-10, subject: "chore: bump dev", skip: release }
+- { commit: 9fc1003d96b6, date: 2026-10-12, subject: "feat: own Helm-compatible release storage with streamed reads (#745)", entries: [release-storage-metadata-reads, cli-release-list-label-selector, cli-release-list-output-v2, go-api-release-storage-interface] }
+- { commit: 39a4b70eb956, date: 2026-10-13, subject: "chore: switch to stable release versioning (#750)", skip: release }
+- { commit: 1abada485c7d, date: 2026-10-15, subject: "fix: allow upgrades from legacy delete-dependency annotations (#755)", entries: [dependency-annotations-external-auto, go-api-resource-plan-building-changed], note: "refines v2-only external=auto detection for incomplete saved delete-dependency annotations; also adds ctx to resource.NewDeletableResource" }
+- { commit: f33bf9e689a5, date: 2026-10-16, subject: "feat: expose release labels in the v3 release get result (#753)", entries: [cli-release-get-resource-specs, cli-release-get-deployed-at] }
+- { commit: eff9057778ef, date: 2026-10-16, subject: "feat: read release annotations from storage metadata (#752)", entries: [release-storage-metadata-reads, release-storage-sql-annotations-table] }
+- { commit: 54b0fdd3dc65, date: 2026-10-16, subject: "feat: report legacy progress phases (#751)", entries: [go-api-progress-report-phases] }
+- { commit: 3334f295f18a, date: 2026-10-19, subject: "chore(main): release 2.1.0", skip: release }
+- { commit: 270ebcdde2e6, date: 2026-10-19, subject: "chore: add v2 channels (#757)", skip: release }
+- { commit: 65c01393de40, date: 2026-10-19, subject: "fix: respect `--release-history-limit` with `--use-plan`", entries: [plan-use-plan-release-history-limit, go-api-action-options-removed], note: "bug present in v1.31.3 (plan options overwrote the limit with 0)" }
+- { commit: 30650512b08a, date: 2026-10-20, subject: "fix: respect `--no-pod-logs` with `--use-plan`", entries: [plan-use-plan-no-pod-logs], note: "bug present in v1.31.3" }
+- { commit: 1be691f72e9b, date: 2026-10-20, subject: "chore: upgrade golangci-lint to v2.15.0", skip: internal }
+- { commit: d08c2937f962, date: 2026-10-20, subject: "chore: build with Go 1.26", entries: [go-api-requires-go-1-26, distribution-os-requirements-go-1-26], note: "go.mod go 1.25.0 -> 1.26.0; builds with Go 1.26 (v1.31.3: go 1.23.1, builder Go 1.24.9)" }
+- { commit: fc44780e6b4c, date: 2026-10-20, subject: "chore: update the release builder image to Go 1.26.9", entries: [distribution-os-requirements-go-1-26], note: "release builder image Go 1.26.9" }
+- { commit: d6302bb5f24d, date: 2026-10-20, subject: "feat: install a ChartRender result without rendering the chart again (#762)", entries: [go-api-install-chart-render-result] }
+- { commit: 8524a8d29d66, date: 2026-10-21, subject: "chore: document render and diff patches in README (#763)", skip: docs }
+- { commit: b0b22eb50bca, date: 2026-10-21, subject: "feat: add `--log-width` flag to set the log output width", entries: [cli-log-width-flag] }
+- { commit: 94814d40d334, date: 2026-10-21, subject: "fix: show and apply saved plans that contain a blind apply (#765)", skip: in-old, note: "same subject as 7d1c80c67c12 in v1.31.3" }
+- { commit: 960398f42b4c, date: 2026-10-22, subject: "chore: replace GNU-only `find -printf` in `task lint:golangci-lint` (#768)", skip: internal }
+- { commit: 6f92f53257d2, date: 2026-10-23, subject: "fix: treat incomplete resource dependencies as internal (#769)", entries: [dependency-annotations-external-auto], note: "refines v2-only external=auto detection" }
+- { commit: ddab9eaf24fa, date: 2026-10-23, subject: "chore(main): release 2.2.0", skip: release }
+- { commit: e01a8c18b8db, date: 2026-10-23, subject: "chore: bump channels (#770)", skip: release }
+- { commit: 431777d40f77, date: 2026-10-28, subject: "fix: allow recreating resources with helm.sh/resource-policy (#781)", skip: reverted, note: "reverts d1b62972befb (nelm-1 slice, v2-only: forbid recreation with helm.sh/resource-policy); net no change vs v1.31.3" }
+- { commit: dcb769e6d4d4, date: 2026-10-28, subject: "fix: give secret values their documented precedence (#772)", entries: [values-secret-values-precedence] }
+- { commit: ba2da081b819, date: 2026-10-28, subject: "chore(main): release 2.2.1", skip: release }
+- { commit: 7315127998b9, date: 2026-10-28, subject: "chore: bump alpha (#783)", skip: release }
+- { commit: 12094518068f, date: 2026-10-29, subject: "fix: apply export-values and import-values to --values, --secret-values, --set and service values (#773)", entries: [values-export-import-all-layers] }
+- { commit: f5d94517403e, date: 2026-10-29, subject: "fix: make export-values precedence consistent across all values layers (#774)", entries: [values-export-import-all-layers] }
+- { commit: 35cb144b1f07, date: 2026-10-29, subject: "fix: do not warn about export-values parents set only in user or service values (#775)", entries: [values-export-import-all-layers], note: "removes a false v2-only warning; plus test" }
+- { commit: 109bfb44e86c, date: 2026-10-29, subject: "chore: bump kubedog to fail fast on ReplicaSet pod-create errors (#780)", entries: [tracking-deployment-pod-create-failures] }
+- { commit: 682865e4c90e, date: 2026-10-29, subject: "test: cover typed secret values in values schema validation (#776)", skip: test }
+- { commit: 4f5c2a743933, date: 2026-10-29, subject: "fix: don't wait for absence of PVCs and PVs removed from the chart (#777)", entries: [deploy-removed-pvc-no-absence-wait], note: "bug present in v1.31.3 (MustTrackAbsence: true in StagePrePreUninstall)" }
+- { commit: e71ad32b8e42, date: 2026-10-29, subject: "chore: replace daily validation schemas check with a scheduled update (#778)", entries: [resource-validation-embedded-schemas], note: "scheduled refresh of the embedded schemas; also refreshes the bundled schema data" }
+- { commit: 2d3e5fb3d4b9, date: 2026-10-29, subject: "feat: `werf.io/triggers-release` annotation (#779)", entries: [annotations-triggers-release] }
+- { commit: 7500e9ed1cc9, date: 2026-10-29, subject: "feat: support debug in jq patches (#785)", entries: [resource-patches] }
+- { commit: dc619a265b07, date: 2026-11-03, subject: "chore: bump kubedog to stop leaking informers after tracking (#813)", skip: in-old, note: "same subject as 1db96ad12011 in v1.31.3" }
+- { commit: 01929f935d8f, date: 2026-11-03, subject: "chore(main): release 2.3.0 (#784)", skip: release }
+- { commit: a2b03333550f, date: 2026-11-03, subject: "chore: bump channels (#815)", skip: release }
+- { commit: 8b462a9e2344, date: 2026-11-07, subject: "feat(chart): keep publish-time inputs in .werf-data and deploy them like the original flags (#809)", entries: [charts-werf-data-publish-inputs, cli-chart-pack-native, cli-chart-secret-key-rotate-removed, go-api-secret-key-rotate-removed] }
+- { commit: 47a2d34e7842, date: 2026-11-07, subject: "feat(chart): copy charts with their images between registries and archives (#810)", entries: [cli-chart-copy] }
+- { commit: 50cd8d8bd005, date: 2026-11-07, subject: "feat(chart): pin OCI pulls to one digest, add chart upload and recorded release defaults (#811)", entries: [charts-oci-pull-digest-pinned, cli-chart-upload-native, charts-werf-data-publish-inputs] }
+- { commit: 64a093705c72, date: 2026-11-09, subject: "test: pin werf service values in nested subchart schemas and conditions (#819)", skip: test }
+- { commit: 83c4612a6eca, date: 2026-11-09, subject: "fix: apply export-values from user values to dependency out of version range (#791)", entries: [values-export-import-all-layers], note: "refines v2-only exports from user values to out-of-range dependencies" }
+- { commit: 63f02a069573, date: 2026-11-09, subject: "fix: export root chart globals from export-values of nested charts (#794)", entries: [values-export-values-nested-global], note: "chart-values part was a v1 bug; user-values part refines values-export-import-all-layers" }
+- { commit: 3c2bfb3085e9, date: 2026-11-09, subject: "fix: apply export-values from chart values regardless of dependency order (#804)", entries: [values-export-values-dependency-order], note: "chart-level export order dependence present in v1.31.3" }
+- { commit: ca0491f1cef6, date: 2026-11-09, subject: "fix: warn about export-values and import-values paths set in no values (#806)", entries: [values-export-import-all-layers] }
+- { commit: dad5e16a8d8e, date: 2026-11-09, subject: "chore: auto-close solved discussions after 7 days of inactivity (#820)", skip: ci }
+- { commit: c9e5cd7360fd, date: 2026-11-09, subject: "refactor: share values helpers and sort export-values topologically (#807)", entries: [values-export-values-dependency-order], note: "refactor + fixes the #804 limitation (v2-only) + faster export ordering" }
+- { commit: 1b357544f53f, date: 2026-11-09, subject: "fix: v3 charts import --values and --set* and warn about ignored export-values (#803)", entries: [chart-api-version-v3] }
+- { commit: 1817f8b46aea, date: 2026-11-09, subject: "fix: apply secret-values.yaml of v3 and undeclared subcharts (#795)", entries: [secrets-subchart-secret-values-undeclared, chart-api-version-v3] }
+- { commit: 77de34a84df6, date: 2026-11-09, subject: "fix: restore WERF_SECRET_KEY after actions instead of leaking it into the process (#788)", entries: [go-api-secret-key-env-restored], note: "bug present in v1.31.3 (os.Setenv WERF_SECRET_KEY in actions)" }
+- { commit: 30c6dfb41b96, date: 2026-11-09, subject: "fix: mark revisions left pending by an interrupted deploy as failed (#798)", entries: [release-pending-revisions-marked-failed, go-api-release-chart-accessors] }
+- { commit: 9a28575ad253, date: 2026-11-10, subject: "feat: warn about secret values that lost their type in the legacy format (#796)", entries: [secrets-warn-legacy-untyped-values] }
+- { commit: 98d48dbbadbb, date: 2026-11-10, subject: "fix: delete resources of the last deployed revision after a pending or failed revision (#792)", entries: [deploy-delete-resources-after-pending-revision], note: "bug present in v1.31.3 (deletions computed from the last revision only)" }
+- { commit: df6a7e09dca6, date: 2026-11-10, subject: "fix: skip no-op deploy of a chart with an internal state=ready deploy-dependency (#789)", entries: [deploy-skip-unchanged-with-ready-dependency], note: "forceReadinessTrackingForReadyDependencyTargets in v1.31.3 has the bug" }
+- { commit: cfdde29984fb, date: 2026-11-10, subject: "fix(helm): confirm Unknown resources with a live GET in WaitForDelete (#793)", skip: internal, note: "port of helm/helm#32608 to statusWaiter, which Nelm code does not call (only fork unit tests)" }
+- { commit: aae38de59683, date: 2026-11-10, subject: "fix: release with numeric --set values never skipped as up to date (#786)", entries: [deploy-numeric-set-values-up-to-date], note: "bug present in v1.31.3 (cmp.Equal of int64 vs float64)" }
+- { commit: b4c9403b50fc, date: 2026-11-10, subject: "fix: warn when a resource being deployed is already being deleted (#790)", entries: [deploy-warn-terminating-resource] }
+- { commit: ae91bc5052a5, date: 2026-11-10, subject: "fix: lookalike keys such as `werf-io/weight` no longer act as `werf.io/*` and `helm.sh/*` annotations (#799)", entries: [annotations-lookalike-keys-ignored], note: "unescaped patterns present in v1.31.3 pkg/common/common.go" }
+- { commit: 9f1200cfc669, date: 2026-11-10, subject: "fix: route values and dependency messages of the Helm fork through the Nelm logger (#805)", entries: [logging-helm-fork-messages-nelm-logger] }
+- { commit: 78660276c3de, date: 2026-11-10, subject: "fix: apply .werf-data of a published dependency that is out of the version range of its alias (#823)", entries: [charts-werf-data-publish-inputs], note: "fixes the v2-only .werf-data feature" }
+- { commit: e2464b442824, date: 2026-11-10, subject: "fix: warn on chart pack about skipped export-values and import-values (#821)", entries: [cli-chart-pack-native] }
+- { commit: 158f94a9021c, date: 2026-11-10, subject: "test: pin that all set values form one layer for export-values and import-values (#822)", skip: test }
+- { commit: 97e08fbe73ee, date: 2026-11-10, subject: "test: keep schema tests passing once Kubernetes 1.34 leaves the schema window (#787)", skip: test }
+- { commit: beb410692c30, date: 2026-11-10, subject: "chore: schema tooling follow-ups: run scripts tests in CI, retry scheduled push (#802)", skip: ci }
+- { commit: 6342dd9547ac, date: 2026-11-10, subject: "chore: deprecate the Helm fork's chart linter and ProcessDependencies (#800)", entries: [go-api-helm-fork-lint-process-dependencies-deprecated] }
+- { commit: 394d3a8d15d7, date: 2026-11-10, subject: "test: pin that a same-layer export keeps lower user layers under a dependency null (#801)", skip: test }
+- { commit: f9dcbe392e09, date: 2026-11-10, subject: "chore: update README for Nelm v2 (#797)", skip: docs }

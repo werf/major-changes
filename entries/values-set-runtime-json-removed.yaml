@@ -1,0 +1,12 @@
+id: values-set-runtime-json-removed
+title: The `--set-runtime-json` option and `$.Runtime` are removed
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [values, cli]
+description: |
+  Before: `--set-runtime-json` (`$NELM_SET_RUNTIME_JSON`, werf: `$WERF_SET_RUNTIME_JSON`) set keys under `$.Runtime`, available in chart templates.
+  Now: the option is removed and `$.Runtime` is no longer populated in templates.
+migration: |
+  Pass the data as values with `--set-json` and read it from `.Values` in templates. Remove `--set-runtime-json` from scripts: an unknown flag fails argument parsing.

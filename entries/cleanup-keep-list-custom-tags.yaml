@@ -1,0 +1,10 @@
+id: cleanup-keep-list-custom-tags
+title: "`werf cleanup --keep-list` accepts custom tags"
+type: feature
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [cleanup]
+description: |
+  Before: `--keep-list` lines were matched only against stage tags (`DIGEST-TIMESTAMP`); a custom tag added with `--add-custom-tag` (e.g. `main`, `pr42`) in the list protected nothing.
+  Now: a line equal to a custom tag protects the stage the tag points to (reason `keep list` in the cleanup report) and the custom tag itself. A custom tag whose stage no longer exists protects nothing. Stage-tag lines behave as before.

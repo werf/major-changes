@@ -1,0 +1,10 @@
+id: cli-command-env-var-overrides-global
+title: A command-specific environment variable always overrides the global one for the same option
+type: fix
+breaking: false
+products: [nelm]
+domain: general
+areas: [cli]
+description: |
+  Before: when both the global and the command-specific environment variable of a single-value option were set, e.g. `NELM_AUTO_ROLLBACK` and `NELM_RELEASE_INSTALL_AUTO_ROLLBACK`, which of them took effect was random from run to run.
+  Now: the command-specific variable (`NELM_<COMMAND>_<OPTION>`) always wins over the global one (`NELM_<OPTION>`), as documented. Command-line flags still override both.

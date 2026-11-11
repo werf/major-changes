@@ -1,0 +1,10 @@
+id: build-staged-dockerfile-copy-parents-exclude
+title: "Staged Dockerfile builds honor `COPY --parents` and `COPY`/`ADD --exclude`"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [dockerfile, buildah]
+description: |
+  Before: in Dockerfile images with `staged: true` (Buildah backend), `COPY --parents` was silently ignored and sources were flattened into the destination, and `COPY --exclude`/`ADD --exclude` were ignored, so excluded files ended up in the image.
+  Now: `--parents` preserves the source directory structure under the destination (also for a single file source, for example `COPY --parents ./src/./bin/app /dst` creates `/dst/bin/app`), and `--exclude` patterns are applied. Non-staged builds already behaved this way.

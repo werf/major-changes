@@ -1,0 +1,13 @@
+id: logging-color-mode-auto-detected
+title: "werf detects colored output itself: ci-env no longer exports `WERF_LOG_COLOR_MODE`, and render commands honor `--log-color-mode`"
+type: change
+breaking: true
+products: [werf]
+domain: general
+areas: [logging, ci-env]
+description: |
+  Before: `werf ci-env gitlab` and `werf ci-env github` exported `WERF_LOG_COLOR_MODE=on` (`off` for GitLab 12.1.4–12.1.x) to force colors in CI, and `werf render` and `werf bundle render` always printed manifests without colors, ignoring `--log-color-mode`.
+  Now: `werf ci-env` no longer exports `WERF_LOG_COLOR_MODE`; with the default `--log-color-mode=auto` werf uses the Nelm color detection, which enables colors in GitLab CI and GitHub Actions and disables them for machine-readable output. `werf render` and `werf bundle render` honor `--log-color-mode`: `on` colors the rendered manifests, `auto` keeps them uncolored in CI.
+migration: |
+  No action needed in most cases. Set `WERF_LOG_COLOR_MODE=on` or `off` explicitly if your CI relied on the value exported by `werf ci-env`.
+  If the output of `werf render` or `werf bundle render` goes to a file, `kubectl` or a YAML parser, make sure the color mode is not forced to `on` there: remove an inherited `WERF_LOG_COLOR_MODE=on` or `--log-color-mode=on`, or pass `--log-color-mode=off`, otherwise the manifests contain ANSI color codes.

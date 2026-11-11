@@ -1,0 +1,11 @@
+id: typescript-deno-embedded
+title: Release binaries embed the Deno runtime for TypeScript charts, pinned to Deno 2.9.4 with checksums in the repository
+type: change
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [typescript, distribution]
+description: |
+  Before: rendering TypeScript charts downloaded Deno 2.7.1 from GitHub on first use (into the user cache), verifying it only against the `.sha256sum` file fetched from the same host. A `windows/arm64` download target was also attempted.
+  Now: official `nelm` and `werf` release binaries for `linux/amd64`, `linux/arm64`, `darwin/amd64`, `darwin/arm64` and `windows/amd64` include the Deno binary, which is unpacked into the cache on first use, so TypeScript charts render without network access to GitHub. Binaries built without embedding still download Deno, now verified against archive and binary SHA-256 digests pinned in the source. The Deno version is 2.9.4. `windows/arm64` is not supported. An explicit Deno binary path (`--deno-binary-path`) still takes precedence; `werf chart ts init` now accepts `--deno-binary-path` (`$WERF_DENO_BINARY_PATH`) too. In werf, `werf helm package` does not use the embedded Deno and still downloads it for TypeScript subcharts.
+  Go API: an embedder can pass a gzipped Deno binary in `common.TypeScriptOptions.EmbeddedDenoCompressed` (set in the context with `ts.NewContextWithTSOptions`); it is used instead of the Deno embedded in the Nelm build and must be the Deno release pinned by Nelm for the platform: Nelm verifies it against its own pinned SHA-256 digest.

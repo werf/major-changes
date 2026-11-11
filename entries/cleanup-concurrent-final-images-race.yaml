@@ -1,0 +1,10 @@
+id: cleanup-concurrent-final-images-race
+title: "`werf cleanup` no longer deletes final images published by a concurrent build"
+type: fix
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [cleanup]
+description: |
+  Before: with `--final-repo`, `werf cleanup` running concurrently with a build could read the primary repository before the build published a stage and the final repository after it published the final copy, treat the new final image as an orphan and delete it.
+  Now: cleanup lists the final repository before the managed images, metadata and primary repository, so images published during cleanup are not deleted as orphans.

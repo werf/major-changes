@@ -1,0 +1,12 @@
+id: deploy-delete-propagation-background
+title: Resources are deleted with Background propagation by default
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [resources, uninstall]
+description: |
+  Before: resources were deleted with `Foreground` propagation: deletion of a resource (e.g. a Deployment) finished only after its dependents (ReplicaSets, Pods) were gone.
+  Now: the default is `Background`: the resource is deleted immediately and its dependents are garbage-collected afterwards, so subsequent steps no longer wait for them. This applies to deletion during install, rollback and uninstall, and to recreation of resources.
+migration: |
+  If a later step depends on dependents being gone, set the `werf.io/delete-propagation: Foreground` annotation on the resource, or pass `--delete-propagation=Foreground` (`NELM_DELETE_PROPAGATION` / `WERF_DELETE_PROPAGATION`).

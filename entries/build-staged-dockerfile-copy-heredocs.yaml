@@ -1,0 +1,12 @@
+id: build-staged-dockerfile-copy-heredocs
+title: "`COPY` and `ADD` heredocs work in Dockerfile images with `staged: true`"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [dockerfile]
+description: |
+  Before: with `staged: true`, `COPY <<EOF /dst` failed with `heredoc is not supported with COPY command`, and forms such as `COPY --chmod=755 <<EOF /dst` or `COPY <<A <<B /dst/` failed with `unable to calculate build context globs checksum`.
+  Now: such Dockerfiles build and produce the same files as `docker build`.
+refs:
+  - https://github.com/werf/werf/issues/6521

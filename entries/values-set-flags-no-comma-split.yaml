@@ -1,0 +1,10 @@
+id: values-set-flags-no-comma-split
+title: "`--set`, `--set-file` and `--set-string` values containing commas are parsed as in Helm"
+type: fix
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [values, cli]
+description: |
+  Before: the Nelm CLI split the values of `--set`, `--set-file` and `--set-string` (and their `NELM_*` environment variables) on every comma before parsing them, so values with lists or escaped commas, e.g. `--set 'list={a,b}'` or `--set 'key=a\,b'`, were broken into separate invalid assignments.
+  Now: each flag value is passed as a whole to the Helm parser, which handles `a=1,b=2`, `{a,b}` lists and `\,` escapes the same way as `helm --set`.

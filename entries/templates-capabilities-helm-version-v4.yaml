@@ -1,0 +1,12 @@
+id: templates-capabilities-helm-version-v4
+title: "`.Capabilities.HelmVersion` reports Helm 4"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [templates, render]
+description: |
+  Before: `.Capabilities.HelmVersion.Version` was `v3.14` (the Helm 3 version the embedded fork was based on).
+  Now: it is the Helm 4 version the embedded fork is based on (`v4.2` at the time of writing). Templates that compare `.Capabilities.HelmVersion` (e.g. `semverCompare "<4.0.0"` or `hasPrefix "v3"`) take a different branch.
+migration: |
+  Check templates that branch on `.Capabilities.HelmVersion` and make them accept Helm 4 versions.

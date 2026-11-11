@@ -1,0 +1,10 @@
+id: host-cleanup-auto-custom-home-tmp-dir
+title: "Automatic host cleanup honors custom `--home-dir` and `--tmp-dir`"
+type: fix
+breaking: false
+products: [werf]
+domain: cleanup
+areas: [host-cleanup]
+description: |
+  Before: with `--home-dir`/`--tmp-dir` set on the command line, werf started the background automatic host cleanup with `WERF_HOME`/`WERF_TMP_DIR` set to a Go pointer value (e.g. `0xc000123456`) instead of the path, so the cleanup worked on the wrong directories and the custom ones were not cleaned automatically.
+  Now: the actual paths are passed to the background cleanup.

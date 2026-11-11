@@ -1,0 +1,14 @@
+id: build-trailing-slash-in-to-error
+title: "A trailing slash in `to:` of `git` and `import` is a configuration error"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config, validation]
+description: |
+  Before: a `to:` path with a trailing slash (for example, `to: /usr/sbin/`) in a Stapel `git` mapping or `import` only printed a warning, and werf treated it as `to: /usr/sbin`, copying the source itself to that path rather than into the directory.
+  Now: such a path is a configuration error. `to: /` is still allowed.
+migration: |
+  Remove the trailing slash, checking the intended destination: if `add` is a directory, its contents are merged into `to`; if `add` is a file, it is copied into `to` when `to` is an existing directory, otherwise `to` is the file's path. To avoid ambiguity, specify the full destination file name.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#file-imports

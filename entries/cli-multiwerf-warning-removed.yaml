@@ -1,0 +1,10 @@
+id: cli-multiwerf-warning-removed
+title: "werf no longer checks for an outdated multiwerf"
+type: change
+breaking: false
+products: [werf]
+domain: general
+areas: [cli, distribution]
+description: |
+  Before: `werf build`, `converge`, `plan`, `lint`, `render`, `run`, `kube-run`, `rollback` and the `bundle` commands ran `multiwerf version` when `multiwerf` was in `PATH` and printed a warning recommending to switch to trdl if it was older than 1.5.0 or its version could not be detected.
+  Now: werf does not look for multiwerf and prints no such warning. multiwerf is not supported; install werf with trdl.

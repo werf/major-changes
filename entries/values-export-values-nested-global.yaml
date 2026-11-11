@@ -1,0 +1,10 @@
+id: values-export-values-nested-global
+title: "`export-values` of `global.*` declared in a nested chart read the root chart's globals"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [values, dependencies]
+description: |
+  Before: an `export-values` entry with `parent: global.X` declared in an intermediate chart (root → mid → leaf, the export in `mid/Chart.yaml`) read only mid's own `global`, so `--set global.X=...`, `global` in the root `values.yaml` and service values such as `global.werf.images.*` were ignored, and mid's `values.yaml` `global` won over `--set global...`.
+  Now: such exports read the root chart's `global` merged over the globals of the charts in between, the same way Helm propagates globals to subcharts: the higher chart wins, maps are merged, and between values layers the higher layer still wins.

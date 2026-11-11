@@ -1,0 +1,9 @@
+id: go-api-install-chart-render-result
+title: "`ReleaseInstall` can install the result of a previous `ChartRender` without rendering again"
+type: feature
+breaking: false
+products: [nelm]
+domain: go-api
+areas: [go-api, render]
+description: |
+  New: `action.ReleaseInstallOptions.LegacyChartRenderResult` accepts the result of an earlier `action.ChartRender` call. The chart is then not loaded or rendered again and render patches are not reapplied, so exactly the rendered manifests are installed (e.g. after checksumming them to decide whether to install). Render-stage options of `ReleaseInstall` (chart, values, `ExtraAnnotations`/`ExtraLabels`, render patches, etc.) are ignored; install-stage options (diff patches, runtime metadata, release labels, tracking) still apply. `ReleaseInstall` fails with `chart render result release mismatch`, `chart render result release revision mismatch` or `chart render result deploy type mismatch` if the render was made for another release, revision or deploy type. Unset by default.

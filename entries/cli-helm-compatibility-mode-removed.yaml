@@ -1,0 +1,12 @@
+id: cli-helm-compatibility-mode-removed
+title: "The werf binary no longer acts as Helm when invoked as `helm` or with `WERF_HELM3_MODE=1`"
+type: removal
+breaking: true
+products: [werf]
+domain: general
+areas: [cli]
+description: |
+  Before: when the werf binary was invoked under the name `helm` (for example through a symlink `helm -> werf`) or with `WERF_HELM3_MODE=1`, it ran the `werf helm` command tree as the root command, so `helm install ...` worked as `werf helm install ...`.
+  Now: the binary always starts as `werf`; the file name and `WERF_HELM3_MODE` are ignored.
+migration: |
+  Remove `helm -> werf` symlinks and `WERF_HELM3_MODE`. Use the upstream Helm CLI or Nelm where a `helm` binary is expected, and call `werf helm <subcommand>` explicitly for the subcommands werf still provides.

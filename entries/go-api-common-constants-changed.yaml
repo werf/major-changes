@@ -1,0 +1,15 @@
+id: go-api-common-constants-changed
+title: "`common` drops the keys of removed dependency annotations and changes `DefaultDeletePropagation` and `DefaultLocalKubeVersion`"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, annotations]
+description: |
+  Before: `pkg/common` exported the keys of the legacy dependency annotations, `DefaultDeletePropagation` was `Foreground` and `DefaultLocalKubeVersion` was `"1.20.0"`.
+  Now:
+  - `AnnotationKeyHumanDependency`/`AnnotationKeyPatternDependency` (`<name>.dependency.werf.io`), `AnnotationKeyHumanExternalDependency`/`AnnotationKeyPatternExternalDependency` (`<name>.external-dependency.werf.io`), `AnnotationKeyHumanLegacyExternalDependencyResource`/`AnnotationKeyPatternLegacyExternalDependencyResource` (`<name>.external-dependency.werf.io/resource`) and `AnnotationKeyHumanLegacyExternalDependencyNamespace`/`AnnotationKeyPatternLegacyExternalDependencyNamespace` (`<name>.external-dependency.werf.io/namespace`) are removed, as the annotations are no longer supported (see `annotations-legacy-dependency-werf-io-removed` and `annotations-external-dependency-removed`).
+  - `DefaultDeletePropagation` is `metav1.DeletePropagationBackground` (see `deploy-delete-propagation-background`).
+  - `DefaultLocalKubeVersion` is `"1.36.0"` (see `render-default-kube-version-1-36`).
+migration: |
+  Use `AnnotationKeyHumanDeployDependency`/`AnnotationKeyPatternDeployDependency` and `AnnotationKeyHumanDeleteDependency`/`AnnotationKeyPatternDeleteDependency` (`werf.io/deploy-dependency-<name>`, `werf.io/delete-dependency-<name>`) instead of the removed annotation keys. Code that relied on the old defaults through these constants must pass `Foreground` (`ReleaseInstallRuntimeOptions.DefaultDeletePropagation` and the `DefaultDeletePropagation` fields of the action options) or `1.20.0` (`ChartRenderOptions.LocalKubeVersion`, `ChartLintOptions.LocalKubeVersion`) explicitly.

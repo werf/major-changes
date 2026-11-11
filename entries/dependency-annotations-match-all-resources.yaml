@@ -1,0 +1,10 @@
+id: dependency-annotations-match-all-resources
+title: Deploy and delete dependency annotations wait for every matching resource
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [annotations, plan]
+description: |
+  Before: when a `werf.io/deploy-dependency-<id>` or `werf.io/delete-dependency-<id>` annotation matched several resources of the release (e.g. no `name` given), the annotated resource waited for only one of them, picked arbitrarily.
+  Now: it waits for all matching resources to be present, ready or absent, as the annotation requires.

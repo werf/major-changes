@@ -1,0 +1,13 @@
+id: cli-release-list-output-v2
+title: "`release list` structured output has `apiVersion: v2`"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, go-api]
+description: |
+  Before: the JSON/YAML output of the native `nelm release list` (opt-in in Nelm v1 with `NELM_FEAT_NATIVE_RELEASE_LIST=true` or `NELM_FEAT_PREVIEW_V2=true`; by default `release list` was the Helm `list` command, see `cli-release-list-native`) had `"apiVersion": "v1"`; an empty list could be printed as `null`.
+  Now: the output has `"apiVersion": "v2"` and an empty list is printed as `"releases": []`; the shape of the release elements is unchanged. A release whose latest revision can't be decoded is listed with `null` details. `--network-parallelism` is accepted but no longer used by `release list`.
+  Go API: `action.ReleaseList` returns `*ReleaseListResultV2` instead of `*ReleaseListResultV1`. `ReleaseListResultRelease` exposes `Annotations(ctx)`, `Chart(ctx)` and `DeployedAt(ctx)` getters instead of the `Annotations`, `Chart` and `DeployedAt` fields; with `ReleaseListOptions.LegacyMetadataOnly` and `OutputNoPrint`, the release body is read on the first getter call.
+migration: |
+  Update scripts that check `.apiVersion` of the native `release list` output to accept `v2`. Go API callers: use `*ReleaseListResultV2` and the getters instead of the fields.

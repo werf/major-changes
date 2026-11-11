@@ -1,0 +1,14 @@
+id: build-import-stage-removed
+title: "`import.stage` is removed; imports always copy from the completed source image"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config]
+description: |
+  Before: `import.stage` (`beforeInstall`, `install`, `beforeSetup` or `setup`) selected the stage of the source image to copy files from.
+  Now: the `stage` key of an import is not supported and is a configuration error; files are always copied from the completed source image. `before`/`after` still control when the import runs in the destination image.
+migration: |
+  Remove `stage` from every `import` entry. If you need an intermediate result, make it a separate image (`final: false`) and import from it.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#file-imports

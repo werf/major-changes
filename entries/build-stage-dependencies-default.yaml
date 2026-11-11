@@ -1,0 +1,14 @@
+id: build-stage-dependencies-default
+title: "Omitted `git.stageDependencies` default to `**/*`, so changes of Git files rerun Shell stages"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, git, cache]
+description: |
+  Before: when `git.stageDependencies` was absent (or `{}`) for a git mapping, changes of the mapped files alone never reran `install`, `beforeSetup` or `setup`; every omitted stage had no Git-file dependency.
+  Now: an absent or empty `stageDependencies` block gives all three stages `**/*`: any change of a file added by the git mapping (respecting `includePaths`/`excludePaths`) reruns the first configured Shell stage and the following ones, like `COPY` before `RUN` in a Dockerfile. In a partially filled block, omitted stages before the last explicitly declared stage (in the order `install` → `beforeSetup` → `setup`) get `[]`, and those after it get `**/*`. An explicit `[]` still means no Git-file dependency.
+migration: |
+  Expect additional rebuilds. To keep a stage free of direct Git-file dependencies, set it to `[]` explicitly; to depend only on some files, list their masks.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#git-dependencies-of-build-stages

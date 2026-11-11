@@ -1,0 +1,12 @@
+id: build-base-image-id-label-removed
+title: "Built images no longer carry the `werf.io/base-image-id` label"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [images, cleanup]
+description: |
+  Before: werf labeled every built stage with `werf.io/base-image-id` (the ID of the image it was built on), and `werf cleanup` used this label as an extra fallback to protect ancestors of kept stages.
+  Now: the label is no longer set or read. Ancestor tracking and cleanup protection rely on the `werf.io/parent-stage-id` label only.
+migration: |
+  If your tooling reads `werf.io/base-image-id` from images, switch to `werf.io/parent-stage-id`.

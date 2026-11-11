@@ -1,0 +1,17 @@
+id: resource-patches
+title: "Render and diff patches modify rendered resources and drift detection with jq"
+type: feature
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [patches, render]
+description: |
+  New: rendered resources can be patched with jq programs, from `patches.yaml` in the root of the chart and its subcharts (read automatically) and from files passed with `--patches`. Two kinds of patches:
+  - `renderPatches` modify resources after rendering and before deploy, like Helm's `--post-renderer`, e.g. to change what a third-party subchart doesn't let you configure. A render patch can't change `apiVersion`, `kind`, `name` or `namespace`, and can read `$Values`, `$Release`, `$Chart` and `$Capabilities` — the same data the templates of the chart that ships `patches.yaml` see (the top-level chart for `--patches` files).
+  - `diffPatches` don't change what is deployed: they are applied to both the live and the to-be version of a resource when deciding whether to update it, so changes in the patched fields are ignored.
+  Each rule has a `match` (kinds, groups, versions, names, namespaces, labels, annotations, `charts`; `/.../` values are regular expressions) and a `patch`. `patches.yaml` applies only to resources of its chart and subcharts; `--patches` files apply to all resources. Patches are applied in order, each to the result of the previous one: subcharts, then the parent chart, then `--patches` files. `release rollback` and `release uninstall` apply only diff patches. jq `debug` and `debug(msg)` print to the log at `--log-level debug` or `trace`, naming the patch rule and resource.
+  `--no-default-patches` ignores `patches.yaml` of all charts.
+  Go API: `LegacyPatches` (`spec.Patches`) on render, lint, install, plan install, rollback and uninstall options passes rules programmatically, applied after `PatchesFiles`.
+  In werf, `werf converge`, `werf plan`, `werf render`, `werf lint`, `werf rollback`, `werf dismiss`, `werf bundle apply`, `werf bundle plan` and `werf bundle render` accept `--patches` (`$WERF_PATCHES`, `$WERF_PATCHES_*`) and `--no-default-patches` (`$WERF_NO_DEFAULT_PATCHES`).
+migration: |
+  A `patches.yaml` file in the root of a chart or subchart is now read automatically. If your chart has a file with this name that serves another purpose, rename it or pass `--no-default-patches` (`WERF_NO_DEFAULT_PATCHES=true` in werf); otherwise it may change manifests or fail the deploy.

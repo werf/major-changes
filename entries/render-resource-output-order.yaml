@@ -1,0 +1,12 @@
+id: render-resource-output-order
+title: Rendered manifests are ordered CRDs first, then all other resources by kind and name
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [render]
+description: |
+  Before: `nelm chart render`, `werf render` and `werf bundle render` printed standalone CRDs (from `crds/`) first, then all `helm.sh/hook` resources, then the regular resources, each group sorted by kind, group, version, namespace and name.
+  Now: all CRDs (from `crds/`, templates or hooks) come first, then all other resources, hooks and regular resources together, sorted by kind, group, version, namespace and name. The set of rendered resources and their content are unchanged.
+migration: |
+  If a script relies on the position of hooks in the render output (e.g. compares it with a saved copy), regenerate the saved copy or select resources by their annotations instead of their position.

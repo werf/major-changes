@@ -1,0 +1,12 @@
+id: render-force-adoption-removed
+title: The no-op `--force-adoption` option is removed from render commands
+type: removal
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [render, cli]
+description: |
+  Before: `nelm chart render`, `werf render` and `werf bundle render` accepted `--force-adoption` (`$NELM_FORCE_ADOPTION`, `$NELM_CHART_RENDER_FORCE_ADOPTION`, `$WERF_FORCE_ADOPTION`), which had no effect there.
+  Now: the option is removed from these commands. Install, plan and rollback commands keep it.
+migration: |
+  Remove `--force-adoption` from render invocations: an unknown flag fails argument parsing.

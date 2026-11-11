@@ -1,0 +1,12 @@
+id: go-api-logging-setup-in-action
+title: "Logging setup is `action.SetupLogging`, and `action.SetupColorLevel` configures colors alone"
+type: change
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, logging]
+description: |
+  Before: logging was set up with `log.SetupLogging(ctx, logLevel, log.SetupLoggingOptions{ColorMode, LogIsParseable})` from `pkg/log`.
+  Now: it is `action.SetupLogging(ctx, logLevel log.Level, action.SetupLoggingOptions{...})` in `pkg/action`, with the same `ColorMode` and `LogIsParseable` fields and a new `LogWidth`; `log.SetupLogging` and `log.SetupLoggingOptions` are removed. New `action.SetupColorLevel(opts action.SetupLoggingOptions)` sets only the color level from `ColorMode` and `LogIsParseable`, without resetting the loggers.
+migration: |
+  Replace `log.SetupLogging` and `log.SetupLoggingOptions` with `action.SetupLogging` and `action.SetupLoggingOptions`.

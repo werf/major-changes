@@ -1,0 +1,12 @@
+id: compose-docker-compose-bin-path-removed
+title: "`--docker-compose-bin-path` is removed from `werf compose` commands"
+type: removal
+breaking: true
+products: [werf]
+domain: general
+areas: [compose, cli]
+description: |
+  Before: `werf compose` commands accepted `--docker-compose-bin-path` (`$WERF_DOCKER_COMPOSE_BIN_PATH`), deprecated and ignored because `docker compose` is always used.
+  Now: the flag is removed; passing it is an argument parsing error. `$WERF_DOCKER_COMPOSE_BIN_PATH` is ignored.
+migration: |
+  Remove `--docker-compose-bin-path` from `werf compose` invocations.

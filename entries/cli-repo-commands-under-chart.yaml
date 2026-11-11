@@ -1,0 +1,12 @@
+id: cli-repo-commands-under-chart
+title: "`nelm repo` commands move to `nelm chart repo`"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, charts]
+description: |
+  Before: chart repository commands were at the top level: `nelm repo add`, `nelm repo remove`, `nelm repo update`, `nelm repo login`, `nelm repo logout`.
+  Now: they are `nelm chart repo add`, `nelm chart repo remove`, `nelm chart repo update`, `nelm chart repo login`, `nelm chart repo logout`. `nelm repo` no longer exists.
+migration: |
+  Replace `nelm repo <subcommand>` with `nelm chart repo <subcommand>` in scripts. Some flags of these commands are removed or added with Helm 4: see the separate entries on repository flags (`--no-update` and `--fail-on-repo-update-fail` are removed; `--timeout`, `--plain-http`, `--color`/`--colour` and `--content-cache` are added).

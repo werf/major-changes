@@ -1,0 +1,14 @@
+id: stapel-ansible-builder-removed
+title: "The Ansible builder is removed from Stapel"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config]
+description: |
+  Before: Stapel images could describe build instructions with the `ansible` directive (`ansible.beforeInstall`, `ansible.install`, `ansible.beforeSetup`, `ansible.setup`, `ansible.cacheVersion`, ...), and `WERF_DEBUG_ANSIBLE_ARGS` passed extra arguments to Ansible.
+  Now: only the Shell builder (`shell`) remains. The `ansible` key in `werf.yaml` is a configuration error, `WERF_DEBUG_ANSIBLE_ARGS` is ignored, and the Stapel container no longer ships Ansible.
+migration: |
+  Rewrite `ansible:` steps as `shell:` commands (renaming the key is not enough: Ansible modules have to be replaced with equivalent shell commands), or move the image to a Dockerfile.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#builders-and-image-configuration

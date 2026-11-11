@@ -1,0 +1,10 @@
+id: values-schema-validation-disable-option
+title: "`--no-values-schema-validation` disables validation of values against `values.schema.json`"
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [values, validation, cli]
+description: |
+  Before: values were always validated against the chart's `values.schema.json`; there was no way to skip it.
+  Now: `--no-values-schema-validation` (`$NELM_NO_VALUES_SCHEMA_VALIDATION`; werf: `$WERF_NO_VALUES_SCHEMA_VALIDATION`) skips this validation in `nelm chart render`, `nelm chart lint`, `nelm release install`, `nelm release plan install`, `nelm release rollback` and the corresponding werf deploy, render and lint commands. The Go API has `NoValuesSchemaValidation` in the action options.

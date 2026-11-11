@@ -1,0 +1,12 @@
+id: cli-chart-upload-native
+title: "`nelm chart upload` is a native Nelm command with `--tag` and an image tag guard"
+type: change
+breaking: true
+products: [nelm]
+domain: deploy
+areas: [cli, charts, oci]
+description: |
+  Before: `nelm chart upload [archive] [remote]` wrapped Helm's `push` with its flags (`--ca-file`, `--cert-file`, `--key-file`, `--insecure-skip-tls-verify`, `--plain-http`, `--registry-config`, `--repository-config`, `--repository-cache`, the kube connection flags).
+  Now: `nelm chart upload chart-archive remote` (Go API: `action.ChartUpload`) is a native Nelm command with `NELM_*` environment variables only: the chart repository flags (`--chart-repo-ca`, `--chart-repo-cert`, `--chart-repo-key`, `--chart-repo-basic-username`, `--chart-repo-basic-password`, `--insecure-chart-repos`, `--no-verify-chart-repos-tls`, ...) and the repeatable `--tag`. It pushes to `<remote>/<chart name>` under the chart version (`+` as `_`) and the extra tags, with `<archive>.prov` when present, and refuses, before pushing, a tag equal to the tag of an image listed in `helm.sh/images` in the same repository. Loopback registries (`localhost`, `127.0.0.0/8`, `::1`) are reached over plain HTTP unless TLS options are given.
+migration: |
+  Replace the Helm `push` flags: `--ca-file` → `--chart-repo-ca`, `--cert-file` → `--chart-repo-cert`, `--key-file` → `--chart-repo-key`, `--insecure-skip-tls-verify` → `--no-verify-chart-repos-tls`, `--plain-http` → `--insecure-chart-repos`; drop the kube connection and Helm registry/repository config flags; registry credentials can be passed with `--oci-chart-repos-creds`.

@@ -1,0 +1,9 @@
+id: cli-log-width-flag
+title: "`--log-width` sets the width of the log output"
+type: feature
+breaking: false
+products: [nelm]
+domain: general
+areas: [cli, logging]
+description: |
+  New: the native `nelm` commands (`release`, `chart` and `version` commands; not the Helm-based `chart download`, `chart dependency download|update` and `chart repo` commands) accept `--log-width <columns>` (`$NELM_LOG_WIDTH`, or the command-specific variable such as `$NELM_RELEASE_INSTALL_LOG_WIDTH`; default `0`, detect automatically). Without a terminal the width falls back to 140 columns; the flag lets CI logs be wider. Go API: `action.SetupLoggingOptions.LogWidth`.

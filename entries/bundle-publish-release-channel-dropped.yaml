@@ -1,0 +1,12 @@
+id: bundle-publish-release-channel-dropped
+title: "werf bundle publish no longer stores the `werf.io/release-channel` annotation in the bundle"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [bundles, annotations]
+description: |
+  Before: `werf bundle publish` saved the `werf.io/release-channel` annotation of the publishing werf (from `--add-annotation werf.io/release-channel=...`, which `werf ci-env` exports as `WERF_ADD_ANNOTATION_WERF_RELEASE_CHANNEL` from `TRDL_USE_WERF_GROUP_CHANNEL`) into the bundle's extra annotations, and every resource deployed from the bundle got it.
+  Now: `werf bundle publish` drops `werf.io/release-channel` silently. Resources deployed with `werf bundle apply` get the annotation only if the applying werf is given one (`--add-annotation` or `WERF_ADD_ANNOTATION_*`, e.g. from `werf ci-env`). Bundles published by earlier werf versions still carry the stored channel. Other annotations are unaffected.
+migration: |
+  If you select or report on `werf.io/release-channel` of bundle-deployed resources, pass `--add-annotation werf.io/release-channel=<channel>` to `werf bundle apply` (or run it after `werf ci-env`).

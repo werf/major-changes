@@ -1,0 +1,10 @@
+id: build-git-file-mode-in-checksum
+title: "Changing only the mode or the path of a Git file (for example, the executable bit or a rename) triggers a rebuild"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [git, cache]
+description: |
+  Before: checksums of Git files used for `git.stageDependencies` and for the build context of Dockerfile images took only file contents into account, so a mode-only change such as `chmod +x`, or renaming a file without changing its contents, did not rerun dependent stages or rebuild the image.
+  Now: the file mode and the file path are part of the checksum, and such changes are detected.

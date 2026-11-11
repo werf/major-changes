@@ -1,0 +1,10 @@
+id: tracking-progress-printer-start-stop-race
+title: Stopping progress output right after it starts no longer races
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [tracking, logging]
+description: |
+  Before: the periodic progress tables printed during deploy, rollback and uninstall were initialized inside a background goroutine, so stopping or waiting for them immediately after start (e.g. a very short uninstall) could read uninitialized state, which could crash or hang the command.
+  Now: the printer is fully initialized before its background goroutine starts, so it can be stopped at any time.

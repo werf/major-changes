@@ -1,0 +1,16 @@
+id: dependency-annotations-external-auto
+title: "Deploy and delete dependency annotations can wait for resources outside the release"
+type: feature
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [annotations, plan]
+description: |
+  Before: `werf.io/deploy-dependency-<id>` and `werf.io/delete-dependency-<id>` could only point to resources of the release; a dependency that matched no release resource was ignored. Waiting for resources outside the release needed the separate `<id>.external-dependency.werf.io/*` annotations.
+  Now: both annotations accept `external=auto|true|false` (default `auto`).
+  - `external=true`, or `auto` when no release resource matches, makes the dependency external: Nelm waits for the resource in the cluster to be `present`/`ready` (deploy) or `absent` (delete). `kind`, `version` and `name` must then be specified, plus `group` for non-core groups and `namespace` if it is not the release namespace.
+  - `external=false` restricts the dependency to release resources.
+  - With `external` omitted, a dependency missing `name`, `kind` or `version` is treated as internal, so incomplete annotations, including those stored in older releases, keep working; Nelm warns once when such an internal dependency matches no release resource.
+  External dependencies are not forced into readiness tracking of release resources.
+migration: |
+  Check `werf.io/deploy-dependency-*` and `werf.io/delete-dependency-*` annotations that fully specify `kind`, `version` and `name` of a resource that is not in the release: they used to be ignored and now make the deploy or deletion wait for that resource in the cluster. Add `external=false` to keep ignoring it, or remove the annotation.

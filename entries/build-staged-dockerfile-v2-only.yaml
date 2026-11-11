@@ -1,0 +1,14 @@
+id: build-staged-dockerfile-v2-only
+title: "Staged Dockerfile builds always use the v2 implementation; `WERF_STAGED_DOCKERFILE_VERSION` is removed"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [dockerfile]
+description: |
+  Before: Dockerfile images with `staged: true` used the `v1` builder by default; `WERF_STAGED_DOCKERFILE_VERSION=v2` enabled a dedicated `FROM` layer for caching the base image, with dependencies expanded after `FROM` and the base image environment propagated.
+  Now: the `v2` implementation is always used, and `WERF_STAGED_DOCKERFILE_VERSION` is ignored (`v1` can no longer be selected).
+migration: |
+  Remove `WERF_STAGED_DOCKERFILE_VERSION` from the environment and check staged Dockerfile builds with the `v2` behavior.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#builders-and-image-configuration

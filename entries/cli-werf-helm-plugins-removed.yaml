@@ -1,0 +1,12 @@
+id: cli-werf-helm-plugins-removed
+title: "`werf helm` no longer supports Helm plugins"
+type: removal
+breaking: true
+products: [werf]
+domain: deploy
+areas: [cli]
+description: |
+  Before: `werf helm plugin` (`install`, `list`, `uninstall`, `update`) managed Helm 3 plugins, installed plugins were loaded as `werf helm <plugin>` subcommands, and werf exited with the plugin's exit code when a plugin failed.
+  Now: `werf helm plugin` is removed and Helm plugins are not loaded: `werf helm <plugin>` is an unknown command.
+migration: |
+  Run Helm plugins with the upstream Helm CLI (`helm <plugin>`), or replace them with the corresponding werf or Nelm functionality.

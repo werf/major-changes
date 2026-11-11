@@ -1,0 +1,14 @@
+id: build-skip-image-spec-stage-removed
+title: "`--skip-image-spec-stage` is removed; the `imageSpec` stage always runs when configured"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [cli, images]
+description: |
+  Before: the hidden `--skip-image-spec-stage` flag (`$WERF_SKIP_IMAGE_SPEC_STAGE`) skipped the `imageSpec` stage, a workaround for local stages storage.
+  Now: the flag is removed; passing it is an `unknown flag` error, and `WERF_SKIP_IMAGE_SPEC_STAGE` is ignored. The `imageSpec` stage always runs when `imageSpec` is configured, including with `--repo :local`.
+migration: |
+  Remove `--skip-image-spec-stage` and `WERF_SKIP_IMAGE_SPEC_STAGE` from scripts. Expect `imageSpec` settings to be applied to images built with local storage.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#removed-flags-and-modes

@@ -1,0 +1,11 @@
+id: buildah-upgraded-upstream-1-44
+title: "The Buildah backend is upgraded to upstream Buildah 1.44"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [buildah, dependencies]
+description: |
+  Before: the Buildah backend (`WERF_BUILDAH_MODE`, `native-rootless`/`native-chroot`) was built from werf's fork of Buildah 1.35 with `containers/common` 0.58, `containers/image` 5.30 and `containers/storage` 1.53.
+  Now: werf uses upstream Buildah 1.44.1 with `go.podman.io/common` 0.68, `go.podman.io/image` 5.40 and `go.podman.io/storage` 1.63, so Dockerfile builds on the Buildah backend get the Dockerfile features and fixes of these releases. Buildah stays below 1.45 on purpose: with `common` 0.69 rootless builds fail on hosts whose `pasta` is older than 2024-08-14 (e.g. Ubuntu 24.04).
+  Network-related requirements of the new stack (`netavark`, `pasta`) are described in their own entry.

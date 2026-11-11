@@ -1,0 +1,12 @@
+id: build-git-lfs-content
+title: "Git LFS file contents are included automatically in Stapel git mappings and Dockerfile contexts"
+type: feature
+breaking: true
+products: [werf]
+domain: build
+areas: [git, stapel, dockerfile]
+description: |
+  Before: files exported from Git into images followed the host's checkout filters, so the same commit could produce LFS contents on one host and LFS pointer files on another.
+  Now: LFS pointers in the selected commit are recognized by their contents (regardless of `.gitattributes`) and the real objects are downloaded and verified (size and SHA-256) for files selected by git mapping paths or Dockerfile context filtering; no `lfs` directive or `git lfs install` is needed. `git-lfs` must be discoverable by Git when selected files contain LFS pointers, and missing objects fail the build. Git credentials, `url.*.insteadOf` and the commit's `.lfsconfig` are honored. LFS files inside submodules and pointer extensions are rejected. Git archive caches, Git-stage digests and non-staged Dockerfile digests change once, so affected images are rebuilt.
+migration: |
+  Install `git-lfs` where werf runs if your repositories contain LFS files used in images, and make sure LFS objects are downloadable. Expect a one-time rebuild of images built from Git.

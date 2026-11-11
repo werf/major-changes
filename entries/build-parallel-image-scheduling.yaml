@@ -1,0 +1,10 @@
+id: build-parallel-image-scheduling
+title: "Images start building as soon as their own dependencies are built"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [performance, images, logging]
+description: |
+  Before: parallel builds grouped images into dependency levels ("waves") and built one level at a time, so an image waited for every image of the previous level, even unrelated slow ones.
+  Now: images are scheduled by the real dependency graph (`from`, `import`, `dependencies`, and `FROM`/`COPY --from`/`RUN --mount=from` in staged Dockerfiles): an image starts as soon as the images it depends on are done, limited by `--parallel-tasks-limit`. The log of the oldest still-running image is streamed live and the other images follow in start order; each image's output stays one uninterrupted block. The `(N/Total)` progress number of image blocks and of `Build summary` reflects the order in which images actually start, and the "Concurrent build plan" listing shows images without it.

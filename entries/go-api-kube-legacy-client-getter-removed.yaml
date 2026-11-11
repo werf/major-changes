@@ -1,0 +1,12 @@
+id: go-api-kube-legacy-client-getter-removed
+title: "`kube.LegacyClientGetter` and `ClientFactorier.LegacyClientGetter()` are removed"
+type: removal
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api]
+description: |
+  Before: `pkg/kube` provided `LegacyClientGetter` (a `genericclioptions.RESTClientGetter` for Helm code, created with `NewLegacyClientGetter`), and the `ClientFactorier` interface and `ClientFactory` had a `LegacyClientGetter()` method.
+  Now: the type, its constructor and the method are removed.
+migration: |
+  Use the other `ClientFactorier` methods (`Static()`, `Dynamic()`, `Discovery()`, `Mapper()`, `KubeConfig()`) or build a `RESTClientGetter` from the REST config yourself. Custom `ClientFactorier` implementations no longer need `LegacyClientGetter()`.

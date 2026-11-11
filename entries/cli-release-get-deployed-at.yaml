@@ -1,0 +1,10 @@
+id: cli-release-get-deployed-at
+title: "`release get` reports the actual deployment time in `release.deployedAt`"
+type: fix
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [cli]
+description: |
+  Before: `nelm release get` always reported the zero time (`0001-01-01 00:00:00 +0000 UTC`) in `release.deployedAt`.
+  Now: `release.deployedAt` (`human` and `unix`) is the time the release revision was last deployed.

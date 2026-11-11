@@ -1,0 +1,15 @@
+id: distribution-os-requirements-go-1-26
+title: "Nelm and werf binaries are built with Go 1.26 and require macOS 12 or later"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: general
+areas: [distribution, platform]
+description: |
+  Before: werf v2 release binaries were built with Go 1.23, which supports macOS 11 Big Sur and Linux kernel 2.6.32 or later. Nelm v1 release binaries were built with Go 1.24, which supports macOS 11 Big Sur and Linux kernel 3.2 or later.
+  Now: werf v3 and Nelm v2 are built with Go 1.26 (the `go` directive of their modules is `1.26`), so the macOS binaries require macOS 12 Monterey or later and the Linux binaries require kernel 3.2 or later (for Nelm the Linux requirement is unchanged). The set of published platforms is unchanged (`linux-amd64`, `linux-arm64`, `darwin-amd64`, `darwin-arm64`, `windows-amd64`).
+migration: |
+  Upgrade macOS hosts older than 12 Monterey before installing werf v3 or Nelm v2. werf only: upgrade Linux hosts with a kernel older than 3.2 before installing werf v3.
+refs:
+  - https://go.dev/doc/go1.25#darwin
+  - https://go.dev/doc/go1.24#linux

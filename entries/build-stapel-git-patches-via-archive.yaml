@@ -1,0 +1,12 @@
+id: build-stapel-git-patches-via-archive
+title: "Stapel applies Git changes on the Docker backend by copying files instead of `git apply`"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, git]
+description: |
+  Before: with the Docker server backend, Stapel applied text changes of Git files in the `gitCache`/`gitLatestPatch` and `stageDependencies` stages with `git apply`; if a `git`-mapped file had been modified by an earlier `install`/`beforeSetup`/`setup` command, the build failed with an error suggesting to configure `stageDependencies`.
+  Now: text and binary changes are applied by copying the changed files from a filtered Git archive, as the Buildah backend already did. Files changed by user commands are overwritten without an error, and `git apply` edge cases (renames, mode-only changes, whitespace, quoted paths) no longer cause failures.
+migration: |
+  Audit `install`, `beforeSetup` and `setup` commands that modify files added by `git` mappings: the build no longer stops on such a conflict, and the Git version silently overwrites the modified file. Configure `git.stageDependencies` so that the modifying stage reruns when the source files change, or write generated output outside the `git`-mapped paths.

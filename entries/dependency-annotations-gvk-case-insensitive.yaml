@@ -1,0 +1,10 @@
+id: dependency-annotations-gvk-case-insensitive
+title: Group, version and kind in deploy and delete dependency annotations are matched case-insensitively
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [annotations, tracking]
+description: |
+  Before: `group`, `version` and `kind` in `werf.io/deploy-dependency-<id>` and `werf.io/delete-dependency-<id>` had to be spelled exactly as in the resource, e.g. `kind=StatefulSet`; `kind=statefulset` did not match the dependency or the cluster resource.
+  Now: they are compared case-insensitively, both when matching resources of the release and when tracking presence, readiness or absence of external resources, so `kind=statefulset` and `kind=StatefulSet` are equivalent.

@@ -1,0 +1,69 @@
+# Products the catalogue renders a view for, and the git ranges whose every commit the ledgers account for.
+# To extend the catalogue to newer commits, move a range's `new` pin and run `task sync`.
+products:
+  - name: werf
+    title: "werf v2 → v3: changes"
+    output: werf.md
+  - name: nelm
+    title: "Nelm v1 → v2: changes"
+    output: nelm.md
+
+ranges:
+  - name: werf
+    url: https://github.com/werf/werf
+    old:
+      - ref: v2.84.1
+        commit: d6c03cd89f799cc11accfcd13c729401c96502a8
+    new:
+      ref: main
+      commit: f805b27abcf5843d2a788e0b1aa4e71dc88bce56
+
+  - name: nelm
+    url: https://github.com/werf/nelm
+    old:
+      - ref: v1.31.3
+        commit: dc00668ac8a28cf58182e7c9722e781413de6592
+    new:
+      ref: main
+      commit: f9dcbe392e0958b718a2bb14568c3bfec15c0780
+
+  # Pinned by go.mod: old by Nelm v1.31.3 and werf v2.84.1, new by Nelm main (werf v3 gets it through Nelm).
+  - name: kubedog
+    url: https://github.com/werf/kubedog
+    old:
+      - ref: nelm-v1.31.3
+        commit: f1eefb59d19ae849bd9030332dd110526500184a
+      - ref: werf-v2.84.1
+        commit: 60827212f828c610a58e7c6e3f52a32eddbe5a20
+    new:
+      ref: nelm-main
+      commit: 1ed920dee18bf5600bf9014761ff8ddd9f37448e
+
+  - name: common-go
+    url: https://github.com/werf/common-go
+    old:
+      - ref: nelm-v1.31.3
+        commit: a1a98e909e9b6bbdf5b3ac8b2adaeb5a063ef7f6
+      - ref: werf-v2.84.1
+        commit: 0558f83edc6de3c23b13c37e2728e01141f93282
+    new:
+      ref: nelm-main
+      commit: 993ea4351bc03821af699073de3934fb61e3816f
+
+  - name: lockgate
+    url: https://github.com/werf/lockgate
+    old:
+      - ref: v0.1.1
+        commit: 444ab061874e892515a948508ee9409d644c67b4
+    new:
+      ref: v0.2.1
+      commit: 5f579cc2580781b6a47e5de22464f4600f653784
+
+  - name: logboek
+    url: https://github.com/werf/logboek
+    old:
+      - ref: v0.7.1
+        commit: bef0c055f4211604a1717eed046ea5bf0268265d
+    new:
+      ref: werf-main
+      commit: 236a5f8ae9dd322fdb5245faf7bf9dd335ca2fa5

@@ -1,0 +1,527 @@
+# Every commit of werf reachable from main and not from v2.84.1, oldest first.
+# Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
+- { commit: 301c8f90d859, date: 2026-03-28, subject: "feat: new major release 3.0", entries: [deploy-nelm-v2-engine, cli-werf-helm-deploy-commands-removed, cli-werf-helm-release-inspection-commands-removed, cli-werf-helm-plugins-removed, cli-helm-compatibility-mode-removed, cli-werf-helm-common-flags-removed, cli-werf-helm-registry-credentials-helm-config, cli-dismiss-native-uninstall, kube-run-full-kube-connection-flags, kubectl-embedded-version-1-37, helm-v4-engine, cli-chart-commands-helm-4-flags, cli-repo-update-add-flags-removed], note: "switches werf to Nelm v2 (Helm 4 fork); kubernetes:// synchronization removed here but restored by bfaad7793c99; service values .global changes net-handled by later commits" }
+- { commit: 42f650933e04, date: 2026-03-31, subject: "wip: sync with main", skip: merge, note: "conflict resolution only: takes main side for service values (global values kept, as in v2) and go.mod; v3 later state unchanged" }
+- { commit: d3d644806929, date: 2026-03-31, subject: "chore: bump nelm version", skip: dependency, note: "effects catalogued from the nelm and common-go ledgers" }
+- { commit: 78a0baa89c18, date: 2026-03-31, subject: "chore: go mod tidy", skip: dependency, note: "go mod tidy only, no user-visible effect" }
+- { commit: c6e04475bb24, date: 2026-04-01, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: keeps v3 deletion of legacy helpers_for_werf_helm/service_values.go" }
+- { commit: 0b50bd1bbf42, date: 2026-04-07, subject: "refactor(deploy): remove unnecessary flags and featgates", entries: [cli-werf-noop-deploy-flags-removed, plan-show-verbose-diffs-removed, values-set-runtime-json-removed, plan-detailed-exit-code, resource-validation-enabled-by-default, render-force-adoption-removed], note: "werf wiring: drops no-op stub flags, --show-verbose-diffs, --set-runtime-json, --force-adoption on render, feature gates" }
+- { commit: 3c968d69cba5, date: 2026-04-07, subject: "refactor(deploy): remove unnecessary ChartDirPath", skip: internal, note: "ChartDirPath -> Chart in werf calls to Nelm actions" }
+- { commit: 4504d0175be7, date: 2026-04-07, subject: "chore: bump nelm", skip: dependency, note: "effects catalogued from the nelm ledger" }
+- { commit: 2853e0330c64, date: 2026-04-07, subject: "docs: remove outdated Kubernetes resource synchronization instructions", skip: docs }
+- { commit: 08a54a33f238, date: 2026-04-07, subject: "feat(deploy): add werf release get command", entries: [cli-werf-release-commands] }
+- { commit: 9a8030a329a9, date: 2026-04-07, subject: "feat(deploy): add werf release list command", entries: [cli-werf-release-commands] }
+- { commit: 44572711c987, date: 2026-04-07, subject: "feat(deploy): add werf release history command", entries: [cli-werf-release-commands] }
+- { commit: 533b5a02e748, date: 2026-04-07, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: keeps v3 removal of on-demand kube initializer" }
+- { commit: 889ae90f5137, date: 2026-04-07, subject: "refactor: remove unnecessary GetOndemandKubeInitializer call", skip: internal }
+- { commit: 018f103f5ff5, date: 2026-04-07, subject: "refactor: rename release history --max to --revisions-limit", entries: [cli-werf-release-commands], note: "renames --max of the new werf release history to --revisions-limit" }
+- { commit: 0447b7e04a58, date: 2026-04-08, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: ports v2 TypeScript bundling in bundle publish (in v2.84.1) onto v3 imports; regenerated CLI docs" }
+- { commit: b47bd532037b, date: 2026-04-08, subject: "refactor: changed ChartFileReader integration for chart ts commands", skip: internal, note: "adapts chart ts commands to a Nelm API change; effects catalogued from the nelm ledger" }
+- { commit: 6a932aab6ce2, date: 2026-04-09, subject: "Merge branch 'main' into 3-deploy", skip: merge }
+- { commit: 51942c31d980, date: 2026-04-09, subject: "chore: bump nelm", skip: dependency, note: "effects catalogued from the nelm ledger" }
+- { commit: ca058c4cf8a2, date: 2026-04-13, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: keeps v3 deletion of legacy helpers_for_werf_helm/service_values.go" }
+- { commit: 5487c34fae6a, date: 2026-04-21, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: ports v2 byte-based host cleanup volume messages (in v2.84.1) onto v3 logging package" }
+- { commit: b4549b4250da, date: 2026-04-21, subject: "chore: bump nelm/common-go version", skip: dependency, note: "effects catalogued from the nelm and common-go ledgers" }
+- { commit: 2d4445b80d9b, date: 2026-04-21, subject: "refactor: Remove WERF_EXPERIMENT_NO_GLOBAL_SERVICE_VALUES", entries: [values-no-global-service-values-experiment-removed] }
+- { commit: 6598f20f5e0f, date: 2026-04-21, subject: "Merge branch 'main' into 3-deploy", skip: merge, note: "conflict resolution only: go.mod nelm pin" }
+- { commit: 5eba1752542f, date: 2026-04-21, subject: "refactor: remove Ansible builder support from Stapel", entries: [stapel-ansible-builder-removed] }
+- { commit: 8003cbaf3936, date: 2026-04-21, subject: "refactor: remove artifact image type", entries: [stapel-artifact-removed] }
+- { commit: d054d24f9e6e, date: 2026-04-21, subject: "refactor: remove multiwerf warning calls", entries: [cli-multiwerf-warning-removed] }
+- { commit: 13fbe92607c7, date: 2026-04-21, subject: "refactor: remove deprecated docker directive from stapel images", entries: [stapel-docker-directive-removed] }
+- { commit: 58dfbbdfe248, date: 2026-04-21, subject: "refactor: remove VirtualMerge functionality", entries: [build-virtual-merge-removed] }
+- { commit: b11ca78b4cb1, date: 2026-04-21, subject: "feat(config): unify from directive for stapel images", entries: [build-unified-from-directive] }
+- { commit: 7e23a855d1b0, date: 2026-04-21, subject: "refactor: remove nameless image support", entries: [config-nameless-image-removed] }
+- { commit: 6bab18c00db1, date: 2026-04-21, subject: "refactor(build): replace import metadata with source image content digest", entries: [build-import-cache-source-image] }
+- { commit: 2893f20c03cd, date: 2026-04-21, subject: "chore(deps): update cobra, remove dead replace directives", skip: dependency, note: "cobra 1.10 via werf/3p-cobra fork; no user-visible effect" }
+- { commit: be9e8355ee96, date: 2026-04-21, subject: "fix(test): remove unnamed image test left over after nameless image support removal", skip: test }
+- { commit: efe60d89dc3e, date: 2026-04-21, subject: "refactor(build): replace 3p-docker-buildx fork with upstream RunBuild API", entries: [build-docker-legacy-builder-removed], note: "also switches to upstream docker/buildx RunBuild API" }
+- { commit: bc51d7214f8e, date: 2026-04-21, subject: "build(deps): upgrade Go to 1.25, docker/buildx to v0.33.0, golangci-lint to v2", entries: [distribution-os-requirements-go-1-26, kubectl-embedded-version-1-37, buildah-upgraded-upstream-1-44] }
+- { commit: 00e81417e6dc, date: 2026-04-21, subject: "refactor(build): remove legacy code after dependency upgrades", skip: internal, note: "dead code removal after dependency upgrades" }
+- { commit: 827da82489b2, date: 2026-04-21, subject: "fix(bundle): ensure OCI cache directory exists before init", skip: internal, note: "fixes a regression from the containerd v1.7.14->v1.7.28 bump made within the range; v2.84.1 uses v1.7.14 and is unaffected" }
+- { commit: 73dadeb42565, date: 2026-04-21, subject: "refactor(test): remove vanilla-docker/buildkit-docker distinction", skip: test }
+- { commit: eb2d98670286, date: 2026-04-21, subject: "fix(build): disable buildx default provenance to avoid index manifests", skip: internal, note: "restores --provenance=false that v2 already passed; follow-up to efe60d89dc3e" }
+- { commit: 0b3d045df620, date: 2026-04-21, subject: "test(e2e): disable dismiss in AfterEach for simple/complex tests", skip: test }
+- { commit: cb7529eb31b3, date: 2026-04-21, subject: "feat(build, docker, stapel): support multiplatform build (#7403)", entries: [build-stapel-multiplatform-image], note: "multi-platform stapel image 0.7.0, pulled per platform" }
+- { commit: 8c0c252cf8f3, date: 2026-04-22, subject: "chore(deps): sync go.mod/go.sum after rebase, remove unused import", skip: dependency, note: "go.mod/go.sum sync only" }
+- { commit: 0679f0237d1d, date: 2026-04-22, subject: "refactor(build): introduce ScratchBaseImage type and harden scratch validation", entries: [build-unified-from-directive], note: "scratch handling: reserved name, no tag required, rejected in import.from and with fromLatest" }
+- { commit: 3fe3eb7a7175, date: 2026-04-22, subject: "Merge branch 'main' into 3-deploy", skip: merge }
+- { commit: 4e8f4744afee, date: 2026-04-23, subject: "fix: restore tests and linter (#7499)", entries: [kubectl-embedded-version-1-37], note: "mostly tests/linter; regenerates werf kubectl docs for the new kubectl" }
+- { commit: da9c96748dad, date: 2026-04-23, subject: "Merge branch 'main' into 3-deploy", skip: merge }
+- { commit: c7a28dd0ee23, date: 2026-04-23, subject: "Merge branch '3-deploy' into 3", skip: merge, note: "conflict resolution only: kubectl docs replacers, imports, go.mod" }
+- { commit: efb3a7b4f04a, date: 2026-04-23, subject: "docs(deploy): add plan artifact feature description (#7500)", skip: docs }
+- { commit: 29368e3c5577, date: 2026-04-28, subject: "refactor: remove minimal Kubernetes connection flags setup (#7509)", skip: internal, note: "kube connection flags removed from build/export/run/purge/managed-images/compose/stage image/bundle publish here were restored by bfaad7793c99 (#7989); no net change" }
+- { commit: 6a20bf23db61, date: 2026-04-29, subject: "chore(stapel): downgrade rsync version to 3.1.2", entries: [build-stapel-multiplatform-image], note: "rsync version in the new stapel image" }
+- { commit: 3c5faf0f1f2e, date: 2026-04-30, subject: "fix(deploy): remove support for all HELM_* env vars (#7518)", entries: [release-storage-werf-helm-driver-env-ignored, charts-helm-path-env-vars-ignored], note: "werf side drops HELM_DRIVER fallback; Nelm side (nelm 3a2264e5ca5b) catalogued in charts-helm-path-env-vars-ignored" }
+- { commit: 31c36b71ef3a, date: 2026-05-12, subject: "feat(deploy): require secret key for bundle publish when secret values exist (#7525)", entries: [bundle-publish-without-secret-key], note: "intermediate step, superseded by 2c7379fac909" }
+- { commit: 2ad21081dcc7, date: 2026-05-18, subject: "fix(deploy): use action.SetupColorLevel instead of force `ColorMode=on` from ci-env (#7536)", entries: [logging-color-mode-auto-detected] }
+- { commit: 962994cd8db8, date: 2026-05-19, subject: "fix(build, stapel, git): silent misconfiguration when stageDependencies references unused stages (#7529)", entries: [build-stage-dependencies-unused-stage-error] }
+- { commit: 1f1ce4d2e5c5, date: 2026-05-19, subject: "feat(build, stapel, git): default stageDependencies to **/* when not specified (#7531)", entries: [build-stage-dependencies-default] }
+- { commit: 02ebba22829a, date: 2026-05-26, subject: "docs: clear docs on external dependencies annotations (#7541)", skip: docs }
+- { commit: a4e7cd9793d3, date: 2026-05-26, subject: "fix(deploy): prioritise base64 kubeconfig on kubectl command (#7552)", entries: [kubectl-kube-config-base64-priority] }
+- { commit: 2c7379fac909, date: 2026-05-26, subject: "feat(deploy): bundle publish doesn't require secret key (#7542)", entries: [bundle-publish-without-secret-key] }
+- { commit: 258c428ee185, date: 2026-05-27, subject: "feat(deploy): add plan artifact support for bundle command (#7543)", entries: [bundle-plan-artifacts] }
+- { commit: 0e56d005362c, date: 2026-05-27, subject: "feat(stapel, import): allow multiple imports into the same target directory (#7537)", entries: [build-multiple-imports-same-target] }
+- { commit: bb7651593b5c, date: 2026-06-10, subject: "chore(deps): merge main into 3", skip: merge, note: "resolution takes the v3 side and temporarily drops v2 changes (--kube-scan-namespaces, absolute host-cleanup units, SpaceReclaimed reports, import metadata); all but import metadata (removed in v3 by design) are back in origin/main, matching v2.84.1" }
+- { commit: d215fdd96d77, date: 2026-06-10, subject: "chore(deps): merge main into 3 (#7572)", skip: merge }
+- { commit: cb671a9a93bb, date: 2026-06-17, subject: "docs(deploy): add external dependency support to deploy/delete-dependency annotation docs (#7582)", skip: docs }
+- { commit: 55dc5ea4b013, date: 2026-06-23, subject: "feat(build, tagging): add content-based tag independent of build", entries: [build-content-based-tag, build-import-stage-removed, build-disable-git-after-patch-removed, build-v2-stage-cache-not-reused] }
+- { commit: 7f71de96b373, date: 2026-06-23, subject: "fix(build, tagging): set valid created timestamp on content-tag image", entries: [build-content-based-tag], note: "fix of v3-only content-tag" }
+- { commit: af5bb537bc89, date: 2026-06-23, subject: "fix(build): honor --check-built-images and --require-built-images flags", skip: in-old, note: "same subject as 9bec3e6109b6 in v2.84.1" }
+- { commit: 15e7ca21d13f, date: 2026-06-23, subject: "feat(build, tagging): include git file mode in ls-tree checksum", entries: [build-git-file-mode-in-checksum] }
+- { commit: 2c44a6806488, date: 2026-06-23, subject: "docs(build): drop import.stage and disableGitAfterPatch directives", skip: docs }
+- { commit: 0f82ef05bb6f, date: 2026-06-23, subject: "test(build, tagging): cover content-tag reuse across storages", skip: test }
+- { commit: 1659f8590664, date: 2026-06-23, subject: "test(build, tagging): drop obsolete build_phase and git stage suites", skip: test }
+- { commit: c27d5c81d45b, date: 2026-06-23, subject: "fix(build, tagging): order multiarch content deps by platform name", entries: [build-content-based-tag], note: "fix of v3-only content-tag" }
+- { commit: dfb5c4292c69, date: 2026-06-23, subject: "fix(build): resolve symlink import destinations under root mount", skip: in-old, note: "v2.84.1 already resolves symlinked import destinations under the container root (f38a885d6, #7763); this v3-branch variant was later replaced by the v2 code in main merges" }
+- { commit: 3814b7a74bc1, date: 2026-06-23, subject: "test(build, import): use supported backend modes, drop dup entries", skip: test }
+- { commit: 6849648f2608, date: 2026-06-23, subject: "test(contback): pull missing image before docker inspect", skip: test }
+- { commit: b0c48e805ca9, date: 2026-06-23, subject: "test(contback): cover symlink import destination resolution", skip: test }
+- { commit: 5bf24c41757c, date: 2026-06-23, subject: "Merge remote-tracking branch 'origin/main' into merge-main-into-3", entries: [values-no-global-service-values-experiment-removed], note: "applies the v3 removal of WERF_EXPERIMENT_NO_GLOBAL_SERVICE_VALUES to the v2 global.werf.dockerconfigjson code; other hunks reconcile (RUN --mount from=<stage> resolved via content tag, buildah parent ID, import metadata dropped)" }
+- { commit: ce1ab9f9ae9f, date: 2026-06-23, subject: "refactor(build): remove synchronization subsystem (#7603)", entries: [synchronization-command-flags], note: "removal later reverted in effect by bfaad7793c99; net difference vs v2.84.1 catalogued there" }
+- { commit: 5af5f24ac728, date: 2026-06-24, subject: "feat(giterminism): strict schema validation for werf-giterminism.yaml (#7604)", entries: [giterminism-strict-schema-validation] }
+- { commit: 70ee990c7d5b, date: 2026-07-04, subject: "fix(build, stapel, git): remove git commit ancestry check on stage reuse (#7615)", entries: [build-git-ancestry-check-removed], note: "removed WERF_DISABLE_GIT_COMMIT_ANCESTRY_CHECK; check itself fully removed by 544a07d58a4d" }
+- { commit: 21e71590ea06, date: 2026-07-04, subject: "feat(deploy): enable specific images params by default for converge/plan (#7616)", entries: [converge-plan-image-name-args] }
+- { commit: 4094be3f6d51, date: 2026-07-04, subject: "refactor(build, stapel): apply all patches via filtered archive, not git apply (#7617)", entries: [build-stapel-git-patches-via-archive] }
+- { commit: 52f403390e65, date: 2026-07-04, subject: "fix(build): default --final-images-only to true for consistency (#7618)", entries: [build-final-images-only-default] }
+- { commit: 02a8cb0be936, date: 2026-07-06, subject: "fix(build): stop leaking build-time env vars into final image config (#7620)", entries: [build-time-env-not-in-image-config] }
+- { commit: 1c8eb885b6b1, date: 2026-07-06, subject: "fix(host-cleanup): GC stale host lock files on cleanup (#7619)", entries: [host-cleanup-stale-lock-files] }
+- { commit: 7754d6bc68ad, date: 2026-07-06, subject: "feat(ci-env): auto-detect DOCKER_AUTH_CONFIG to enable --use-docker-auth-config (#7624)", entries: [ci-env-docker-auth-config-auto] }
+- { commit: 1230498c6dfb, date: 2026-07-06, subject: "feat(deploy): make container backend optional for converge and render (#7625)", entries: [deploy-chart-only-without-container-backend] }
+- { commit: 0f7a4e35ad0c, date: 2026-07-06, subject: "fix(build): error on ambiguous trailing slash in export/import to: path (#7627)", entries: [build-trailing-slash-in-to-error], note: "port of #7626, not in v2.84.1" }
+- { commit: cbea4e35434d, date: 2026-07-06, subject: "Merge remote-tracking branch 'werf-https/main' into 3", skip: merge, note: "conflict resolution only: go.mod" }
+- { commit: b064fd52edbe, date: 2026-07-06, subject: "feat(build, stapel): deprecate fromImage and import.image directives (#7628)", entries: [build-unified-from-directive] }
+- { commit: 9ef0cc4a106b, date: 2026-07-07, subject: "fix(test): update e2e fixtures for v3 external image tag and trailing-slash rules", skip: test }
+- { commit: b1109f531f81, date: 2026-07-07, subject: "chore(build): remove legacy werf.io/base-image-id label and ParentID field (#7631)", entries: [build-base-image-id-label-removed] }
+- { commit: f6f8bdfaf7b0, date: 2026-07-07, subject: "chore(build): clean up legacy v3 TODO/FIXME markers (#7629)", entries: [build-clear-werf-labels-deprecated, compose-docker-compose-bin-path-removed, ci-env-github-legacy-registry-login-removed, build-v2-stage-cache-not-reused], note: "GetLegacyCompatibleStageName removal changes dependencies* stage digests" }
+- { commit: fdeabf02227f, date: 2026-07-07, subject: "chore(build): enable stapel arm64 build by default on docker-server backend", entries: [build-stapel-multiplatform-image], note: "WERF_EXPERIMENTAL_STAPEL_ARM gate removed" }
+- { commit: 82a81175bf67, date: 2026-07-07, subject: "feat(stapel, build): embed stapel (#7601)", entries: [build-stapel-image-embedded] }
+- { commit: 14fddc6015ca, date: 2026-07-07, subject: "fix(build): avoid splitting UTF-8 runes across parallel worker log reads (#7632)", entries: [logging-parallel-build-utf8-mojibake], note: "also bumps logboek (effect catalogued from logboek ledger, if any)" }
+- { commit: 5fe36bc78eca, date: 2026-07-07, subject: "fix(build): use jsonmessage API to parse image load response", entries: [build-stapel-image-embedded], note: "fixes docker load of the embedded stapel image" }
+- { commit: 881d1b4d7255, date: 2026-07-07, subject: "chore: bump github.com/werf/logboek", skip: dependency, note: "only marks moby/docker-image-spec as indirect in go.mod; no logboek version change" }
+- { commit: 6438eebb7a7a, date: 2026-07-07, subject: "Merge remote-tracking branch 'origin/main' into 3", skip: merge, note: "conflict resolution only: ports v2 empty-rootfs CreateImage fix (cf2fb96d2 side) onto v3 docker API types" }
+- { commit: 473c07ea8075, date: 2026-07-08, subject: "fix(deploy): use chartcommon.File after main merge in copy_test", skip: test, note: "test-only compile fix in pkg/deploy/bundles/copy_test.go" }
+- { commit: 9f458dfd5a94, date: 2026-07-08, subject: "docs: regenerate CLI reference after removing docker-compose-bin-path flag", skip: docs, note: "flag removal itself is f6f8bdfaf7b0 (werf-build slice)" }
+- { commit: 41376d38a03e, date: 2026-07-08, subject: "feat(deploy): expose `.global.env` only if `WERF_LEGACY_VALUES_GLOBAL_ENV` is set (#7636)", entries: [values-global-env-removed] }
+- { commit: 3e420f72e5d4, date: 2026-07-08, subject: "fix(test, e2e): pull image before local save/push in loadLocalImage helper", skip: test }
+- { commit: ebc632fbb5fa, date: 2026-07-08, subject: "refactor(build): mutate imageSpec/content-tag configs via native commit (#7634)", entries: [build-native-image-config-mutation] }
+- { commit: 9d307eec6232, date: 2026-07-08, subject: "fix(build): serialize content-tag resolve+publish under digest mutex", entries: [build-content-based-tag], note: "fix of v3-only content-tag" }
+- { commit: be5f338ab0b7, date: 2026-07-08, subject: "test(build): cover digest-mutex serialization and deferFn composition", skip: test }
+- { commit: cbd8e77dc193, date: 2026-07-08, subject: "fix(build): re-check content-tag before ShouldBeBuiltMode error", entries: [build-content-based-tag], note: "fix of v3-only content-tag" }
+- { commit: 8dd7118037e0, date: 2026-07-08, subject: "feat(build, cleanup): add --meta-repo to decouple metadata storage (#7637)", skip: in-old, note: "--meta-repo is in v2.84.1 via 59f4efeda (#8057)" }
+- { commit: eda346e7f948, date: 2026-07-08, subject: "fix(build): hold back split UTF-8 across worker reads after half-close", entries: [logging-parallel-build-utf8-mojibake] }
+- { commit: 5e17bffae9ad, date: 2026-07-09, subject: "test(e2e): skip external kubeconform fetch to dodge CI 429s", skip: test }
+- { commit: 5f269f20a9b6, date: 2026-07-09, subject: "feat(build): introduce content-anchor stage (#7638)", entries: [build-content-based-tag, build-report-stages-skipped] }
+- { commit: 505150210bb9, date: 2026-07-09, subject: "feat(config): add dependencies.from directive, deprecate dependencies.image (#7639)", entries: [build-unified-from-directive] }
+- { commit: ecf0ec15f370, date: 2026-07-09, subject: "refactor(image-spec): drop hardcoded WERF_COMMIT_* env removal (#7651)", entries: [build-time-env-not-in-image-config], note: "implicit WERF_COMMIT_* removal by imageSpec dropped" }
+- { commit: da1b4b723728, date: 2026-07-09, subject: "refactor(build): drop WERF_STAGED_DOCKERFILE_VERSION, default to v2 and unify digest calc (#7644)", entries: [build-staged-dockerfile-v2-only, build-v2-stage-cache-not-reused] }
+- { commit: edff31251538, date: 2026-07-09, subject: "feat(config list): default --final-images-only=true, drop --images-only alias (#7647)", entries: [build-final-images-only-default] }
+- { commit: 6a813c0ffa54, date: 2026-07-09, subject: "refactor(true_git): drop index line from output patches (#7650)", skip: internal, note: "index line dropped from internal patches; werf's patch pipeline unaffected" }
+- { commit: 27ce586ec3fa, date: 2026-07-10, subject: "chore: update nelm (#7641)", skip: dependency, note: "effects catalogued from the nelm ledger (deploy-delete-propagation-background); bundle publish adapted to Nelm chart accessor API without visible change" }
+- { commit: ab54ef2bbadd, date: 2026-07-10, subject: "refactor: use deploy annotation in testdata charts instead of deprecated annotations (#7653)", skip: test }
+- { commit: 20884da36d72, date: 2026-07-10, subject: "chore(release): compress binaries (#7652)", entries: [distribution-upx-compressed-binaries] }
+- { commit: 66b9b91fdb2c, date: 2026-07-10, subject: "test(config list): align with new --final-images-only default", skip: test }
+- { commit: 5753958be672, date: 2026-07-10, subject: "chore: release 3.0.0-alpha.1", skip: release }
+- { commit: de4885d24d5f, date: 2026-07-10, subject: "chore(3): release 3.0.0-alpha.1 (#7378)", skip: release }
+- { commit: 25a6a1a325ed, date: 2026-07-10, subject: "chore(ci): remove job condition (#7654)", skip: ci }
+- { commit: c0a5035de535, date: 2026-07-10, subject: "chore(ci): expand regexp for suffix (#7656)", skip: ci }
+- { commit: 4f2aae647b76, date: 2026-07-15, subject: "feat: add --diff-patches and patches.yaml support (#7661)", entries: [resource-patches], note: "go.mod-only Nelm bump; effects catalogued from the nelm ledger (resource-patches)" }
+- { commit: 2bd5438fd681, date: 2026-07-21, subject: "feat: bundle publish now publishes helm compatible charts by default", entries: [bundle-chart-name-from-repository] }
+- { commit: d3aada674cc6, date: 2026-07-28, subject: "refactor(build): drop legacy --skip-image-spec-stage flag (#7646)", entries: [build-skip-image-spec-stage-removed] }
+- { commit: 78ec56614f48, date: 2026-07-28, subject: "Merge remote-tracking branch 'origin/main' into 3", skip: merge, note: "resolution temporarily drops v2 --no-create-namespace and --lookup-resources from v3 commands; both are back in origin/main as in v2.84.1; buildah import hunks reconcile both sides" }
+- { commit: bb5f9e54f519, date: 2026-07-28, subject: "feat(deploy): restore --no-create-namespace and --lookup-resources", skip: in-old, note: "v2.84.1 has 5c9d62a0c (--no-create-namespace) and 3b0f42205 (--lookup-resources)" }
+- { commit: ae8e0ad65cd7, date: 2026-07-29, subject: "Merge remote-tracking branch 'origin/main' into 3", skip: merge, note: "conflict resolution only: keeps v3 removals (Ansible, git after-patch, import checksum, import metadata, client-ID/sync-server records, werf-helm post-renderer) against v2 edits; log-level tweaks" }
+- { commit: c6e5df4cceab, date: 2026-07-29, subject: "fix(build): honor COPY --parents in staged Dockerfile build (#7690)", entries: [build-staged-dockerfile-copy-parents-exclude] }
+- { commit: c34feddad62a, date: 2026-07-29, subject: "fix: address v3 branch review findings from #7686 (#7692)", entries: [ci-env-docker-auth-config-auto, build-unified-from-directive], note: "explicit WERF_USE_DOCKER_AUTH_CONFIG now overrides auto-detection; external-tag check handles registry host:port; rest restores v2 code lost in merges into branch 3 and fixes new-in-v3 code" }
+- { commit: 1ee4aac13a9a, date: 2026-07-29, subject: "fix(build): honor COPY/ADD --exclude in staged Dockerfile build (#7691)", entries: [build-staged-dockerfile-copy-parents-exclude] }
+- { commit: 77723bf1de53, date: 2026-07-29, subject: "Merge remote-tracking branch 'origin/main' into 3", skip: merge }
+- { commit: 05faec0564d9, date: 2026-07-29, subject: "fix(build, dockerfile): treat COPY --parents destination as a directory (#7693)", entries: [build-staged-dockerfile-copy-parents-exclude] }
+- { commit: c9e70d13f408, date: 2026-07-29, subject: "test(bundle): expect helm-compatible chart name in complex e2e", skip: test }
+- { commit: 790edc554cc4, date: 2026-07-29, subject: "refactor(build): schedule images via dependency graph, not waves (#7688)", entries: [build-parallel-image-scheduling] }
+- { commit: 190c6327c09f, date: 2026-07-29, subject: "docs: document ancestry-check removal and helm-compatible chart default", skip: docs }
+- { commit: 776c33d3d553, date: 2026-07-29, subject: "chore: release 3.0.0-alpha.2", skip: release }
+- { commit: e897353843da, date: 2026-07-29, subject: "chore(3): release 3.0.0-alpha.2 (#7662)", skip: release }
+- { commit: a321b0006275, date: 2026-07-29, subject: "chore(dev): require a Verification section in PR descriptions", skip: in-old, note: "same subject as bd80a4360 in v2.84.1" }
+- { commit: f55c66913460, date: 2026-07-29, subject: "fix(build, stapel, import): build rsync without lchmod support (#7695)", entries: [build-stapel-multiplatform-image], note: "fixes import into symlinked dirs with the new musl stapel image" }
+- { commit: 7c8239ebbd4d, date: 2026-07-29, subject: "chore: release 3.0.1", skip: release }
+- { commit: 5938e9944021, date: 2026-07-29, subject: "chore(3): release 3.0.1 (#7696)", skip: release }
+- { commit: 87b8ebee742a, date: 2026-07-29, subject: "refactor(host-cleanup): drop host locker dir schema version (#7700)", entries: [host-cleanup-stale-lock-files], note: "locks dir stays ~/.werf/service/locks (shared with v2) instead of a versioned subdirectory" }
+- { commit: 785f562b2fe2, date: 2026-07-29, subject: "chore(deps): merge main into 3 (#7702)", skip: in-old, note: "squash-merge of main into branch 3; brings changes already in v2.84.1 (e.g. 3e43c28ba #7699)" }
+- { commit: 62dabd5ff3a2, date: 2026-07-30, subject: "docs(build): stapel on docker-server supports linux/arm64 (#7704)", skip: docs, note: "docs for build-stapel-multiplatform-image" }
+- { commit: 7420f5f5adee, date: 2026-07-30, subject: "fix(build): assign per-image build-log progress index by real start order (#7703)", entries: [build-parallel-image-scheduling], note: "progress index of v3-only graph scheduling" }
+- { commit: 61b63894bea9, date: 2026-07-30, subject: "chore(deps): merge main into 3 (#7708)", skip: in-old, note: "squash-merge of main into branch 3; agent docs and release bumps already in v2.84.1" }
+- { commit: c21ee97b5bde, date: 2026-07-30, subject: "chore(3): release 3.0.2 (#7707)", skip: release }
+- { commit: bd16f9509e37, date: 2026-07-30, subject: "docs(build, stapel, import): document destination path rules (#7710)", skip: docs }
+- { commit: cd993dbc6144, date: 2026-07-30, subject: "fix(build): validate image names in werf.yaml (#7711)", entries: [build-image-name-validation] }
+- { commit: e60960e23587, date: 2026-07-30, subject: "test(dev): disable git signing in true_git tests (#7713)", skip: test }
+- { commit: ef27e9858c1f, date: 2026-07-30, subject: "test(dev): use a portable ps format in the detach test (#7714)", skip: test }
+- { commit: a5c2011e32b9, date: 2026-07-31, subject: "fix(build, dockerfile): allow dockerfile outside the build context (#7722)", entries: [build-dockerfile-outside-context, build-context-ignore-files-unified] }
+- { commit: ee5acac1e6d1, date: 2026-07-31, subject: "docs(dev): correct where e2e tests can run, add pre-staging and pre-push checks (#7724)", skip: internal, note: "agent/developer instructions" }
+- { commit: 4f7a32cd4df2, date: 2026-07-31, subject: "docs(dev): put Why before Key changes in PR descriptions (#7726)", skip: internal, note: "agent/developer instructions" }
+- { commit: 99661464b44b, date: 2026-07-31, subject: "docs(dev): add a session-retro skill (#7727)", skip: internal, note: "agent/developer instructions" }
+- { commit: 00a87b84992e, date: 2026-07-31, subject: "docs(dev): restore skill rules dropped when porting from upstream (#7728)", skip: internal, note: "agent/developer instructions" }
+- { commit: 23bcaf185d10, date: 2026-07-31, subject: "feat: embed kubeconform schemas (#7729)", entries: [resource-validation-embedded-schemas], note: "removes --resource-validation-schema, --resource-validation-kube-version, --local-resource-validation from werf" }
+- { commit: ca44562abe49, date: 2026-07-31, subject: "feat: bump nelm version (#7731)", skip: dependency, note: "effects catalogued from the nelm ledger" }
+- { commit: ca0e80365bc5, date: 2026-08-01, subject: "fix(dev): self-heal a stale worktree index.lock left by a killed run (#7733)", skip: in-old, note: "stale index.lock self-heal is in v2.84.1 via 46f0294ed (#8020)" }
+- { commit: 01aa2e5c9568, date: 2026-08-01, subject: "feat: add support for additional patches files and disable default patches (#7735)", entries: [resource-patches], note: "adds --patches and --no-default-patches to werf deploy commands" }
+- { commit: f0b13cc264af, date: 2026-08-01, subject: "fix(dev): warm a persistent dev-index so --dev stops re-reading unchanged files (#7732)", skip: in-old, note: "persistent dev_index is in v2.84.1 via 46f0294ed (#8020)" }
+- { commit: a1b5fed38d7a, date: 2026-08-02, subject: "chore(deps): merge main into 3", skip: merge, note: "conflict resolution only: agent skills, docs, CHANGELOG, trdl_channels" }
+- { commit: d095d5a1ed22, date: 2026-08-02, subject: "test(build, buildah): run the mirror-merge test only on linux", skip: test }
+- { commit: efa0a6f7bc31, date: 2026-08-02, subject: "docs(build, dockerfile): note digest and giterminism for ignore files", skip: docs }
+- { commit: c895dd06079c, date: 2026-08-02, subject: "docs(dev): put Why before Key changes in the PR template again", skip: internal, note: "agent/developer instructions" }
+- { commit: a2be44f63ef0, date: 2026-08-03, subject: "chore(dev): backport global skill rules into .agents/skills", skip: in-old, note: "same change as 4f279a3cb (#7743) in v2.84.1" }
+- { commit: 2f2a820b05ba, date: 2026-08-03, subject: "chore(dev): require the mutation result in Verification (#7738)", skip: in-old, note: "same subject as 46dbb1bfe in v2.84.1" }
+- { commit: f7c090bb79c0, date: 2026-08-03, subject: "chore(dev): drop dependencies that branch 3 no longer has from skills", skip: internal, note: "agent/developer instructions" }
+- { commit: 73b968d72aa4, date: 2026-08-03, subject: "chore(dev): fix stale dependency claims in AGENTS.md", skip: internal, note: "agent/developer instructions" }
+- { commit: b61ec3024c4e, date: 2026-08-03, subject: "chore(release): disable compression for binaries (#7744)", entries: [distribution-upx-compressed-binaries], note: "temporarily disabled compression, restored by 949a7e1a553f" }
+- { commit: e04e16b917d5, date: 2026-08-03, subject: "chore(release): build binaries sequentially (#7745)", skip: internal, note: "release build tooling" }
+- { commit: 544a07d58a4d, date: 2026-08-03, subject: "fix(build, stapel, git): remove git commit ancestry check on reuse (#7746)", entries: [build-git-ancestry-check-removed] }
+- { commit: 0e32778d10d5, date: 2026-08-03, subject: "Merge branch 'main' into 3", skip: merge, note: "conflict resolution only: agent skill file" }
+- { commit: ab4dea85ab03, date: 2026-08-03, subject: "chore(deps): merge main into 3 (#7751)", skip: in-old, note: "squash-merge of main into branch 3; Buildah parallel base-image pull fix already in v2.84.1" }
+- { commit: 78a2fafb2506, date: 2026-08-03, subject: "chore(dev): quote session-retro skill description", skip: in-old, note: "same subject as de1c9f15f in v2.84.1" }
+- { commit: 01eeb94fd129, date: 2026-08-04, subject: "feat: `--no-values-schema-validation`; don't break values.schema.json with service values (#7756)", entries: [values-schema-validation-disable-option, values-schema-validation-service-values] }
+- { commit: 263e314fd51b, date: 2026-08-04, subject: "docs(dev): document three agent rules for PR review and doc:gen (#7755)", skip: internal, note: "agent/developer instructions" }
+- { commit: 8ff0bf37050b, date: 2026-08-04, subject: "fix(build): stop re-fetching submodules the checkout already has (#7736)", skip: in-old, note: "local-store submodule reuse is in v2.84.1 via 46f0294ed (#8020)" }
+- { commit: 949a7e1a553f, date: 2026-08-05, subject: "chore(release): limit build concurrency and restore binary compression (#7753)", entries: [distribution-upx-compressed-binaries], note: "restores compression disabled in b61ec3024c4e" }
+- { commit: 6a4c6c48f9a0, date: 2026-08-05, subject: "fix(deploy): optimize local validation args (#7760)", entries: [resource-validation-embedded-schemas], note: "removes werf --local-resource-validation ($WERF_LOCAL_RESOURCE_VALIDATION)" }
+- { commit: 88f2c553581c, date: 2026-08-05, subject: "docs(dev): validate a verification check before citing its result (#7752)", skip: internal, note: "agent/developer instructions" }
+- { commit: 24eacfd57551, date: 2026-08-05, subject: "docs(dev): audit the PR description against review findings (#7758)", skip: internal, note: "agent/developer instructions" }
+- { commit: 40d7b3d672cf, date: 2026-08-05, subject: "test(build): convert the include.path tests to Ginkgo (#7762)", skip: test }
+- { commit: 5df466c618c9, date: 2026-08-05, subject: "fix(build): reuse content anchors without git commits (#7764)", entries: [build-content-based-tag], note: "fix of v3-only content anchor" }
+- { commit: 4f7de9471e73, date: 2026-08-05, subject: "feat(build): add per-project meta-repo safeguard and migration (#7739)", entries: [meta-repo-commands-kube-flags-removed], note: "meta-repo safeguard and migrate/detach are in v2.84.1 via 59f4efeda (#8057); the v3 implementation of migrate/detach lacks the Kubernetes connection flags the v2 port has" }
+- { commit: 77360f779224, date: 2026-08-05, subject: "chore(deps): merge main into 3 (#7767)", skip: in-old, note: "squash-merge of main into branch 3; changes already in v2.84.1" }
+- { commit: 7a51ef3e89ae, date: 2026-08-05, subject: "Merge branch 'main' into 3", skip: merge, note: "conflict resolution only: agent instructions" }
+- { commit: 383ec476e318, date: 2026-08-05, subject: "chore(3): release 3.1.0 (#7761)", skip: release }
+- { commit: e95d6e93574b, date: 2026-08-05, subject: "chore(docs): add v3 docs deploy routing (#7768)", skip: ci, note: "docs deploy workflows" }
+- { commit: 468ba229e05e, date: 2026-08-06, subject: "feat(deploy): embed deno binary into werf release binaries behind `embedwerfdeno` (#7725)", entries: [typescript-deno-embedded] }
+- { commit: 8f7573467459, date: 2026-08-06, subject: "chore(deps): merge main into 3", skip: merge, note: "conflict resolution only: takes the v2 docker CLI race fix (6d6af8d02); buildah import path adapted to go.podman.io" }
+- { commit: 3121ddc286ac, date: 2026-08-06, subject: "chore(deps): merge main into 3 (#7778)", skip: merge }
+- { commit: 9ab81159f2c8, date: 2026-08-06, subject: "fix(storage): prevent concurrent final-stage list access (#7787)", skip: internal, note: "data race in debug logging of final-stage list; no observable behavior change" }
+- { commit: fc9c3759a8f6, date: 2026-08-06, subject: "fix(buildah): prevent concurrent stderr access (#7788)", skip: internal, note: "data race on buildah stderr buffer found by race detector; no documented user-visible effect" }
+- { commit: 4b6564f7ff19, date: 2026-08-06, subject: "fix(release): preserve v3 release version state (#7789)", skip: release }
+- { commit: 446a20fcd897, date: 2026-08-07, subject: "chore(release): merge main into 3", skip: merge }
+- { commit: db230f1622c2, date: 2026-08-07, subject: "chore(release): merge main into 3", skip: merge }
+- { commit: 5da775d2174e, date: 2026-08-07, subject: "test: prevent command output deadlocks (#7792)", skip: test }
+- { commit: d57cc9e7259d, date: 2026-08-07, subject: "fix(helm): prevent concurrent action initialization (#7793)", entries: [helm-v4-engine], note: "effects catalogued from the nelm ledger (nelm ec98995b35c2 -> helm-v4-engine)" }
+- { commit: 9a3c3f3c2c56, date: 2026-08-07, subject: "test(dev): unify test provenance (#7795)", skip: test }
+- { commit: bad9bfd0f876, date: 2026-08-07, subject: "fix(helm): prevent concurrent action initialization (#7796)", skip: dependency, note: "effects catalogued from the nelm ledger" }
+- { commit: 5cac084523e2, date: 2026-08-08, subject: "test(buildx): use race-fix fork (#7797)", skip: test }
+- { commit: 0d1c7ee77b1b, date: 2026-08-10, subject: "fix(buildx): restore concurrent Dockerfile builds (#7800)", skip: internal, note: "drops temporary buildx fork replacement (#7797/#7803) on the v3 branch; net: upstream buildx" }
+- { commit: 2bf41ecf9af9, date: 2026-08-10, subject: "fix(registry): prevent concurrent export races (#7799)", skip: dependency, note: "go-containerregistry bump fixing race-detector reports in parallel exports" }
+- { commit: f80e82757789, date: 2026-08-10, subject: "fix(logboek): prevent concurrent stream races (#7802)", entries: [logging-concurrent-indentation-race] }
+- { commit: f759becbb7a5, date: 2026-08-10, subject: "fix(build): keep concurrent Dockerfile builds parallel under race fix (#7803)", skip: internal, note: "intermediate buildx fork swap, superseded by 0d1c7ee77b1b" }
+- { commit: f60919448a7c, date: 2026-08-10, subject: "fix(buildah): prevent concurrent Dockerfile build races (#7798)", entries: [build-buildah-isolated-build-options] }
+- { commit: 6e380ea5c66b, date: 2026-08-10, subject: "chore(ci): drop references to the removed ansible e2e suite (#7804)", skip: ci }
+- { commit: 1b469876339b, date: 2026-08-10, subject: "fix(deploy): prevent progress printer race during release tracking (#7805)", entries: [tracking-progress-printer-start-stop-race, tracking-condition-types-case-insensitive], note: "effects catalogued from the nelm ledger (tracking-progress-printer-start-stop-race, tracking-condition-types-case-insensitive)" }
+- { commit: 20f7635d0373, date: 2026-08-10, subject: "test(ci): run the race detector across all daily tests only (#7770)", skip: test }
+- { commit: 4011ed2e3aba, date: 2026-08-10, subject: "Merge branch 'main' into 3", skip: in-old, note: "merge of main into branch 3; brought changes are in v2.84.1, conflicts resolved in favour of v3 removals" }
+- { commit: 58ab84e4e92d, date: 2026-08-10, subject: "chore(git): merge main into 3 (#7808)", skip: merge }
+- { commit: e36e237406f2, date: 2026-08-10, subject: "chore(cleanup, build): drop report surfaces v3 cannot produce", entries: [build-import-cache-source-image], note: "drops importMetadata cleanup report item type and import checksum opstat" }
+- { commit: c11fdfbd8161, date: 2026-08-10, subject: "feat(cleanup): name the --meta-repo address in the cleanup report", skip: in-old, note: "metaRepo field of the cleanup report is in v2.84.1 via 59f4efeda (#8057)" }
+- { commit: 92c88aecc4d3, date: 2026-08-10, subject: "Merge branch 'main' into 3", entries: [build-import-cache-source-image], note: "resolution drops the v2 importMetadata item type, import-metadata cleanup and import-checksum code from the v3 cleanup report/cleanup; other hunks keep v3 removals (virtual merge, kubernetes lock manager) and drop v2 docker-daemon timing (not in v2.84.1 either)" }
+- { commit: ba058fa4599d, date: 2026-08-11, subject: "chore(3): release 3.2.0", skip: release }
+- { commit: 1a1db02c3df9, date: 2026-08-10, subject: "chore(dev): tell agents to check a merge kept both parents", skip: internal, note: "agent/developer instructions" }
+- { commit: 7cdd5862264e, date: 2026-08-10, subject: "docs(cleanup, migration): fix keep-list bullets, drop shared --repo section", skip: docs }
+- { commit: 17e7519ace8d, date: 2026-08-11, subject: "chore(3): drop non-user-facing and reverted entries from 3.2.0 changelog", skip: release, note: "changelog edit" }
+- { commit: 052152648b73, date: 2026-08-11, subject: "chore(3): release 3.2.0 (#7772)", skip: merge }
+- { commit: d9e614f25815, date: 2026-08-26, subject: "feat(deploy): add renderPatches support (#7815)", entries: [resource-patches] }
+- { commit: b48d43dcdd20, date: 2026-08-31, subject: "feat(deploy,secrets): write authenticated secret values (#7818)", entries: [secrets-authenticated-encryption-format] }
+- { commit: 2ca1c57bcc8a, date: 2026-08-31, subject: "Merge branch 'main' into 3", skip: merge, note: "conflict resolution only: takes v2 buildah import path resolution and host-cleanup helpers, keeps v3 removal of import checksum; go.mod" }
+- { commit: a7fc0d70685d, date: 2026-09-01, subject: "chore(3): release 3.3.0 (#7816)", skip: release }
+- { commit: 296c8391941b, date: 2026-09-01, subject: "fix(host-cleanup): report freed space measured from the actual disk state", skip: in-old, note: "reclaimed space measured from disk is in v2.84.1 via 456bccf00" }
+- { commit: f802f21474f1, date: 2026-09-01, subject: "chore(3): release 3.3.1 (#7824)", skip: release }
+- { commit: f580730c9355, date: 2026-09-01, subject: "test(contback): pin how a destination symlink above the container root resolves", skip: test }
+- { commit: 28e08be40c70, date: 2026-09-01, subject: "chore(release): pin the release-please baseline commit on branch 3", skip: reverted, note: "reverted by 708976aabad4" }
+- { commit: 708976aabad4, date: 2026-09-01, subject: 'Revert "chore(release): pin the release-please baseline commit on branch 3"', skip: reverted, note: "reverts 28e08be40c70" }
+- { commit: 566b7b999f92, date: 2026-09-02, subject: "fix(build): include build cache version in anchor digest (#7827)", entries: [build-content-based-tag], note: "fix of v3-only anchor digest" }
+- { commit: 890977a4b082, date: 2026-09-02, subject: "fix(bundle): drop the publisher's release channel from published bundles (#7831)", entries: [bundle-publish-release-channel-dropped] }
+- { commit: ada9973e348a, date: 2026-09-07, subject: "feat(build, buildah): require netavark instead of CNI and slirp4netns (#7730)", entries: [build-buildah-netavark, build-buildah-dockerfile-network-honored] }
+- { commit: 53991ccded4d, date: 2026-09-07, subject: "fix(giterminism): use two-space indentation in includes lock files (#7840)", entries: [giterminism-includes-lock-two-space-indent] }
+- { commit: d1d99cc68133, date: 2026-09-08, subject: "chore(agents): remove obsolete remote taskfile note (#7843)", skip: internal, note: "agent/developer instructions" }
+- { commit: 74f007bb21e0, date: 2026-09-08, subject: "fix(build, stapel): stop build reuse across different external bases (#7838)", entries: [build-content-based-tag], note: "fix of v3-only anchor digest" }
+- { commit: 196a339f6a72, date: 2026-09-09, subject: "fix(build, stapel): name the exit code of a failed stage command (#7850)", skip: internal, note: "fixes a v3-only regression from the docker/cli v29 bump (empty `container run failed: ` message); v2 (docker/cli v25) printed `Status: , Code: N`" }
+- { commit: a4898d3176db, date: 2026-09-09, subject: "fix(build): accept image names containing plus signs (#7848)", entries: [build-image-name-validation] }
+- { commit: 79132ffd0ea3, date: 2026-09-09, subject: "chore(release): merge main into 3 (#7847)", skip: in-old, note: "squash-merge of main into branch 3; ports 18 main commits already in v2.84.1" }
+- { commit: 363ada87cabc, date: 2026-09-09, subject: "chore(3): release 3.4.0 (#7832)", skip: release }
+- { commit: 984fa761edeb, date: 2026-09-09, subject: "chore(deps): bump nelm to the head of its 2 branch (#7853)", skip: dependency, note: "effects catalogued from the nelm ledger" }
+- { commit: 9f52c5cee7f7, date: 2026-09-09, subject: "chore(git): record main as merged into 3", entries: [build-unified-from-directive], note: "reconciles the v2 dependencies[].from backport (c5e792526) with the v3 from directive (v3 key, deprecation and both-keys error kept); other hunks keep v3 removals (ClaimTargetPlatforms/Ansible backend check, import checksum) and v3 Stapel build-time env" }
+- { commit: 2f1ae062f864, date: 2026-09-21, subject: "chore(release): merge main into 3", skip: merge, note: "conflict resolution only: chart include path prefix (v2 fix) on v3 types; go.mod nelm pin moved to a newer Nelm 2 commit (effect catalogued from the nelm ledger); CHANGELOG" }
+- { commit: 672dbbeb854b, date: 2026-09-21, subject: "chore(deps): bump logboek to the head of its master branch", skip: dependency, note: "effects catalogued from the logboek ledger (logging-concurrent-indentation-race)" }
+- { commit: dec66c577729, date: 2026-09-21, subject: "chore(deps): require Go 1.26", entries: [distribution-os-requirements-go-1-26] }
+- { commit: fcf48b426014, date: 2026-09-21, subject: "chore(deps): update direct dependencies to their latest versions", entries: [kubectl-embedded-version-1-37, buildah-upgraded-upstream-1-44] }
+- { commit: 6faf9c9224d1, date: 2026-09-21, subject: "chore(deps): hold the podman stack at the last pasta-compatible release", entries: [buildah-upgraded-upstream-1-44] }
+- { commit: bc1e93edf4ed, date: 2026-09-21, subject: "test(dev): make e2e specs selectable by the resources they need (#7871)", skip: test }
+- { commit: 35bb6599fb6c, date: 2026-09-21, subject: "fix(build, cleanup): keep the parallel log streaming and its progress numbers in order (#7863)", entries: [build-parallel-image-scheduling], note: "fixes log streaming/progress order of the v3 dependency-graph scheduler (#7688)" }
+- { commit: 8f223566785d, date: 2026-09-21, subject: "test(build): stop the leaked mutex goroutine from racing the next spec (#7873)", skip: test }
+- { commit: 349d55f7ce46, date: 2026-09-21, subject: "fix(build): keep staged dockerfile targets apart by their base image (#7874)", entries: [build-content-based-tag], note: "content-anchor digest of staged Dockerfile targets (v3 content-anchor stage #7638)" }
+- { commit: c49c9ae77591, date: 2026-09-21, subject: "fix(cleanup): register each temporary path with the GC once (#7875)", skip: internal, note: "double registration never happens from the CLI (only in unit tests)" }
+- { commit: 5ee9a270801f, date: 2026-09-21, subject: "test(dev): stop re-proving the same build behaviour (#7872)", skip: test }
+- { commit: 1d098a8e1cbc, date: 2026-09-22, subject: "chore(release, builder): update go@1.25.12 up to go@1.26.8", skip: internal, note: "Go toolchain bump for building werf" }
+- { commit: d99fc81e6d6f, date: 2026-09-22, subject: "chore(dev, release): check the builder image against the go directive (#7878)", skip: internal, note: "release build tooling check" }
+- { commit: 5ef3a11a994f, date: 2026-09-22, subject: "fix(build, stages): reuse an image whose dependencies are gone from the registry (#7876)", entries: [build-content-based-tag] }
+- { commit: db570067c162, date: 2026-09-22, subject: "test(dev): reduce redundant registry and build test coverage (#7880)", skip: test }
+- { commit: cea967f02e5d, date: 2026-09-22, subject: "chore(dev): reject mismatched Ginkgo CLI before tests (#7879)", skip: internal, note: "test tooling" }
+- { commit: 145b39db98eb, date: 2026-09-22, subject: "fix(build): show skipped images in build output (#7882)", entries: [build-content-based-tag], note: "follow-up of 5ef3a11a994f" }
+- { commit: 98bb0cbaf428, date: 2026-09-22, subject: "chore(ci): run non-kubernetes e2e tests once (#7881)", skip: ci }
+- { commit: c75cc4e607c5, date: 2026-09-22, subject: "chore(release): merge main into 3", skip: merge, note: "conflict resolution only: CHANGELOG" }
+- { commit: 25bfb25d61f0, date: 2026-09-22, subject: "feat(dev): publish JSON Schemas for werf configuration files (#7860)", entries: [config-json-schemas-published] }
+- { commit: 81cf86ff6a2d, date: 2026-09-22, subject: "feat(cleanup): report recent automatic host cleanup", entries: [host-cleanup-auto-cleanup-notice, host-cleanup-auto-custom-home-tmp-dir] }
+- { commit: d84f0f28d590, date: 2026-09-22, subject: "chore(release): merge main into 3 (#7884)", skip: merge }
+- { commit: 2ec8608cb033, date: 2026-09-22, subject: "chore(release): merge main into 3", skip: merge }
+- { commit: 63371e3fdb10, date: 2026-09-22, subject: "feat(build): hide no-op secondary images by default (#7894)", entries: [build-content-based-tag] }
+- { commit: 867e10ddbd7a, date: 2026-09-22, subject: "fix(ci): restore origin/3 daily coverage (#7890)", skip: ci }
+- { commit: b02d79dcc451, date: 2026-09-22, subject: "chore(release): merge main into 3 (#7889)", skip: merge }
+- { commit: fd25531e6b96, date: 2026-09-22, subject: "chore(3): release 3.5.0", skip: release }
+- { commit: 9533529d6437, date: 2026-09-23, subject: "chore(3): release 3.5.0 (#7870)", skip: merge }
+- { commit: faf067255989, date: 2026-09-23, subject: "fix(deploy): apply .helmignore when reading the chart (#7830)", entries: [charts-helmignore-applied] }
+- { commit: 76a3c5184319, date: 2026-09-23, subject: "fix(deploy): honor the release history limit environment variable", entries: [cli-werf-release-commands], note: "fix of new command: $WERF_RELEASE_HISTORY_REVISIONS_LIMIT was documented but not read" }
+- { commit: bbb08adf43c3, date: 2026-09-23, subject: "fix(build): avoid panics on missing or rejected stages", skip: in-old, note: "v2.84.1 already returns ErrStageNotFound/ErrStageRejected (d144d030f, #7391); restores what v3 6bab18c00 regressed" }
+- { commit: 13cb01dce877, date: 2026-09-23, subject: "test(build): run unified image reference tests in the normal suite", skip: test }
+- { commit: 8d5fb5a33f5a, date: 2026-09-23, subject: "fix(build): avoid redundant registry listings when publishing metadata", skip: in-old, note: "v2 already dropped the listing in 27404cbdd (#7559)" }
+- { commit: 8194eed2dc07, date: 2026-09-23, subject: "fix(build): keep embedded stapel tags independent of runtime overrides", skip: internal, note: "Taskfile and stapel dev docs only" }
+- { commit: 3b9d9e2e1e34, date: 2026-09-23, subject: "test(ci): run embedded asset integrity checks in unit workflow", skip: test }
+- { commit: 59efb22c87f0, date: 2026-09-23, subject: "feat(cleanup): scan several kubernetes namespaces for used images", skip: in-old, note: "--kube-scan-namespaces is in v2.84.1 via 8941a1ed4 (#7517); restored on branch 3 after a merge lost it" }
+- { commit: dfa8b3e46298, date: 2026-09-23, subject: "fix(build): repair broken destination stages during registry copies", skip: in-old, note: "v2.84.1 CopyFromStorage already treats unavailable (broken/rejected) stages as missing; v3-only regression" }
+- { commit: 2ac02dbc1d0f, date: 2026-09-23, subject: "test(cleanup): cover kube scan namespaces flag and env parsing", skip: test }
+- { commit: 7fe5ffd8f291, date: 2026-09-23, subject: "test(build): cover per-stage content dependencies in anchor inputs", skip: test }
+- { commit: 8d4f5f1a766b, date: 2026-09-23, subject: "test(storage): cover custom tag check against the content-based tag", skip: test }
+- { commit: d57b2fccd34c, date: 2026-09-23, subject: "fix(build): validate internal base image cycles when reading config", entries: [build-unified-from-directive], note: "cycle validation for internal bases referenced via unified `from` (b11ca78b4)" }
+- { commit: 9776c00952a3, date: 2026-09-23, subject: "test(deploy, secrets): add e2e suite for werf helm secret commands", skip: test }
+- { commit: 266d8104b364, date: 2026-09-23, subject: "test(deploy): cover release history, rollback and plan end-to-end", skip: test }
+- { commit: 64023bd0eb69, date: 2026-09-23, subject: "test(deploy): assert werf plan exit code in the release lifecycle spec", skip: test }
+- { commit: cd654031add5, date: 2026-09-23, subject: "test(build, deploy): pin changed anchor inputs and both sides of plan diff", skip: test }
+- { commit: a5d03b7c06c4, date: 2026-09-23, subject: "test(deploy): disable forced colors when parsing release JSON", skip: test }
+- { commit: a19e9dff9757, date: 2026-09-24, subject: "test(build, deploy): restore cache and CLI regression coverage (#7901)", skip: merge }
+- { commit: 2532c6514e50, date: 2026-09-24, subject: "fix(cleanup): restore explicit namespace selection for Kubernetes scans (#7900)", skip: merge }
+- { commit: 86eb31b68be0, date: 2026-09-24, subject: "fix(build, ci): preserve embedded image tags and test embedded assets (#7898)", skip: merge }
+- { commit: 24111869737f, date: 2026-09-24, subject: "fix(build, deploy): fix stage reuse and release history regressions (#7897)", skip: merge }
+- { commit: 1ba2e9ff02be, date: 2026-09-24, subject: "fix(build): avoid slow startup on image cache misses", entries: [build-content-based-tag], note: "performance of content-anchor lookups" }
+- { commit: 905c0a5731e4, date: 2026-09-24, subject: "fix(build): avoid slow startup on image cache misses (#7903)", skip: merge }
+- { commit: 5a83a7a1cf9e, date: 2026-09-24, subject: "fix(build): honor empty and partial git stage dependencies", entries: [build-stage-dependencies-default], note: "refines the v3 stageDependencies default (#7531)" }
+- { commit: 0db471e8ebec, date: 2026-09-24, subject: "docs(build): explain git stage dependency defaults", skip: docs }
+- { commit: dc9f5f6e60be, date: 2026-09-24, subject: "fix(build): honor empty and partial git stage dependencies (#7906)", skip: merge }
+- { commit: c8e962f43225, date: 2026-09-24, subject: "refactor(deploy): switch to the github.com/werf/nelm/v2 module path (#7905)", skip: dependency, note: "switch to github.com/werf/nelm/v2 import path; Nelm side catalogued from the nelm ledger (go-api-module-path-v2)" }
+- { commit: b163e08af322, date: 2026-09-24, subject: "chore(dev): switch to the github.com/werf/werf/v3 module path (#7909)", entries: [werf-go-module-path-v3] }
+- { commit: b6c4a38e5d4c, date: 2026-09-24, subject: "fix(host-cleanup): speed up project stage discovery (#7907)", entries: [host-cleanup-faster-local-stage-listing] }
+- { commit: 9f4ed57fad8a, date: 2026-09-24, subject: "test(build): accept raw and normalized Docker port sets (#7908)", skip: test }
+- { commit: 8c3857894cc6, date: 2026-09-24, subject: "docs(build, deploy, cleanup): document v2-to-v3 migration (#7899)", skip: docs }
+- { commit: b3aafc852389, date: 2026-09-24, subject: "chore(release): merge main into 3", skip: merge, note: "conflict resolution only: CHANGELOG" }
+- { commit: 7f8555f37863, date: 2026-09-24, subject: "chore(release): merge main into 3 (#7910)", skip: merge }
+- { commit: 12c500418d6e, date: 2026-09-24, subject: "fix(release): relabel only merged releases of the current branch", skip: in-old, note: "same subject as 6e73257ac in v2.84.1" }
+- { commit: c59f99ba4c4e, date: 2026-09-24, subject: "chore(release): prepare v3 for main and v2 for branch 2", skip: release, note: "docs and release-please routing for v3/v2 branches" }
+- { commit: 2b27a8d62966, date: 2026-09-24, subject: "chore(release): prepare v3 for main and v2 for branch 2 (#7913)", skip: merge }
+- { commit: 7fe56f2fe8f7, date: 2026-09-24, subject: "chore(release): merge v2 cleanup history into v3", skip: merge, note: "conflict resolution only: keeps the v3 removal of import-metadata cleanup against v2 edits" }
+- { commit: efdfc1b0b777, date: 2026-09-24, subject: "chore(release): merge v2 cleanup history into v3 (#7918)", skip: merge }
+- { commit: e5976298ee95, date: 2026-09-24, subject: "v3 (#7377)", skip: merge }
+- { commit: 5d8fe42edc51, date: 2026-09-24, subject: "docs(build): clarify migration titles and image references", skip: docs }
+- { commit: 102dcb7b8b0c, date: 2026-09-25, subject: "docs(build): clarify migration titles and image references (#7919)", skip: merge }
+- { commit: d78d4d7ab35c, date: 2026-09-24, subject: "ci(test): skip ACR until Azure credentials are renewed", skip: ci }
+- { commit: 5c3061188cf3, date: 2026-09-25, subject: "ci(test): skip ACR until Azure credentials are renewed (#7920)", skip: merge }
+- { commit: 437f492e46e6, date: 2026-09-25, subject: "ci(dev): stop enabling the released remote Taskfile experiment", skip: ci }
+- { commit: e6c37bd15ea8, date: 2026-09-25, subject: "ci(dev): stop enabling the released remote Taskfile experiment (#7921)", skip: merge }
+- { commit: 90a4b9ec99e6, date: 2026-09-25, subject: "ci(test): map v3 coverage paths to repository files", skip: ci }
+- { commit: 0ce5fb573ce8, date: 2026-09-25, subject: "ci(test): map v3 coverage paths to repository files (#7922)", skip: merge }
+- { commit: bce79de5fd38, date: 2026-09-25, subject: "chore(main): release 3.6.0", skip: release }
+- { commit: 68f5bf73b21c, date: 2026-09-25, subject: "chore(main): release 3.6.0 (#7914)", skip: merge }
+- { commit: 348573aacced, date: 2026-09-25, subject: "chore(release): 3 dev", skip: in-old, note: "same subject as 5092c2fa3 in v2.84.1" }
+- { commit: 14dc92c0e40d, date: 2026-09-25, subject: "chore(release): 2 alpha,beta", skip: in-old, note: "same subject as 944cf1b56 in v2.84.1" }
+- { commit: 6126130406a0, date: 2026-09-25, subject: "docs(deploy): document v3 defaults and migration risks", skip: docs }
+- { commit: 20c674de0db1, date: 2026-09-25, subject: "docs(deploy): clarify sensitive field redaction", skip: docs }
+- { commit: ab11e3a39e9b, date: 2026-09-25, subject: "docs(deploy): group migration defaults by workflow", skip: docs }
+- { commit: 328b66a4422b, date: 2026-09-25, subject: "docs(deploy): clarify sensitive field redaction (#7924)", skip: merge }
+- { commit: 92441f69c311, date: 2026-09-25, subject: "docs(deploy): clarify migration effects and warning placement", skip: docs }
+- { commit: 7f1fded10112, date: 2026-09-25, subject: "fix(build): ship missing networking helpers in official images (#7925)", entries: [build-buildah-netavark], note: "official werf images ship passt/aardvark-dns needed by the v3 netavark/pasta requirement (#7730)" }
+- { commit: 4cde4569f6da, date: 2026-09-25, subject: "docs(deploy): streamline migration guidance by applicability", skip: docs }
+- { commit: e8c682cd808f, date: 2026-09-25, subject: "docs(deploy): simplify git dependency migration summary", skip: docs }
+- { commit: fc251d61d15b, date: 2026-09-25, subject: "docs(deploy): document v3 defaults and migration risks (#7923)", skip: merge }
+- { commit: 7a188c2897bc, date: 2026-09-27, subject: "fix(build): speed up build preparation before workers start (#7928)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 20d74b624a0f, date: 2026-09-27, subject: "fix(build): stop per-digest local image scans before image workers start (#7929)", skip: in-old, note: "backported to v2 as b9e06bb3b (#8011, backport of #8003: local lookups share one project listing)" }
+- { commit: 6bf8313121c1, date: 2026-09-27, subject: "fix(build, git): reuse one ssh connection for git requests (#7930)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 39f664ffdbf9, date: 2026-09-27, subject: "fix(build): resolve content anchors concurrently in parallel builds (#7931)", entries: [build-content-based-tag], note: "performance of content-anchor resolution" }
+- { commit: c89fdb68af6a, date: 2026-09-27, subject: "fix(git): rebuild a broken cached worktree instead of failing (#7932)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 196df14db49a, date: 2026-09-27, subject: "fix(git): keep local submodule reuse for nested submodule names (#7933)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: d3d0c41fa515, date: 2026-09-27, subject: "fix(storage): reuse recent tags listings for stage lookups on cache misses (#7934)", skip: in-old, note: "v2 has the same snapshot reuse on misses via b9e06bb3b (#8011); v3 adds the undocumented tuning env WERF_STAGES_TAG_LIST_MAX_AGE (default 1m)" }
+- { commit: ad187a492c48, date: 2026-09-27, subject: "fix(git): keep a healthy cached worktree on canceled builds (#7935)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: c642c9d6231c, date: 2026-09-28, subject: "chore(main): release 3.6.1 (#7926)", skip: release }
+- { commit: b5e25b21bee8, date: 2026-09-28, subject: "chore(release): 2 alpha, 3 dev", skip: in-old, note: "same subject as 094422efc in v2.84.1" }
+- { commit: 9c1345cd7df5, date: 2026-09-28, subject: "docs(skills): warn that a probe must reproduce production wiring (#7936)", skip: internal, note: "agent/developer instructions" }
+- { commit: 6cbed573141e, date: 2026-09-28, subject: "chore(dev): remove release-specific migration history (#7939)", skip: docs, note: "migration guide edit" }
+- { commit: f59166317f66, date: 2026-09-28, subject: "fix(build): use versioned base images in documentation examples (#7942)", skip: docs }
+- { commit: 48fbd9ebd854, date: 2026-09-28, subject: "fix(build): keep provenance disabled in parallel Dockerfile builds (#7941)", skip: internal, note: "fixes a v3-only race of the in-process buildx backend; v2 passes --provenance=false to the docker CLI" }
+- { commit: 97367c93d86f, date: 2026-09-28, subject: "fix(build): reject invalid imports with a scratch base (#7944)", entries: [build-unified-from-directive], note: "external `from` tag/digest validation was added by the v3 unified from (b11ca78b4)" }
+- { commit: 8412d4e73b79, date: 2026-09-28, subject: "fix(build): rebuild images after renaming git-tracked files (#7940)", entries: [build-content-based-tag, build-git-file-mode-in-checksum], note: "git tree checksums now include file paths (stale content anchor on rename; stageDependencies and Dockerfile context checksums react to renames)" }
+- { commit: 6ba82d087d2c, date: 2026-09-28, subject: "fix(build): keep deploy keys separate across SSH aliases (#7945)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 8a9d42c43942, date: 2026-09-28, subject: "fix(build): use a tagged Go image in the documentation example (#7946)", skip: docs }
+- { commit: 2b46672c35e5, date: 2026-09-28, subject: "fix(build): rebuild images when git mappings swap content (#7947)", entries: [build-content-based-tag] }
+- { commit: f42ae0dc3f9b, date: 2026-09-28, subject: "chore(ci): run CI tooling on werf 3 dev (#7950)", skip: ci }
+- { commit: 154df22ef299, date: 2026-09-29, subject: "chore(ci): skip cleanup for the disabled ACR test registry (#7954)", skip: ci }
+- { commit: f2eab7e8777f, date: 2026-09-29, subject: "fix(build): reuse unchanged Dockerfile contexts without extra copies (#7953)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 81587cf10211, date: 2026-09-29, subject: "fix(deploy): preserve resources with live retention policies (#7958)", entries: [resource-patches], note: "nelm bump delivering render patch variables and LegacyPatches (resource-patches); the live-retention fix only restores v2.84.1 behavior after a v3-only regression" }
+- { commit: e19f8b15dc7a, date: 2026-09-29, subject: "fix(build): export cached images with local and final repositories (#7959)", entries: [build-content-based-tag], note: "panics in v3 content-anchor export/publish paths" }
+- { commit: 189ff2464130, date: 2026-09-29, subject: "fix(cleanup): keep dry-run metadata unchanged (#7960)", entries: [cleanup-dry-run-no-registry-writes], note: "the --meta-repo part is in v2.84.1 via 59f4efeda (#8057)" }
+- { commit: d4cc45f90098, date: 2026-09-29, subject: "fix(deploy): keep release output machine-readable by default (#7961)", entries: [cli-werf-release-commands], note: "refines new werf release get/list/history: machine-readable default output" }
+- { commit: d3aa3391b1eb, date: 2026-09-29, subject: "docs(deploy): correct v3 installation and migration guidance (#7962)", skip: docs }
+- { commit: c9d7d50c6683, date: 2026-09-29, subject: "chore(release): 2 all", skip: in-old, note: "same subject as efd0743de in v2.84.1" }
+- { commit: cd6fcf1b162d, date: 2026-09-29, subject: "chore(release): merge branch 2 into main", skip: merge, note: "conflict resolution only: brings v2 operations statistics (in v2.84.1) into v3 commands on v3 import paths, keeps v3 removal of the multiwerf warning; release-please, Taskfile, CHANGELOG" }
+- { commit: 9aa85c1f5b44, date: 2026-09-29, subject: "chore(release): integrate current main into branch 2 upmerge", skip: merge }
+- { commit: d89124a47d7b, date: 2026-09-29, subject: "chore(release): record latest branch 2 release ancestry", skip: merge, note: "conflict resolution only: release-please manifest and CHANGELOG" }
+- { commit: a84a30b1f2d1, date: 2026-09-29, subject: "fix(build): refresh rejected tokens after registry redirects", entries: [build-registry-token-cache-redirects], note: "fixes the bearer token cache v2 got in 08dd45b36 (#7955)" }
+- { commit: d8e43ee73af5, date: 2026-09-29, subject: "chore(release): merge branch 2 into main (#7963)", skip: merge }
+- { commit: 870a276de590, date: 2026-09-29, subject: "fix(build): export final-repository images from build reports", entries: [build-export-use-build-report-final-repo] }
+- { commit: 4a27ec0d1b7f, date: 2026-09-29, subject: "fix(git): preserve warm caches on cancellation", skip: in-old, note: 'backported to v2 as 46f0294ed (#8020, "retain healthy state on cancellation")' }
+- { commit: 1191bf1264fb, date: 2026-09-29, subject: "fix(build): honor introspection on content-cache hits", entries: [build-content-based-tag] }
+- { commit: 2377615a8088, date: 2026-09-29, subject: "fix(storage): remember stage tags after publishing", skip: in-old, note: "v2 equivalent: snapshots are updated after publication in b9e06bb3b (#8011, backport of #8003); performance only" }
+- { commit: 885fb238e90d, date: 2026-09-29, subject: "test(build): initialize inspection config across platforms", skip: test }
+- { commit: 666afe129b11, date: 2026-09-29, subject: "fix(cleanup): purge platform Stapel containers with their volumes", entries: [build-stapel-multiplatform-image], note: "purge of the per-platform Stapel containers introduced in v3" }
+- { commit: 7aa2265eb9fa, date: 2026-09-30, subject: "fix(build): export final-repository images from build reports (#7964)", skip: merge }
+- { commit: d7da62781694, date: 2026-09-30, subject: "fix(build): honor introspection on content-cache hits (#7967)", skip: merge }
+- { commit: ec099be1e048, date: 2026-09-30, subject: "fix(storage): remember stage tags after publishing (#7965)", skip: merge }
+- { commit: 9d2ef8cb4fb4, date: 2026-09-30, subject: "fix(git): preserve warm caches on cancellation (#7966)", skip: merge }
+- { commit: 83cab69a71a3, date: 2026-09-30, subject: "fix(cleanup): purge platform Stapel containers with their volumes (#7969)", skip: merge }
+- { commit: fdbffff29280, date: 2026-09-30, subject: "docs(deploy): use v3 installation for GitHub cleanup", skip: docs }
+- { commit: 129a0ec6de34, date: 2026-09-30, subject: "docs(release): use v3 stable throughout current documentation", skip: docs }
+- { commit: a98887ed36fb, date: 2026-09-30, subject: "docs(release): use v3 stable throughout current documentation (#7968)", skip: merge }
+- { commit: b9ca56d9c86b, date: 2026-09-30, subject: "fix(build): respect remote Docker contexts and SSH hosts", entries: [build-docker-api-1-40-required], note: "keeps remote Docker contexts/SSH hosts working after the v3 Docker client switch (v2 parity)" }
+- { commit: 4df8c09134e8, date: 2026-09-30, subject: "fix(build): respect remote Docker contexts and SSH hosts (#7971)", skip: merge }
+- { commit: f447c2c7c838, date: 2026-09-30, subject: "fix(deploy): honor OCI credentials in chart-only converge", entries: [deploy-chart-only-without-container-backend], note: "fixes --docker-config being lost after lazy backend init (1230498c6dfb), new in v3" }
+- { commit: 52c970625923, date: 2026-09-30, subject: "fix(deploy): honor OCI credentials in chart-only converge (#7974)", skip: merge }
+- { commit: 152ee34e20e8, date: 2026-09-30, subject: "fix(build): honor git mapping ownership with Docker (#7972)", entries: [build-stapel-git-mapping-ownership] }
+- { commit: 31e31e30799a, date: 2026-09-30, subject: "fix(cleanup): preserve concurrently published final images (#7975)", entries: [cleanup-concurrent-final-images-race] }
+- { commit: fbb7e62252bd, date: 2026-09-30, subject: "fix(build): require Docker 19.03+ for Docker backend operations (#7973)", entries: [build-docker-api-1-40-required] }
+- { commit: 262d2eb22168, date: 2026-09-30, subject: "docs(deploy): cover nelm v2 deploy changes in the migration guide (#7976)", skip: docs }
+- { commit: 082baebab26c, date: 2026-09-30, subject: "fix(build, docker): stop container backend init hanging on a mute socket (#7981)", entries: [build-docker-api-1-40-required] }
+- { commit: ae5a5be0dd73, date: 2026-09-30, subject: "fix(build, stapel): set owner/group on dirs added by incremental builds (#7977)", entries: [build-stapel-git-mapping-ownership] }
+- { commit: ee4f4ae785b2, date: 2026-09-30, subject: "fix(build): rebuild a rejected stage instead of exhausting retries (#7979)", entries: [build-registry-token-cache-redirects], note: "rejected-stage retry part fixes the v3-only regression from 2377615a8088" }
+- { commit: 6104d1461e83, date: 2026-09-30, subject: "fix(host-cleanup): purge every stapel container and volume werf owns (#7978)", entries: [host-purge-stapel-continue-on-errors] }
+- { commit: ac62101b2ad1, date: 2026-09-30, subject: "fix(build, dockerfile): stop copying the build context per image (#7980)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: a2efb5ffab3f, date: 2026-09-30, subject: "fix(build): export multi-platform images from the final repository (#7983)", skip: internal, note: "PR states no user-reachable failure; aligns the two export paths" }
+- { commit: 851e641bcb09, date: 2026-09-30, subject: "fix(build): report when ssh connection multiplexing cannot be enabled (#7984)", skip: in-old, note: 'backported to v2 as 46f0294ed (#8020, "warn when connection hashing tools are unavailable")' }
+- { commit: f81d0e7d65f6, date: 2026-09-30, subject: "chore(ci): comment out acr in the registry cleanup matrix (#7982)", skip: ci }
+- { commit: a10017a4d5c2, date: 2026-09-30, subject: "fix(build): reduce repetitive service output (#7985)", entries: [build-less-repetitive-output] }
+- { commit: 0f38e5b7ae32, date: 2026-10-01, subject: "docs(deploy): correct Helm config migration paths (#7986)", skip: docs }
+- { commit: 2c8339c3898f, date: 2026-10-01, subject: "fix(build): keep registry requests out of stage counts (#7987)", skip: in-old, note: "v2 has the RegistryCache report map and separate counters from 29b706258 (#8010)" }
+- { commit: 1eadf7c90ec8, date: 2026-10-01, subject: "fix(build, docker): keep chart-only commands independent of Docker (#7988)", entries: [build-docker-api-1-40-required] }
+- { commit: 4e27b5f1b451, date: 2026-10-01, subject: "fix(build): release temporary containers after staged COPY (#7938)", entries: [build-buildah-leaked-containers] }
+- { commit: 29abab142f80, date: 2026-10-01, subject: "fix(build): report invalid .dockerignore patterns without panicking (#7992)", skip: in-old, note: "same subject as 1e6268e27f97 in v2.84.1" }
+- { commit: a0128c4a10c7, date: 2026-10-01, subject: "fix(deploy): recreate StatefulSet and other custom-validated kinds on immutable field change (#7994)", skip: in-old, note: "same subject as 1a7e9b306185 in v2.84.1" }
+- { commit: bfaad7793c99, date: 2026-10-01, subject: "fix(build): prevent duplicate images from concurrent builders (#7989)", entries: [synchronization-command-flags], note: "restores the synchronization subsystem removed by ce1ab9f9ae9f (#7603); net change vs v2 is limited to `werf synchronization` flags" }
+- { commit: 9151158433ea, date: 2026-10-01, subject: "chore(main): release 3.6.2 (#7943)", skip: release }
+- { commit: 0ba870348fbe, date: 2026-10-01, subject: "chore(release): 2 alpha,beta, 3 dev", skip: release }
+- { commit: d0a74e436d0b, date: 2026-10-02, subject: "test(build): cover --check-built-images and its aliases with e2e (#7998)", skip: test }
+- { commit: 941696b57089, date: 2026-10-05, subject: "fix(test): isolate native fixtures and restore baseline checks (#8005)", skip: test }
+- { commit: a49465a76dcf, date: 2026-10-05, subject: "fix(build): reduce registry tag-list pagination (#8001)", skip: in-old, note: "same subject as a85eef66887d in v2.84.1" }
+- { commit: d11e0d8c545b, date: 2026-10-05, subject: "feat(build): report backend operations and cache outcomes (#8002)", entries: [build-report-content-and-local-cache-observations], note: "backport 29b706258f5c in v2.84.1 lacks the local image list cache observations; the rest is in-old" }
+- { commit: 4f14924fe6af, date: 2026-10-05, subject: "fix(build): reuse stage snapshots and keep build checks read-only (#8003)", entries: [build-report-content-and-local-cache-observations], note: "backport b9e06bb3b3c1 in v2.84.1 lacks the shared-request accounting of the local image list cache; the rest is in-old" }
+- { commit: b5d96a991a20, date: 2026-10-05, subject: "fix(build): recover evicted Git data and retain costly mirrors (#8004)", skip: in-old, note: "backported to v2 as 7db5e11cf (#8017)" }
+- { commit: 865c42b76164, date: 2026-10-05, subject: "fix(cleanup): preserve cache data during dry runs and access errors (#8007)", skip: in-old, note: "git cache GC dry-run and access-error handling are in v2.84.1 via 7db5e11cf (#8017)" }
+- { commit: 32319a3c5896, date: 2026-10-06, subject: "fix(build): report accurate operation timings and cache lookups (#8012)", skip: in-old, note: "backported to v2 as a7437b2ec (#8015)" }
+- { commit: 8b1451ceebf9, date: 2026-10-06, subject: "fix(build): keep image checks read-only and reuse stages published by peers (#8013)", skip: in-old, note: "backported to v2 as 6d2a0bf85 (#8016)" }
+- { commit: f11886ce7e70, date: 2026-10-06, subject: "fix(build, cleanup): keep git cache data usable across eviction and cleanup (#8014)", skip: in-old, note: "backported to v2 as 7db5e11cf (#8017)" }
+- { commit: a0b24e3d97c2, date: 2026-10-06, subject: "fix(build): retry refused registry connections (#8018)", skip: in-old, note: "same subject as bfe37536ef56 in v2.84.1" }
+- { commit: 6a52b22aa490, date: 2026-10-06, subject: "chore(main): release 3.7.0 (#8008)", skip: release }
+- { commit: ea66f5631495, date: 2026-10-06, subject: "chore(release): 2 all, 3 dev", skip: release }
+- { commit: 9de53b9c4850, date: 2026-10-06, subject: "fix(build): preserve repository-specific SSH commands (#8021)", skip: in-old, note: "backported to v2 as 46f0294ed (#8020)" }
+- { commit: 7643e52badd6, date: 2026-10-06, subject: "chore(main): release 3.7.1 (#8023)", skip: release }
+- { commit: fa73c7a0ad5c, date: 2026-10-06, subject: "chore(release): 2 alpha,beta / 3 dev", skip: release }
+- { commit: 30e7c7bf826d, date: 2026-10-07, subject: "test(ci): clean local test images on both backends (#7937)", skip: test }
+- { commit: 292b479863ab, date: 2026-10-07, subject: "fix(build, stages): make from:scratch images usable by buildah builds (#7970)", skip: in-old, note: "same subject as cbd1157deaf3 in v2.84.1" }
+- { commit: 53cbba12d8b7, date: 2026-10-07, subject: "fix(deploy): pass root context from --set-root-json to templates (#8027)", entries: [helm-v4-engine], note: "nelm bump delivering the fix of a v3-only regression (nelm 8a091b36a85c)" }
+- { commit: 18e00d33acf8, date: 2026-10-07, subject: "fix(deploy): preserve release info annotations in release storage (#8028)", entries: [helm-v4-engine, chart-api-version-v3], note: "nelm bump delivering the fix of a v3-only regression (nelm 476d20183e9c)" }
+- { commit: 11dd358c655c, date: 2026-10-08, subject: "fix(deploy): run kubectl plugins only through kubectl (#8030)", skip: in-old, note: "same subject as b860ae97895d in v2.84.1" }
+- { commit: 875d345f2349, date: 2026-10-08, subject: "fix(host-cleanup): reclaim abandoned tmp data from older releases (#8033)", skip: in-old, note: "same subject as dfc2aedb7fc4 in v2.84.1" }
+- { commit: 8077bf320678, date: 2026-10-08, subject: "chore(ci): restore ACR integration tests and registry cleanup (#8034)", skip: ci }
+- { commit: 5f008094c6c7, date: 2026-10-08, subject: "fix(deploy): preserve kubectl env defaults and command syntax (#8032)", skip: in-old, note: "same subject as cca9f536f866 in v2.84.1" }
+- { commit: 0200b8978a61, date: 2026-10-08, subject: "fix(build): stop rejecting initialized nested submodules (#8040)", skip: in-old, note: "same subject as d139887f2882 in v2.84.1" }
+- { commit: 5dd872533a3a, date: 2026-10-08, subject: "chore(release): 2 alpha,beta", skip: in-old, note: "same subject as 944cf1b56 in v2.84.1" }
+- { commit: 6c16c5ed9af2, date: 2026-10-08, subject: "fix(build): prevent intermittent Buildah initialization failures (#8038)", skip: in-old, note: "same subject as 5ba0d9d6e492 in v2.84.1" }
+- { commit: cf22ac562964, date: 2026-10-08, subject: "fix(giterminism): preserve user worktrees in dev mode (#7999)", skip: in-old, note: "patch-equivalent commit in v2.84.1" }
+- { commit: 5cd2ac65d5cd, date: 2026-10-08, subject: "chore(main): release 3.7.2 (#8024)", skip: release }
+- { commit: 45f340b92827, date: 2026-10-08, subject: "chore(release): 3 dev", skip: in-old, note: "same subject as 5092c2fa3 in v2.84.1" }
+- { commit: ac3688de9f71, date: 2026-10-08, subject: "chore(release): 2 alpha,beta", skip: in-old, note: "same subject as 944cf1b56 in v2.84.1" }
+- { commit: 1d5562166e26, date: 2026-10-08, subject: "test(giterminism): initialize git in nested submodule reads (#8046)", skip: in-old, note: "patch-equivalent commit in v2.84.1" }
+- { commit: e4d19032a01e, date: 2026-10-08, subject: "fix(build): report registry publication and lookup failures (#8047)", entries: [build-registry-upload-eof-errors] }
+- { commit: 186a83943402, date: 2026-10-08, subject: "feat(build): include Git LFS content automatically in images (#8042)", entries: [build-git-lfs-content] }
+- { commit: b2bd9cc65f55, date: 2026-10-09, subject: "fix(host-cleanup): remove root-owned project temporary data (#8050)", skip: in-old, note: "same subject as fd98589e968c in v2.84.1" }
+- { commit: bc57c3ed65ba, date: 2026-10-09, subject: "chore(main): release 3.8.0 (#8048)", skip: release }
+- { commit: d8db92c98ac2, date: 2026-10-09, subject: "chore(release): 2 alpha,beta 3 dev", skip: release }
+- { commit: 638779c115b0, date: 2026-10-09, subject: "test(ci): enable Docker Hub registry tests (#8041)", skip: test }
+- { commit: 3c803c6b58ff, date: 2026-10-12, subject: "fix(build, deploy): accept unsuffixed list environment variables (#8052)", skip: in-old, note: "same subject as 082b63edb18c in v2.84.1" }
+- { commit: 54ab5ccea808, date: 2026-10-12, subject: "fix(build): ignore meta-repo when using local image storage (#8056)", skip: in-old, note: "v2 got --meta-repo with local storage ignoring it in 59f4efeda (#8057)" }
+- { commit: 9d73c38d568b, date: 2026-10-12, subject: "feat(build, stapel): expose git source provenance to build commands (#8058)", skip: in-old, note: "same subject as 406288814cf6 in v2.84.1" }
+- { commit: e6e9fe57983f, date: 2026-10-12, subject: "chore(main): release 3.9.0 (#8055)", skip: release }
+- { commit: 1ed7e7a54c6f, date: 2026-10-12, subject: "chore(release): 2 alpha, 3 dev", skip: in-old, note: "same subject as 094422efc in v2.84.1" }
+- { commit: 367a7128fa52, date: 2026-10-13, subject: "feat(deploy): own Helm-compatible release storage with streamed reads (#8061)", entries: [release-storage-metadata-reads], note: "effects catalogued from the nelm ledger (release-storage-metadata-reads, cli-release-list-output-v2, go-api-release-storage-interface)" }
+- { commit: 6ad10cde368f, date: 2026-10-13, subject: "chore(release): 2 all", skip: in-old, note: "same subject as efd0743de in v2.84.1" }
+- { commit: 7576eee20ca7, date: 2026-10-13, subject: "docs(build): trim the v3 migration guide (#8063)", skip: docs }
+- { commit: 2f01f583b500, date: 2026-10-14, subject: "fix(build): skip cached stages with invalid image config sizes (#8065)", skip: in-old, note: "same subject as 3763b35ee07c in v2.84.1" }
+- { commit: b2cd0c40d779, date: 2026-10-14, subject: "fix(build): show git preparation in operations statistics (#8068)", entries: [build-report-content-and-local-cache-observations], note: "backport c849c2100bbb in v2.84.1 lacks the build: content digests and build: content cache resolve operations; Git operations are in-old" }
+- { commit: 079791d0bd52, date: 2026-10-15, subject: "fix(build, stapel): recover interrupted file imports (#8074)", skip: in-old, note: "same subject as 1fb67cdde454 in v2.84.1" }
+- { commit: dae2c2d2cf6e, date: 2026-10-15, subject: "feat(build): fetch only the pinned commit of a submodule missing locally (#8070)", skip: in-old, note: "same subject as 8eeb30cf37c1 in v2.84.1" }
+- { commit: eb94043eb0ca, date: 2026-10-15, subject: "fix(cleanup): speed up and report metadata migration progress (#8078)", skip: in-old, note: "same subject as 8eae9814a9c4 in v2.84.1" }
+- { commit: 12e923a44d71, date: 2026-10-15, subject: "chore(main): release 3.10.0 (#8062)", skip: release }
+- { commit: b8b2b5220324, date: 2026-10-15, subject: "chore(release): 2 alpha,beta 3 dev", skip: release }
+- { commit: bdeb7c740107, date: 2026-10-16, subject: "fix(deploy): allow upgrades from legacy delete-dependency annotations (#8081)", entries: [dependency-annotations-external-auto], note: "effects catalogued from the nelm ledger (nelm 1abada485c7d -> dependency-annotations-external-auto)" }
+- { commit: fb5846472e0e, date: 2026-10-16, subject: "feat(deploy): expose release labels in the v3 release get result (#8083)", entries: [cli-werf-release-commands], note: "effects catalogued from the nelm ledger (nelm f33bf9e689a5 -> cli-release-get-resource-specs); werf release get is new in v3 (cli-werf-release-commands)" }
+- { commit: 92f6abfb2261, date: 2026-10-16, subject: "feat(deploy): read release annotations from storage metadata (#8084)", entries: [release-storage-metadata-reads, release-storage-sql-annotations-table], note: "effects catalogued from the nelm ledger (nelm eff9057778ef -> release-storage-metadata-reads, release-storage-sql-annotations-table)" }
+- { commit: 9bb995b9dfb5, date: 2026-10-19, subject: "fix(deploy, plan): respect `--releases-history-max` with `--use-plan` (#8085)", entries: [plan-use-plan-release-history-limit], note: "werf wiring of --releases-history-max for converge/bundle apply --use-plan" }
+- { commit: 5fe00b39b476, date: 2026-10-19, subject: "fix(cleanup): limit registry credentials to deletion commands (#8086)", entries: [cleanup-registry-api-credential-flags-only-for-deletion] }
+- { commit: 9a3057335121, date: 2026-10-19, subject: "feat(build): publish built images to multiple final repositories (#8087)", entries: [build-multiple-final-repos] }
+- { commit: f553a945a877, date: 2026-10-19, subject: "fix(build): avoid panic on cache-repo errors without final-repo (#8089)", skip: in-old, note: "same subject as acdca3509320 in v2.84.1" }
+- { commit: 97866b8d1d41, date: 2026-10-20, subject: "fix(deploy, tracking): honor `$WERF_NO_POD_LOGS` (#8091)", entries: [tracking-werf-no-pod-logs-env] }
+- { commit: ffe489ed1f2d, date: 2026-10-20, subject: "fix(deploy): respect `--no-pod-logs` with `--use-plan` (#8092)", entries: [plan-use-plan-no-pod-logs], note: "effects catalogued from the nelm ledger (nelm 30650512b08a -> plan-use-plan-no-pod-logs)" }
+- { commit: d7e8f38104a8, date: 2026-10-20, subject: "fix(build): reduce native build delays on populated image stores (#8064)", entries: [build-buildah-faster-local-image-lookups] }
+- { commit: 320f2bdc8e27, date: 2026-10-20, subject: "chore(main): release 3.11.0 (#8082)", skip: release }
+- { commit: a129a2e9cedc, date: 2026-10-20, subject: "chore(release): promote weekly channels for v2 and v3 (#8093)", skip: release }
+- { commit: d06d2cbe1696, date: 2026-10-20, subject: "test(build): cover both LFS context cache modes (#8094)", skip: test }
+- { commit: ed8b6298e3cc, date: 2026-10-20, subject: "feat(build): publish cached images with require-built-images (#8095)", skip: in-old, note: "same subject as bf5c56112b17 in v2.84.1" }
+- { commit: 8c73e67d0f7b, date: 2026-10-20, subject: "chore(main): release 3.12.0 (#8097)", skip: release }
+- { commit: a2acb7b57012, date: 2026-10-20, subject: "chore(release): add 2.84.0 and 3.12.0 to channels (#8099)", skip: release }
+- { commit: 193a9d40f551, date: 2026-10-21, subject: "fix(deploy): use saved plans that contain a blind apply (#8102)", skip: in-old, note: "same subject as 8a834d784c7a in v2.84.1" }
+- { commit: 48b223e5f22b, date: 2026-10-22, subject: "chore(main): release 3.12.1 (#8104)", skip: release }
+- { commit: 45a7a4a45977, date: 2026-10-22, subject: "chore(release): promote werf v3 to all channels (#8105)", skip: release }
+- { commit: 1ded233ddb64, date: 2026-10-22, subject: "chore(ci): use werf 3 alpha (#8106)", skip: ci }
+- { commit: 128ef6e18d28, date: 2026-10-22, subject: "chore(release): retire the werf 3 dev channel (#8109)", skip: release }
+- { commit: d6c1329e298d, date: 2026-10-22, subject: "fix(build): bump lockgate to v0.2.1 to avoid deadlock at lock timeout boundary (#8110)", entries: [file-lock-timeout-deadlock], note: "lockgate v0.2.1 bump (lockgate 1a37f08b6184)" }
+- { commit: ca6d9c9239b3, date: 2026-10-23, subject: "test(ci): stop kubectl self-invocation tests parsing stderr as JSON (#8113)", skip: test }
+- { commit: f2908c519135, date: 2026-10-23, subject: "docs(deploy): document render and diff patches (#8112)", skip: docs }
+- { commit: c406ef8cef1b, date: 2026-10-23, subject: "fix(deploy): accept incomplete dependency annotations (#8114)", entries: [dependency-annotations-external-auto], note: "nelm bump + docs; effects catalogued from the nelm ledger (nelm 6f92f53257d2 -> dependency-annotations-external-auto)" }
+- { commit: 5d03a73838e8, date: 2026-10-24, subject: "docs(dev): reuse candidate checks across review rounds (#8060)", skip: internal, note: "agent/developer instructions" }
+- { commit: 4e799ba13cb2, date: 2026-10-24, subject: "fix(build, dockerfile): rebuild when a RUN bind-mount source changes (#8080)", entries: [build-dockerfile-run-bind-mount-digest] }
+- { commit: 17fb8f390e32, date: 2026-10-24, subject: "fix(build, dockerfile): build when a RUN mount option uses a base ENV (#8115)", entries: [build-dockerfile-run-bind-mount-digest], note: "follow-up of 4e799ba13cb2" }
+- { commit: a33ac7de39a1, date: 2026-10-27, subject: "chore(release): promote weekly channels for 20261027 (#8116)", skip: release }
+- { commit: 8a0da5b42e79, date: 2026-10-27, subject: "fix(build): restore Docker Hub login for build and export (#8118)", skip: in-old, note: "patch-equivalent commit in v2.84.1" }
+- { commit: 6b7d47008fb9, date: 2026-10-29, subject: "fix(deploy, values): let --values and --set override secret values (#8117)", entries: [values-secret-values-precedence, values-export-import-all-layers], note: "werf bundle publish adjustments in this PR were superseded by a19d6fc8032f (charts-werf-data-publish-inputs)" }
+- { commit: 8c8f8f13e533, date: 2026-10-29, subject: "chore(main): release 3.12.2 (#8111)", skip: release }
+- { commit: f3647b5e9db9, date: 2026-10-29, subject: "chore(release): 2 alpha, 3 alpha,beta", skip: release }
+- { commit: ac43631fb536, date: 2026-10-30, subject: "feat(cleanup): keep a stage via its custom tag in --keep-list (#8139)", entries: [cleanup-keep-list-custom-tags] }
+- { commit: eaafa9dad085, date: 2026-11-03, subject: "chore(release): promote weekly channels for 20261103 (#8145)", skip: release }
+- { commit: f374ada561b6, date: 2026-11-06, subject: "fix(build, buildah): stop failed builds leaking working containers (#8146)", entries: [build-buildah-leaked-containers] }
+- { commit: a19d6fc8032f, date: 2026-11-07, subject: "feat(bundle): deploy published bundles exactly like converge (#8142)", entries: [charts-werf-data-publish-inputs, bundle-chart-name-from-repository, cli-chart-secret-key-rotate-removed], note: "nelm bump also brings triggers-release, PVC absence wait, kubedog changes: catalogued from the nelm ledger" }
+- { commit: 6f3d006a14dd, date: 2026-11-07, subject: "refactor(bundle): move bundle registry and copy onto Nelm (#8143)", entries: [bundle-copy-oci-layout-archive] }
+- { commit: d8c43ee30820, date: 2026-11-07, subject: "refactor(bundle): pull, push and resolve releases of bundles with Nelm (#8144)", entries: [charts-werf-data-publish-inputs, charts-oci-pull-digest-pinned], note: "bundle download, recorded release defaults and old-bundle annotation precedence moved to Nelm" }
+- { commit: 95e2df4e231f, date: 2026-11-09, subject: "fix(deploy, values): export-values from --values, --set and service values reach a subchart out of its dependency version range (#8127)", entries: [values-export-import-all-layers], note: "effects catalogued from the nelm ledger (nelm 83c4612a6eca -> values-export-import-all-layers)" }
+- { commit: 2a10f425a23c, date: 2026-11-09, subject: "fix(deploy, values): export-values of global.* in dependent charts see the main chart globals (#8130)", entries: [values-export-values-nested-global], note: "nelm bump + docs; effects catalogued from the nelm ledger (nelm 63f02a069573 -> values-export-values-nested-global)" }
+- { commit: 34fefd5a3a0c, date: 2026-11-09, subject: "fix(build): name the actual config file in errors (#8154)", entries: [build-errors-name-config-file] }
+- { commit: 57376063bc9f, date: 2026-11-09, subject: "docs(build): explain how to give werf access to private submodules (#8152)", skip: docs }
+- { commit: a07beb776a20, date: 2026-11-09, subject: "feat(deploy): validate Chart.yaml with export-values in IDEs (#8153)", entries: [charts-chart-yaml-json-schema] }
+- { commit: 59a202373fc4, date: 2026-11-09, subject: "fix(deploy): export-values from chart values no longer depend on the order of dependencies (#8134)", entries: [values-export-values-dependency-order], note: "nelm bump + docs; effects catalogued from the nelm ledger (nelm 3c2bfb3085e9 -> values-export-values-dependency-order)" }
+- { commit: 3274dc879073, date: 2026-11-09, subject: "fix(deploy, values): warn about export-values and import-values paths set in no values (#8137)", entries: [values-export-import-all-layers], note: "effects catalogued from the nelm ledger (nelm ca0491f1cef6 -> values-export-import-all-layers)" }
+- { commit: 4eb2c26b1abe, date: 2026-11-09, subject: "fix(build, dockerfile): support COPY and ADD heredocs with staged: true (#8155)", entries: [build-staged-dockerfile-copy-heredocs] }
+- { commit: f167b99bb8a1, date: 2026-11-09, subject: "chore(ci): auto-close solved discussions after 7 days of inactivity (#8156)", skip: ci }
+- { commit: cd1c65909689, date: 2026-11-09, subject: "perf(deploy): order export-values of charts with many dependencies faster (#8138)", entries: [values-export-values-dependency-order], note: "nelm bump delivering nelm c9e5cd7360fd" }
+- { commit: 260d35d6dcfb, date: 2026-11-09, subject: "fix(deploy): import-values of apiVersion v3 charts see --values and --set*, export-values warn (#8133)", entries: [chart-api-version-v3], note: "nelm bump + docs; effects catalogued from the nelm ledger (nelm 1b357544f53f -> chart-api-version-v3)" }
+- { commit: 43ebfcd0e438, date: 2026-11-09, subject: "fix(deploy, values): apply secret-values.yaml of v3 subcharts and subcharts not listed in dependencies (#8129)", entries: [secrets-subchart-secret-values-undeclared, chart-api-version-v3], note: "effects catalogued from the nelm ledger (nelm 1817f8b46aea -> secrets-subchart-secret-values-undeclared, chart-api-version-v3)" }
+- { commit: 49df20e91bad, date: 2026-11-09, subject: "fix(secrets): do not keep the secret key in the werf process environment after plan (#8126)", entries: [secrets-werf-secret-key-not-left-in-env], note: "nelm bump (77de34a84df6 -> go-api-secret-key-env-restored, Nelm-only); werf-side effect for werf plan/bundle plan" }
+- { commit: 1d745c80443b, date: 2026-11-09, subject: "fix(deploy): mark revisions left pending by an interrupted converge as failed after the next successful deploy (#8131)", entries: [release-pending-revisions-marked-failed], note: "effects catalogued from the nelm ledger (nelm 30c6dfb41b96 -> release-pending-revisions-marked-failed)" }
+- { commit: 9dd67b697805, date: 2026-11-10, subject: "feat(deploy, secrets): warn about secret values that lost their type in the legacy format (#8122)", entries: [secrets-warn-legacy-untyped-values] }
+- { commit: c82e7b8a2b36, date: 2026-11-10, subject: "fix(deploy): resources removed from the chart are deleted after a stuck or failed deploy (#8125)", entries: [deploy-delete-resources-after-pending-revision], note: "effects catalogued from the nelm ledger (nelm 98d48dbbadbb -> deploy-delete-resources-after-pending-revision)" }
+- { commit: 7bd4e8069ed8, date: 2026-11-10, subject: "fix(deploy): repeated converge of a chart with an internal state=ready deploy-dependency is skipped when nothing changed (#8123)", entries: [deploy-skip-unchanged-with-ready-dependency], note: "effects catalogued from the nelm ledger (nelm df6a7e09dca6 -> deploy-skip-unchanged-with-ready-dependency)" }
+- { commit: eb8cc6ee3f21, date: 2026-11-10, subject: "chore(release): promote weekly channels for 20261110 (#8160)", skip: release }
+- { commit: 88ffae8ec1e0, date: 2026-11-10, subject: "fix(deploy): repeated converge with a numeric --set is skipped as up to date (#8128)", entries: [deploy-numeric-set-values-up-to-date], note: "effects catalogued from the nelm ledger (nelm aae38de59683 -> deploy-numeric-set-values-up-to-date)" }
+- { commit: eda6a00cd3df, date: 2026-11-10, subject: "fix(deploy): warn when a deployed resource is already being deleted (#8124)", entries: [deploy-warn-terminating-resource], note: "effects catalogued from the nelm ledger (nelm b4c9403b50fc -> deploy-warn-terminating-resource)" }
+- { commit: 698281ee24cc, date: 2026-11-10, subject: "fix(deploy): lookalike keys such as `werf-io/weight` no longer act as `werf.io/*` and `helm.sh/*` annotations (#8132)", entries: [annotations-lookalike-keys-ignored], note: "effects catalogued from the nelm ledger (nelm ae91bc5052a5 -> annotations-lookalike-keys-ignored)" }
+- { commit: 59e50668661e, date: 2026-11-10, subject: "fix(deploy): values and dependency warnings follow the nelm log level and go to stderr (#8136)", entries: [logging-helm-fork-messages-nelm-logger], note: "effects catalogued from the nelm ledger (nelm 9f1200cfc669 -> logging-helm-fork-messages-nelm-logger)" }
+- { commit: f6aac2e0488c, date: 2026-11-10, subject: "chore(release): complete weekly v3 promotion for 20261110 (#8161)", skip: release }
+- { commit: c4b5ec156dd6, date: 2026-11-10, subject: "fix(deploy): apply publish-time values of a dependency chart that is out of the version range of its alias (#8159)", entries: [charts-werf-data-publish-inputs], note: "effects catalogued from the nelm ledger (nelm 78660276c3de -> charts-werf-data-publish-inputs)" }
+- { commit: 77b7cc26b2e0, date: 2026-11-10, subject: "fix(bundle): warn on publish about export-values skipped because of a non-map value (#8135)", entries: [values-export-import-all-layers], note: "nelm bump + test; effects catalogued from the nelm ledger (nelm e2464b442824); the publish warning is described in values-export-import-all-layers" }
+- { commit: 7e442af0f528, date: 2026-11-10, subject: "docs(deploy): explain that all --set* options form one source for export-values and import-values (#8158)", skip: docs }
+- { commit: f805b27abcf5, date: 2026-11-10, subject: "fix(build): keep git files that differ only by case intact on macOS (#8147)", entries: [build-git-case-insensitive-filesystems] }

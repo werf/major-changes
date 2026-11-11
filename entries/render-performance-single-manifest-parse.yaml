@@ -1,0 +1,10 @@
+id: render-performance-single-manifest-parse
+title: "Chart rendering parses each rendered manifest once"
+type: change
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [render, performance]
+description: |
+  Before: every rendered manifest was parsed twice, once only to check it.
+  Now: each manifest is parsed once, which roughly halves the time and allocations of turning rendered templates into resources; the second parse runs only after decoding fails, so error messages for invalid YAML are unchanged. A few YAML inputs that only the discarded check rejected no longer fail rendering: a tab inside a quoted scalar or a plain scalar starting with `@` now render correctly, while for a `...` document-end marker in the middle of a file the rest of the file is dropped, and a YAML-tagged value becomes empty, without an error. Charts that rendered before render the same. Lint (`nelm chart lint`, `werf lint`) still rejects most of these inputs through resource validation; render does not.

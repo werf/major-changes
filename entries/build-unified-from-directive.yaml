@@ -1,0 +1,16 @@
+id: build-unified-from-directive
+title: "One `from` key refers to both werf.yaml images and external images; `fromImage`, `import.image` and `dependencies.image` are deprecated"
+type: change
+breaking: true
+products: [werf]
+domain: build
+areas: [config, stapel, images]
+description: |
+  Before: a Stapel base image was set with `from:` (always an external image) or `fromImage:` (an image from `werf.yaml`); file imports used `import.image` (with `import.from` as an alias), and image dependencies used `dependencies.image` (v2.84.1 also accepted `dependencies.from`, which silently won over `dependencies.image` when both were set). A base `from: ubuntu` without a tag was pulled as `ubuntu:latest`.
+  Now: `from` is the single key in all three places — `from:` for the Stapel base image, `import.from` and `dependencies.from`. A name defined in `werf.yaml` refers to that internal image; anything else is an external image reference. An external reference in a Stapel base `from` or in `import.from` must include a tag or digest (`from: ubuntu` is a configuration error; use `ubuntu:latest`, `ubuntu:TAG` or `ubuntu@sha256:...`). `from: scratch` needs no tag; `scratch` is now a reserved image name, and `from: scratch` is rejected in `import.from` and together with `fromLatest`.
+  `fromImage`, `import.image` and `dependencies.image` still work but print a deprecation warning. Specifying an old key together with its `from` replacement is a configuration error.
+migration: |
+  Add a tag or digest to every external image reference in a Stapel base `from` and in `import.from` (for example, `from: ubuntu` → `from: ubuntu:latest`). Rename an image called `scratch`, if any.
+  Optionally rename `fromImage` → `from`, `import.image` → `import.from` and `dependencies.image` → `dependencies.from`; use only one of the old and new keys in the same place.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#one-from-key-for-image-references

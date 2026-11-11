@@ -1,0 +1,10 @@
+id: build-buildah-isolated-build-options
+title: "Native Buildah Dockerfile builds no longer share secrets and SSH settings with other builds"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [buildah, dockerfile]
+description: |
+  Before: with the native Buildah backend (`WERF_BUILDAH_MODE=native-chroot` or `native-rootless`), a Dockerfile build wrote its `secrets` and `ssh` settings into build options shared by the whole werf process, so a later Dockerfile image without `secrets` built in the same run got the secrets of a previous one, and images built in parallel overwrote each other's secrets and SSH sources.
+  Now: every Dockerfile build and every Stapel container gets its own copy of the options, so `secrets` and `ssh` apply only to the image that configures them.

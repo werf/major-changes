@@ -1,0 +1,10 @@
+id: values-export-values-dependency-order
+title: "`export-values` no longer depend on the order of dependencies in `Chart.yaml`"
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [values, dependencies]
+description: |
+  Before: `export-values` from the charts' `values.yaml` and `secret-values.yaml` read each dependency's parent values once, in `Chart.yaml` order, so an export whose `parent:` path was written by an export to a sibling dependency listed later got the sibling's default value.
+  Now: exports are ordered so that an export waits for the exports that write to its `parent:` path, also in nested charts, whichever order the dependencies are listed in. When two exports write the same child path, the one declared later still wins. Ordering many exports is fast (topological sort).

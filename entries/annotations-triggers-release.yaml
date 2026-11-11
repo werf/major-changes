@@ -1,0 +1,10 @@
+id: annotations-triggers-release
+title: '`werf.io/triggers-release: "false"` keeps a resource from causing a new release on its own'
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [annotations, plan]
+description: |
+  New: the `werf.io/triggers-release: "true"|"false"` resource annotation (default `"true"`). With `"false"`, when deciding whether the release is up to date and the deploy can be skipped, Nelm ignores changes in the resource's manifest and all operations on it: creation, update, recreation (e.g. caused by `werf.io/delete-policy: before-creation` or the default delete policy of hooks), deletion and readiness tracking. Useful for Jobs that should run only when something else is deployed (migrations, backups, notifications): without it, a Job with `werf.io/delete-policy: before-creation` is recreated on every deploy, so the release is never skipped.
+  Adding such a resource to the chart, removing it, or its absence in the cluster (e.g. deleted by `werf.io/delete-policy: succeeded` or `ttlSecondsAfterFinished`) doesn't trigger a release either; it is created or deleted with the next release. Values are always compared as a whole, so changing values used only by such a resource still triggers a release.

@@ -1,0 +1,28 @@
+version: "3"
+
+tasks:
+  generate:
+    desc: "Validate the catalogue and render werf.md and nelm.md. Runs offline."
+    cmds:
+      - go run ./cmd/majorchanges {{.CLI_ARGS}}
+
+  sync:
+    desc: "Add the commits of the pinned ranges missing from the ledgers, then validate and render. Needs git and network."
+    cmds:
+      - go run ./cmd/majorchanges -sync {{.CLI_ARGS}}
+
+  test:
+    desc: "Run the tests of the tool."
+    cmds:
+      - go test ./... {{.CLI_ARGS}}
+
+  lint:
+    desc: "Check formatting and run go vet."
+    cmds:
+      - test -z "$(gofmt -l .)"
+      - go vet ./...
+
+  format:
+    desc: "Format the Go code."
+    cmds:
+      - gofmt -w .

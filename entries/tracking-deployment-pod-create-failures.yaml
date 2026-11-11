@@ -1,0 +1,15 @@
+id: tracking-deployment-pod-create-failures
+title: Deployment tracking fails fast when the new ReplicaSet cannot create pods
+type: fix
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [tracking]
+description: |
+  Before: when the new ReplicaSet of a Deployment could not create pods (the `ReplicaFailure` condition with reason `FailedCreate`, e.g. `exceeded quota`, an invalid pod spec, or a webhook rejection), tracking only saw transient Warning events, missed failures that happened before tracking started, and usually waited until the tracking timeout.
+  Now: the `ReplicaFailure` condition of the Deployment's own new ReplicaSet is read directly.
+  - An invalid pod spec, or a quota shortage that the rollout cannot release by scaling old pods down (confirmed against the pod list and the `ResourceQuota` and held for about 10 seconds), fails the resource immediately, regardless of `werf.io/failures-allowed-per-replica`; with `werf.io/fail-mode: IgnoreAndContinueDeployProcess` the deploy still continues.
+  - Other pod-create failures, including quota shortages that the rollout can recover from, are counted against `werf.io/failures-allowed-per-replica`, each failure once (previously an event-sourced Deployment failure was counted again on every later status update).
+  - Confirming a quota deadlock needs `list pods` and `get resourcequotas` in the namespace; without these permissions such failures stay counted.
+refs:
+  - https://github.com/werf/kubedog/issues/398

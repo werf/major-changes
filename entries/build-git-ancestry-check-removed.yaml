@@ -1,0 +1,12 @@
+id: build-git-ancestry-check-removed
+title: "Cached Git stages are reused without requiring their commit to be an ancestor of the current commit"
+type: change
+breaking: false
+products: [werf]
+domain: build
+areas: [git, cache, stapel]
+description: |
+  Before: werf reused a cached `gitArchive`, `gitCache` or `gitLatestPatch` stage only if the commit recorded on it was a Git ancestor of the current commit; after `git commit --amend`, a rebase or a branch switch, such stages were rebuilt, together with every dependent image. `WERF_DISABLE_GIT_COMMIT_ANCESTRY_CHECK=1` turned the check off.
+  Now: the ancestry check is removed; a cached Git stage only requires its recorded commit to still exist in the repository. `WERF_DISABLE_GIT_COMMIT_ANCESTRY_CHECK` no longer has any effect.
+migration: |
+  Remove `WERF_DISABLE_GIT_COMMIT_ANCESTRY_CHECK` from CI settings; it is no longer needed.

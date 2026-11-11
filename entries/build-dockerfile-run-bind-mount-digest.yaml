@@ -1,0 +1,12 @@
+id: build-dockerfile-run-bind-mount-digest
+title: "Dockerfile images are rebuilt when a file used by `RUN --mount=type=bind` changes"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [dockerfile, cache]
+description: |
+  Before: for Dockerfile images built without `staged: true`, the stage digest included `RUN` instruction text and checksums only of `COPY`/`ADD` sources, so changing a build-context file read through `RUN --mount=type=bind,source=...` reused the cached image while `docker build` would rerun the instruction.
+  Now: sources of context bind mounts (without `from=`) are checksummed, with `ARG`/`ENV` values expanded; an unresolved source tracks the whole context. Digests of Dockerfiles without context bind mounts are unchanged; images using such mounts are rebuilt once.
+refs:
+  - https://github.com/werf/werf/issues/6823

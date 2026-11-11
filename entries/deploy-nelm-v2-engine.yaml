@@ -1,0 +1,12 @@
+id: deploy-nelm-v2-engine
+title: "werf deploys with Nelm v2, and `werf helm` uses the Nelm v2 Helm 4 fork"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [charts, dependencies]
+description: |
+  Before: werf v2 used Nelm v1 (with its Helm 3-based fork) for `werf converge`, `werf plan`, `werf render`, `werf lint`, `werf rollback`, `werf dismiss` and the `werf bundle` commands, and a separate legacy Helm 3 stack (`3p-helm-for-werf-helm`, `nelm-for-werf-helm`, `kubedog-for-werf-helm`) for the `werf helm` subcommands.
+  Now: all of them use Nelm v2 and its Helm 4-based fork; the legacy Helm 3 stack is removed. Every Nelm v2 change marked for werf in this catalogue (chart loading, values, templates, rendering, plan, apply, tracking, release storage, secrets, reports) applies to werf v3.
+migration: |
+  Review the deploy changes of this catalogue that list werf among their products, render your charts with werf v3 (`werf render`) and compare the result, and check the plan (`werf plan`) before the first deploy with werf v3.

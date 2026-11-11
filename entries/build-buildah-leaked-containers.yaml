@@ -1,0 +1,10 @@
+id: build-buildah-leaked-containers
+title: "Buildah builds no longer leave working containers behind"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [buildah, dockerfile]
+description: |
+  Before: with the Buildah backend, a staged Dockerfile build (`staged: true`) with `COPY --from` left a temporary source container mounted for every copy, and a Dockerfile build that failed midway left its `<image-id>-working-container`; these containers piled up in the containers storage and pinned their images.
+  Now: temporary and working containers are removed after the copy and after a failed build.

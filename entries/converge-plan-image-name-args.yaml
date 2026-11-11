@@ -1,0 +1,12 @@
+id: converge-plan-image-name-args
+title: "werf converge and werf plan accept image names as arguments without `WERF_CONVERGE_ENABLE_IMAGES_PARAMS`"
+type: change
+breaking: true
+products: [werf]
+domain: deploy
+areas: [cli, images]
+description: |
+  Before: `werf converge [IMAGE_NAME ...]` and `werf plan [IMAGE_NAME ...]` limited the processed images to the given names only with `WERF_CONVERGE_ENABLE_IMAGES_PARAMS=1`; otherwise positional arguments were silently ignored and all images were processed.
+  Now: positional arguments always select the images to process, as in `werf build` (names and glob patterns, `!pattern` excludes); the environment variable is no longer read. A name that matches no image in `werf.yaml` is an error.
+migration: |
+  Remove positional arguments from `werf converge` and `werf plan` calls that passed them by mistake, otherwise only the listed images are built and passed to the chart. Drop `WERF_CONVERGE_ENABLE_IMAGES_PARAMS` from the environment.

@@ -1,0 +1,9 @@
+id: build-report-content-and-local-cache-observations
+title: "Operations reporting covers content digests and the local image list cache"
+type: feature
+breaking: false
+products: [werf]
+domain: build
+areas: [build-report, cache]
+description: |
+  New: with operations reporting enabled (`--build-report-operations`, or debug logging), the operations summary and the saved build report also include `build: content digests` and `build: content cache resolve` (calculating content-based tags and looking images up by them), and the cache summary also counts lookups in the in-memory cache of the local Docker or Buildah image list (`docker: image list`, `buildah: image list`): hits, misses, bypasses and requests shared with a concurrent listing. The rest of the operations report, including the Git preparation operations, is already in werf v2.

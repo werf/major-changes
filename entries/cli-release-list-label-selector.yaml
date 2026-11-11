@@ -1,0 +1,9 @@
+id: cli-release-list-label-selector
+title: "`release list --release-label-selector` filters releases by labels of stored revisions"
+type: feature
+breaking: false
+products: [nelm]
+domain: deploy
+areas: [cli, release-storage]
+description: |
+  New: `release list --release-label-selector <selector>` (default empty; Go API: `ReleaseListOptions.ReleaseLabelSelector`) takes a Kubernetes label selector, applies it to the labels of the stored revisions together with the release namespace, and lists the latest matching revision of each release. Works with Secret, ConfigMap, SQL and memory release storage.

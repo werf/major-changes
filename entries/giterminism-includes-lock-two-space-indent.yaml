@@ -1,0 +1,10 @@
+id: giterminism-includes-lock-two-space-indent
+title: "`werf-includes.lock` is written with two-space indentation"
+type: change
+breaking: false
+products: [werf]
+domain: general
+areas: [giterminism]
+description: |
+  Before: `werf includes update` wrote `werf-includes.lock` with four-space YAML indentation.
+  Now: the file is written with two-space indentation. The content is the same; regenerating the lock file produces a whitespace-only diff once.

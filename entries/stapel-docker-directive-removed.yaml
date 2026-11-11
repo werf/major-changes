@@ -1,0 +1,14 @@
+id: stapel-docker-directive-removed
+title: "The `docker` directive is removed from Stapel images; use `imageSpec.config`"
+type: removal
+breaking: true
+products: [werf]
+domain: build
+areas: [stapel, config]
+description: |
+  Before: the deprecated `docker` directive of a Stapel image set image configuration in Dockerfile-instruction terms (`VOLUME`, `EXPOSE`, `ENV`, `LABEL`, `ENTRYPOINT`, `CMD`, `WORKDIR`, `USER`, `HEALTHCHECK`) as a separate `dockerInstructions` stage.
+  Now: the `docker` key is a configuration error; image configuration is set only with `imageSpec.config`.
+migration: |
+  Move the settings to `imageSpec.config`, translating names and formats, e.g. `docker.WORKDIR: /app` → `imageSpec.config.workingDir: /app`, `docker.ENV: {A: b}` → `imageSpec.config.env: {A: b}`. Expect the affected images to be rebuilt.
+refs:
+  - https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html#builders-and-image-configuration

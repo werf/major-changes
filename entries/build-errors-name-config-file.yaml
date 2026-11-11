@@ -1,0 +1,10 @@
+id: build-errors-name-config-file
+title: "Configuration errors name the config file actually used"
+type: fix
+breaking: false
+products: [werf]
+domain: general
+areas: [config, cli]
+description: |
+  Before: with `--config another.werf.yaml`, errors said `no image matches pattern "x"`, `... is not defined in werf.yaml`, or `unable to load werf config: ...` without naming the file.
+  Now: such errors name the config file in use, for example `no image matches pattern "x" in another.werf.yaml`.

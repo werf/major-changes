@@ -1,0 +1,16 @@
+id: kubectl-embedded-version-1-37
+title: "`werf kubectl` is upgraded from kubectl 1.29 to kubectl 1.37"
+type: change
+breaking: true
+products: [werf]
+domain: general
+areas: [kubectl, dependencies]
+description: |
+  Before: `werf kubectl` embedded kubectl v1.29 (`k8s.io/kubectl` v0.29.3), and werf used the Kubernetes v0.29 client libraries.
+  Now: `werf kubectl` embeds kubectl v1.37 (`k8s.io/kubectl` v0.37.0) with the Kubernetes v0.37 client libraries. Commands, flags and output follow kubectl 1.37. Changes visible in the werf CLI reference:
+  - Changed: `werf kubectl autoscale` replaces `--cpu-percent` with `--cpu` and adds `--memory`; `werf kubectl debug --profile` defaults to `general` instead of `legacy` (the `legacy` profile is gone; `sysadmin` is added); `werf kubectl wait --for` can be repeated; `werf kubectl config set-context` accepts `-n` for `--namespace`; `werf kubectl explain` accepts `-o` and `-R`.
+  - kuberc: kubectl preferences (default flag values and aliases) are read from a kuberc file (`~/.kube/kuberc` by default, or `--kuberc`), which can be disabled with `KUBECTL_KUBERC=false`. New commands `werf kubectl kuberc view` and `werf kubectl kuberc set` (`--section`, `--command`, `--option`, `--name`, `--prependarg`, `--appendarg`, `--overwrite`, `--policy`, `--allowlist-entry`) manage it.
+  - New flags of all `werf kubectl` commands: `--as-user-extra`, `--kuberc`, `--proxy-url`.
+  - New command flags: `api-resources --show-managed-fields`; `apply --subresource`; `attach --detach-keys`; `config set-credentials --exec-interactive-mode`, `--exec-provide-cluster-info`; `debug --custom`, `--keep-annotations`, `--keep-init-containers`, `--keep-labels`, `--keep-liveness`, `--keep-readiness`, `--keep-startup`; `diff --show-secrets`; `explain --max-depth`; `kustomize --helm-debug`; `logs --all-pods`; `run --cascade`, `--detach-keys`, `--force`, `--grace-period`, `--kustomize`, `--recursive`, `--timeout`, `--wait`; `top node` and `top pod --show-swap`.
+migration: |
+  Check scripts that call `werf kubectl` against the kubectl changelog between v1.29 and v1.37 and adjust removed or changed flags: replace `autoscale --cpu-percent=N` with `--cpu=N%`, and pass `--profile=general` (or another existing profile) to `debug` instead of `legacy`. If a kuberc file on the host must not affect `werf kubectl`, set `KUBECTL_KUBERC=false`.

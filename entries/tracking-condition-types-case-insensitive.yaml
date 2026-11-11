@@ -1,0 +1,12 @@
+id: tracking-condition-types-case-insensitive
+title: Readiness tracking matches status condition types of custom resources case-insensitively
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [tracking]
+description: |
+  Before: the built-in readiness rules for custom resources only matched lowercase condition types in `status.conditions` (`ready`, `available`, ...). A resource with a CamelCase condition such as `Ready` or `Available` matched no rule and was reported ready as soon as it appeared. Case-insensitive matching was available only as an opt-in through the `case-insensitive-condition-tracking` feature gate (`NELM_FEAT_CASE_INSENSITIVE_CONDITION_TRACKING=true`).
+  Now: condition types are always matched case-insensitively, CamelCase first. A custom resource with a `Ready`/`Available` condition is reported ready only once that condition is `True`, so deploys wait for it and may time out if it never becomes `True`. The feature gate is removed; `NELM_FEAT_CASE_INSENSITIVE_CONDITION_TRACKING` is reported as an unsupported environment variable.
+migration: |
+  Check custom resources that have `Ready` or `Available` conditions: the deploy now waits for them. If a resource never reaches `True` and should not block the deploy, set `werf.io/track-termination-mode: NonBlocking` on it, or fix its controller. Remove `NELM_FEAT_CASE_INSENSITIVE_CONDITION_TRACKING` from the environment.

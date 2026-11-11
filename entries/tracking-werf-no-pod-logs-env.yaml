@@ -1,0 +1,10 @@
+id: tracking-werf-no-pod-logs-env
+title: "`WERF_NO_POD_LOGS` disables Pod logs"
+type: fix
+breaking: false
+products: [werf]
+domain: deploy
+areas: [tracking, logging]
+description: |
+  Before: the help of `--no-pod-logs` in `werf converge`, `werf bundle apply`, `werf rollback` and other tracking commands named `$WERF_NO_POD_LOGS` as its default, but the variable was never read: only the flag disabled Pod logs.
+  Now: `WERF_NO_POD_LOGS=true` disables collecting and printing Pod logs, like `--no-pod-logs`.

@@ -1,0 +1,9 @@
+id: charts-chart-yaml-json-schema
+title: "A JSON Schema for `Chart.yaml` with the werf `export-values` extension is published for editors"
+type: feature
+breaking: false
+products: [werf]
+domain: deploy
+areas: [charts, dependencies]
+description: |
+  New: werf publishes a `Chart.yaml` schema at `https://werf.io/docs/v3/schemas/chart.json`, next to the `werf.yaml` schemas. Unlike the standard Helm schema from JSON Schema Store, which reports `export-values` in `dependencies` as `Additional properties are not allowed`, it accepts `export-values` (a string path or a `parent`/`child` object; an empty or `.` `parent` is rejected) and allows `apiVersion`, `name` and `version` to be omitted in the main chart, since werf fills them in. Unknown keys are still rejected. The schema is not registered in JSON Schema Store: select it explicitly, e.g. with a `# yaml-language-server: $schema=...` comment. werf's own chart handling is unchanged.

@@ -1,0 +1,17 @@
+id: charts-oci-pull-digest-pinned
+title: "OCI charts are pulled by one manifest digest with stricter provenance verification"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [charts, oci, registry]
+description: |
+  Changes for remote `oci://` charts in `release install`, `release plan install`, `chart render`, `chart lint` and `chart download`:
+  - A tag is resolved to a manifest digest once, and the chart and its provenance are fetched by that digest (the provenance never comes from a cache). The resolved digest is logged (`Resolved chart … to digest …`, and `Verified chart … signed by …` after verification).
+  - With `--provenance-strategy` `verify` or `verify-if-possible`, a semver tag (leading `v` dropped, `_` read as `+`) must equal the chart version; `verify` without `--provenance-keyring` fails before downloading, and a signed chart under `verify-if-possible` without a keyring fails. A tag ending in `.prov` is rejected.
+  - An OCI chart can be pulled by an existing non-semver tag (e.g. `oci://repo/chart:latest`).
+  - Install, plan, render and lint download charts into a private per-invocation directory that is removed afterwards, not into Helm's shared repository cache.
+  - Nelm: in install, plan, render and lint, `--chart-repo-ca`, `--chart-repo-cert`/`--chart-repo-key`, `--no-verify-chart-repos-tls` and `--chart-repo-request-timeout` now apply to `oci://` charts; basic-auth credentials are sent only to the chart's host. `nelm chart download` keeps Helm's flags (`--ca-file`, `--cert-file`, `--key-file`, `--insecure-skip-tls-verify`, `--plain-http`). Loopback registries (`localhost`, `127.0.0.0/8`, `::1`) are reached over plain HTTP unless TLS options are given; with `--insecure-chart-repos` plain HTTP is always used.
+  - werf: bundles are pulled with `--insecure-registry` (plain HTTP) and `--skip-tls-verify-registry`; dependency charts use `--skip-tls-verify-helm-dependencies`. werf has no option for a custom CA file.
+migration: |
+  If you verify provenance of OCI charts, make sure the tag you deploy equals the chart version (or deploy by digest) and pass `--provenance-keyring`. For OCI registries with self-signed certificates, pass the CA with `--chart-repo-ca` in Nelm (`--ca-file` for `nelm chart download`); in werf, add the CA to the system trust store, or as a last resort use `--skip-tls-verify-registry` (bundles) or `--skip-tls-verify-helm-dependencies` (dependencies).

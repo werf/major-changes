@@ -1,0 +1,10 @@
+id: kubectl-kube-config-base64-priority
+title: "werf kubectl uses `--kube-config-base64` even when `KUBECONFIG` is set"
+type: fix
+breaking: false
+products: [werf]
+domain: general
+areas: [kubectl]
+description: |
+  Before: `werf kubectl` ignored `--kube-config-base64` (`$WERF_KUBE_CONFIG_BASE64`) whenever `$WERF_KUBE_CONFIG`, `$WERF_KUBECONFIG` or `$KUBECONFIG` was set, and used that kubeconfig file instead.
+  Now: `--kube-config-base64` takes priority over the kubeconfig environment variables.

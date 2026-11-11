@@ -1,0 +1,21 @@
+id: go-api-action-options-removed
+title: "Option fields of removed CLI options are removed from the `action` and `common` option structs"
+type: removal
+breaking: true
+products: [nelm]
+domain: go-api
+areas: [go-api, values, validation, plan]
+description: |
+  Before: the option structs of `pkg/action` and `pkg/common` had fields for options that Nelm v2 removes (see `values-set-runtime-json-removed`, `resource-validation-embedded-schemas`, `plan-show-verbose-diffs-removed`, `render-force-adoption-removed`, `plan-use-plan-release-history-limit`).
+  Now: these exported identifiers are removed:
+  - `RuntimeSetJSON` of `common.ValuesOptions`, and therefore of `action.ChartLintOptions`, `ChartRenderOptions`, `ReleaseInstallOptions` and `ReleasePlanInstallOptions`, and `chart.RenderChartOptions.RuntimeSetJSON`: `$.Runtime` is no longer populated.
+  - `LocalResourceValidation`, `ValidationKubeVersion` and `ValidationSchemas` of `common.ResourceValidationOptions`, and therefore of `common.ReleaseInstallRuntimeOptions` and `action.ChartLintOptions`, `ReleaseInstallOptions`, `ReleasePlanInstallOptions` and `ReleaseRollbackOptions`; the constants `common.DefaultResourceValidationKubeVersion`, `common.DefaultResourceValidationSchema` and `common.APIResourceValidationJSONSchemasCacheDir`; and `resource.ErrResourceValidationSourceSanityCheck`. Validation uses the schemas embedded into the binary; `ValidationExtraSchemas`, `ValidationSkip`, `ValidationSchemaCacheLifetime` and `NoResourceValidation` remain.
+  - `ShowVerboseDiffs` of `common.ResourceDiffOptions`, and therefore of `action.ReleasePlanInstallOptions` and `ReleasePlanShowOptions`, and the `plan.HiddenVerboseChanges` and `plan.HiddenSensitiveChanges` diff placeholders: diffs of created and deleted resources are always shown, and sensitive values are redacted field by field instead of hiding the whole diff.
+  - `action.ChartRenderOptions.ForceAdoption`, which had no effect.
+  - `ReleaseHistoryLimit` of `common.ReleaseInstallRuntimeOptions`, and therefore of `action.ReleasePlanInstallOptions`: it is now a field of `action.ReleaseInstallOptions` only.
+migration: |
+  Remove these fields from your option literals:
+  - Pass the data of `RuntimeSetJSON` as values with `ValuesSetJSON` and read it from `.Values` in templates.
+  - Drop `LocalResourceValidation`, `ValidationKubeVersion` and `ValidationSchemas`; pass your own schema sources with `ValidationExtraSchemas`.
+  - Drop `ShowVerboseDiffs` and `ForceAdoption`, and stop comparing diffs with `plan.HiddenVerboseChanges`/`plan.HiddenSensitiveChanges`.
+  - Set `action.ReleaseInstallOptions.ReleaseHistoryLimit` instead of `ReleaseHistoryLimit` in `common.ReleaseInstallRuntimeOptions` or `action.ReleasePlanInstallOptions`.

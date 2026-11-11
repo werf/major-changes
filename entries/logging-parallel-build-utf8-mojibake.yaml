@@ -1,0 +1,10 @@
+id: logging-parallel-build-utf8-mojibake
+title: "Parallel build logs no longer show `�` in place of multi-byte characters"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [logging]
+description: |
+  Before: during parallel image builds, a multi-byte UTF-8 character (for example, the `└`, `┌`, `│` log tree prefixes) that straddled a 1024-byte chunk of a worker's buffered output was split and printed as `�`.
+  Now: incomplete UTF-8 sequences are held back until complete, including when a worker finishes writing, so the output is not corrupted.

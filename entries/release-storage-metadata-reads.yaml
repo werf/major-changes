@@ -1,0 +1,13 @@
+id: release-storage-metadata-reads
+title: "Release history is read from storage metadata and release bodies are streamed, cutting memory use"
+type: change
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [release-storage, performance]
+description: |
+  Before: every action that read release history (`chart render`, `chart lint`, `release plan install`, `release install`, `release rollback`, `release uninstall`, `release list`) fetched and decoded the full body of every stored revision, so time and memory grew with the number and size of revisions; `release list` could run out of memory on clusters with thousands of releases.
+  Now: revisions are listed from the labels and annotations of the storage objects (Secret, ConfigMap, SQL row) and a revision body is fetched only where the action needs it: `chart render` reads none, `chart lint`, `release plan install`, `release install` and `release uninstall` read the latest one, `release rollback` reads the latest and the target one. `release list` and `release history` stream bodies page by page, keeping only the fields they print; `release list` in table format reads no bodies, and `release history --revisions-limit N` reads only the newest N bodies. The storage format stays Helm-compatible; new revisions additionally carry a `werf.io/release-version: v1` annotation on the storage object, so that release annotations can be read without the body.
+  Related behavior changes:
+  - A revision whose body can't be decoded is shown by `release list` and `release history` with its name, namespace, revision and status and `null` details, with an error log, instead of being skipped or replaced by an older revision; history pruning (`--release-history-limit`) now counts and removes such revisions.
+  - A storage object whose name doesn't match the revision named in its labels, such as a copy of a release Secret, is no longer taken for that revision by listing or pruning.

@@ -1,0 +1,17 @@
+id: typescript-charts
+title: "TypeScript charts are enabled by default and render with Node.js 26+ from the host"
+type: change
+breaking: true
+products: [nelm, werf]
+domain: deploy
+areas: [typescript, templates]
+description: |
+  Before: TypeScript charts (the `ts/` directory of a chart, rendered in addition to or instead of `templates/`) were behind the `NELM_FEAT_TYPESCRIPT=true` feature gate; without it `ts/` was ignored and `chart ts init`/`chart ts build` failed. They were bundled and rendered with Deno 2.7.1, downloaded from GitHub on first use, with `@nelm/chart-ts-sdk` 0.1.x; `--deno-binary-path` (`$NELM_DENO_BINARY_PATH`, `$WERF_DENO_BINARY_PATH`) set an explicit Deno binary.
+  Now: TypeScript charts are always enabled: a chart with `ts/src` gets its TypeScript manifests rendered, and `chart ts init`, `chart ts build` and `chart pack` (werf: `werf chart ts init`, `werf chart ts build`, `werf bundle publish`) bundle TypeScript without any environment variable. No JavaScript runtime is embedded or downloaded:
+  - `ts/dist/bundle.js` is built in-process with esbuild (`format: esm`, `platform: node`, `target: node26`); the chart's npm dependencies are installed with the package manager of its lock file (npm, pnpm, yarn or bun) from `PATH`, with package scripts disabled. CommonJS dependencies (kubernetes-models, cdk8s and others) work.
+  - Rendering, including deploying an already packaged chart, needs Node.js >= 26 from `PATH` or `--node-binary-path` (`$NELM_NODE_BINARY_PATH`, `$WERF_NODE_BINARY_PATH`) on the commands that render: Nelm `chart render`, `chart lint`, `release install`, `release plan install`; werf `converge`, `plan`, `render`, `lint`, `bundle apply`, `bundle plan`, `bundle render`. The bundle runs under `node --permission` with an empty environment, without network, process or out-of-chart file access; this guards against accidental access, not against malicious chart code.
+  - Charts must use `@nelm/chart-ts-sdk` 0.2.0; `nelm chart ts init` generates a `package.json`-based project.
+  - `helm package` (Helm's `Package` action, `werf helm package`) packs the chart as it is and no longer builds TypeScript bundles, as in upstream Helm.
+  Go API: `common.TypeScriptOptions`, `HelmOptions.TypeScriptOpts`, `ts.NewContextWithTSOptions`/`GetTSOptionsFromContext`, `Package.TypeScriptOps`, `ts.RunDenoInstall` and `ts.DownloadDenoForPlatform` are removed; `ts.InstallDependencies` is added; `DenoBinaryPath` is renamed to `NodeBinaryPath` in `ChartRenderOptions`, `ChartLintOptions`, `ReleaseInstallOptions`, `ReleasePlanInstallOptions` and `chart.RenderChartOptions`; `ChartTSInitOptions`, `ChartTSBuildOptions` and `ChartPackOptions` have no runtime path field.
+migration: |
+  Install Node.js 26 or newer wherever charts with `ts/src` are rendered or deployed (CI runners, deploy images), or pass `--node-binary-path`. A chart with `ts/src` that was deployed without `NELM_FEAT_TYPESCRIPT=true` now renders its TypeScript manifests: remove `ts/` if it was unused. Move TypeScript charts to `@nelm/chart-ts-sdk` 0.2.0 (`chart ts init` shows the new project layout: `package.json` instead of `deno.json`) and rebuild `ts/dist/bundle.js`; bundles built with SDK 0.1.x fail to render. Replace `--deno-binary-path` with `--node-binary-path` on rendering commands and drop it elsewhere; drop `NELM_FEAT_TYPESCRIPT`. Build TypeScript bundles with `nelm chart pack` or `werf bundle publish` instead of `werf helm package`.

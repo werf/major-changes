@@ -6,7 +6,7 @@ products: [werf]
 domain: build
 areas: [cli, registry]
 description: |
-  Before: in werf v2.84.1, `werf meta-repo migrate` and `werf meta-repo detach` accepted `--kube-config`, `--kube-config-base64` and `--kube-context` (`$WERF_KUBE_CONFIG`, `$WERF_KUBE_CONFIG_BASE64`, `$WERF_KUBE_CONTEXT`) and initialized a Kubernetes connection on demand.
+  Before: in werf v2.85.0, `werf meta-repo migrate` and `werf meta-repo detach` accepted `--kube-config`, `--kube-config-base64` and `--kube-context` (`$WERF_KUBE_CONFIG`, `$WERF_KUBE_CONFIG_BASE64`, `$WERF_KUBE_CONTEXT`) and initialized a Kubernetes connection on demand.
   Now: these flags are removed from both commands; passing them is an unknown-flag error, and the environment variables are ignored by these commands. The commands still accept `--synchronization`.
 migration: |
   Remove `--kube-config`, `--kube-config-base64` and `--kube-context` from `werf meta-repo migrate`/`detach` invocations. With Kubernetes synchronization, put the context and kubeconfig into the address: `--synchronization=kubernetes://NAMESPACE[:CONTEXT][@CONFIG_PATH]`.

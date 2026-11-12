@@ -6,19 +6,19 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 
 | Repository | Old | New |
 |---|---|---|
-| [werf](https://github.com/werf/werf) | v2.84.1 (`d6c03cd89`) | main (`f805b27ab`) |
-| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`f9dcbe392`) |
-| [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`), werf-v2.84.1 (`60827212f`) | nelm-main (`1ed920dee`) |
-| [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.84.1 (`0558f83ed`) | nelm-main (`993ea4351`) |
+| [werf](https://github.com/werf/werf) | v2.85.0 (`4caf990f4`) | main (`7790174d2`) |
+| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`d5dafa36d`) |
+| [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`) | nelm-main (`1ed920dee`) |
+| [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.85.0 (`0558f83ed`) | nelm-main (`993ea4351`) |
 | [lockgate](https://github.com/werf/lockgate) | v0.1.1 (`444ab0618`) | v0.2.1 (`5f579cc25`) |
 | [logboek](https://github.com/werf/logboek) | v0.7.1 (`bef0c055f`) | werf-main (`236a5f8ae`) |
 
 | Section | Entries |
 |---|---|
-| Breaking changes | 67 |
+| Breaking changes | 68 |
 | Deprecations | 1 |
 | New features | 15 |
-| Other changes | 4 |
+| Other changes | 3 |
 | Fixes | 17 |
 
 ## Breaking changes
@@ -190,12 +190,12 @@ New: `nelm chart pack` (and `werf bundle publish`, which uses the same code) sto
 Install, plan, render and lint of such a chart replay these inputs as values layers, so the result and the stored release values are the same as deploying the source chart with the pack-time flags: chart values < chart secret values < pack-time `--values` < `--secret-values` < `--set*` < extra values < deploy-time `--values` < `--secret-values` < `--set*` < service values. Deploy-time `--set*` patch the result of pack-time `--set*`. Pack-time patches are applied between the chart's `patches.yaml` and `--patches`; pack-time annotations and labels are merged below the deploy-time ones. A dependency with its own `.werf-data/` renders like that chart deployed alone, under the parent's values. One info line lists what was loaded from `.werf-data/`.
 An empty release name or namespace of `release install`, `release plan install`, `chart render` and `chart lint` is taken from the release recorded in `.werf-data/metadata.yaml`; `--release`/`--namespace` of `release install` and `release plan install` are therefore optional and fail with `release name and release namespace required: not given and not recorded in the chart's .werf-data` only when neither is available. Charts packed by an older format (legacy werf bundles) get the annotations and labels of their `extra_annotations.json`/`extra_labels.json`.
 A chart whose `.werf-data/metadata.yaml` has an unknown `apiVersion` fails with `this chart requires a newer Nelm version`.
-Old clients: Nelm v1.31.3 and werf v2.84.1 do not know `.werf-data/` and deploy such a chart without its publish-time inputs (no image values, publish-time values, secrets or annotations), without an error. Later Nelm v1 and werf v2 releases with a compatibility check (werf/werf#8141, werf/nelm#808) refuse it with `it requires werf v3 or Nelm v2, or newer`.
+Old clients: werf v2.85.0 refuses such a chart with `it requires werf v3 or Nelm v2, or newer` (werf/werf#8141). Nelm v1.31.3 and werf v2.84.1 and earlier do not know `.werf-data/` and deploy it without its publish-time inputs (no image values, publish-time values, secrets or annotations), without an error; the same check for Nelm v1 (werf/nelm#808) is not released yet.
 werf bundles:
 Before: `werf bundle publish` merged the image values, the publish-time `--values`, `--set*` and service values into `values.yaml` of the published chart and the chart and `--secret-values` secret values into its `secret-values.yaml`, and saved annotations and labels in `extra_annotations.json`/`extra_labels.json`. Because the inputs were flattened, a published bundle could render differently from `werf converge` with the same flags (export/import-values, `--set` patching, nulls, `--set-json` replacements, disabled default secrets).
 Now: the chart is published unchanged (`Chart.yaml` keeps comments and order; only `name`, `version` and the `helm.sh/images` annotation with the built images and digests are set, and a missing `apiVersion` becomes `v2`). Everything werf adds is stored in `.werf-data/` of the chart: `--values`, `--secret-values` (still encrypted), `--set*`, `--set-file` contents, `--set-root-json`, `--patches`, the disable switches, the image/repo/env/commit service values, annotations and labels, and the release name and namespace. `werf bundle apply`, `werf bundle plan` and `werf bundle render` replay them as values layers, so the result and the stored release values match `werf converge`; `.Chart.Name` and `.Chart.Version` (repository basename, version from the tag) are the known difference.
 - Helm, Argo CD and Flux installing a published bundle get only the chart's own `values.yaml`: no image values, publish-time values, secrets or annotations.
-- werf v2 cannot deploy the new bundles: releases with the check (werf/werf#8141) refuse them, older ones deploy them without images and publish-time values. Bundles published by werf v2 are still deployed by werf v3 unchanged, except that for them the annotations passed to `werf bundle apply`/`plan`/`render` (`--add-annotation`, werf service annotations such as `project.werf.io/env`) now win per key over the bundle's `extra_annotations.json`; before, the bundle's `project.werf.io/*`, `ci.werf.io/*` and `werf.io/release-channel` won.
+- werf v2 cannot deploy the new bundles: werf v2.85.0 refuses them, werf v2.84.1 and earlier deploy them without images and publish-time values. Bundles published by werf v2 are still deployed by werf v3 unchanged, except that for them the annotations passed to `werf bundle apply`/`plan`/`render` (`--add-annotation`, werf service annotations such as `project.werf.io/env`) now win per key over the bundle's `extra_annotations.json`; before, the bundle's `project.werf.io/*`, `ci.werf.io/*` and `werf.io/release-channel` won.
 - Publish-time `--secret-values` are saved decrypted in the release at apply, like `werf converge --secret-values`, so `werf release get --print-values` shows them; the first apply of a new bundle over an old release creates a new revision.
 - `--disable-default-values` and `--disable-default-secret-values` of `werf bundle apply` ignore only the chart's own files, not the values stored at publish. Disable switches recorded in a committed `.werf-data/metadata.yaml` (e.g. an unpacked published chart committed as `.helm`) are kept by `werf bundle publish` and can only be cleared by editing that file.
 - New `werf bundle publish` options: `--patches` and `--no-default-patches`.
@@ -414,6 +414,22 @@ Now: the option is removed from these commands. Install, plan and rollback comma
 **Migration:** Remove `--force-adoption` from render invocations: an unknown flag fails argument parsing.
 
 **References:** [werf@0b50bd1bb](https://github.com/werf/werf/commit/0b50bd1bbf42), [nelm@8348f9be2](https://github.com/werf/nelm/commit/8348f9be24bc)
+
+#### TypeScript charts are enabled by default and render with Node.js 26+ from the host
+
+<a id="typescript-charts"></a>`typescript-charts` · change · `typescript` `templates` · products: nelm, werf
+
+Before: TypeScript charts (the `ts/` directory of a chart, rendered in addition to or instead of `templates/`) were behind the `NELM_FEAT_TYPESCRIPT=true` feature gate; without it `ts/` was ignored and `chart ts init`/`chart ts build` failed. They were bundled and rendered with Deno 2.7.1, downloaded from GitHub on first use, with `@nelm/chart-ts-sdk` 0.1.x; `--deno-binary-path` (`$NELM_DENO_BINARY_PATH`, `$WERF_DENO_BINARY_PATH`) set an explicit Deno binary.
+Now: TypeScript charts are always enabled: a chart with `ts/src` gets its TypeScript manifests rendered, and `chart ts init`, `chart ts build` and `chart pack` (werf: `werf chart ts init`, `werf chart ts build`, `werf bundle publish`) bundle TypeScript without any environment variable. No JavaScript runtime is embedded or downloaded:
+- `ts/dist/bundle.js` is built in-process with esbuild (`format: esm`, `platform: node`, `target: node26`); the chart's npm dependencies are installed with the package manager of its lock file (npm, pnpm, yarn or bun) from `PATH`, with package scripts disabled. CommonJS dependencies (kubernetes-models, cdk8s and others) work.
+- Rendering, including deploying an already packaged chart, needs Node.js >= 26 from `PATH` or `--node-binary-path` (`$NELM_NODE_BINARY_PATH`, `$WERF_NODE_BINARY_PATH`) on the commands that render: Nelm `chart render`, `chart lint`, `release install`, `release plan install`; werf `converge`, `plan`, `render`, `lint`, `bundle apply`, `bundle plan`, `bundle render`. The bundle runs under `node --permission` with an empty environment, without network, process or out-of-chart file access; this guards against accidental access, not against malicious chart code.
+- Charts must use `@nelm/chart-ts-sdk` 0.2.0; `nelm chart ts init` generates a `package.json`-based project.
+- `helm package` (Helm's `Package` action, `werf helm package`) packs the chart as it is and no longer builds TypeScript bundles, as in upstream Helm.
+Go API: `common.TypeScriptOptions`, `HelmOptions.TypeScriptOpts`, `ts.NewContextWithTSOptions`/`GetTSOptionsFromContext`, `Package.TypeScriptOps`, `ts.RunDenoInstall` and `ts.DownloadDenoForPlatform` are removed; `ts.InstallDependencies` is added; `DenoBinaryPath` is renamed to `NodeBinaryPath` in `ChartRenderOptions`, `ChartLintOptions`, `ReleaseInstallOptions`, `ReleasePlanInstallOptions` and `chart.RenderChartOptions`; `ChartTSInitOptions`, `ChartTSBuildOptions` and `ChartPackOptions` have no runtime path field.
+
+**Migration:** Install Node.js 26 or newer wherever charts with `ts/src` are rendered or deployed (CI runners, deploy images), or pass `--node-binary-path`. A chart with `ts/src` that was deployed without `NELM_FEAT_TYPESCRIPT=true` now renders its TypeScript manifests: remove `ts/` if it was unused. Move TypeScript charts to `@nelm/chart-ts-sdk` 0.2.0 (`chart ts init` shows the new project layout: `package.json` instead of `deno.json`) and rebuild `ts/dist/bundle.js`; bundles built with SDK 0.1.x fail to render. Replace `--deno-binary-path` with `--node-binary-path` on rendering commands and drop it elsewhere; drop `NELM_FEAT_TYPESCRIPT`. Build TypeScript bundles with `nelm chart pack` or `werf bundle publish` instead of `werf helm package`.
+
+**References:** [werf#7725](https://github.com/werf/werf/pull/7725), [werf#8167](https://github.com/werf/werf/pull/8167), [werf#8169](https://github.com/werf/werf/pull/8169), [nelm@cb96a15b9](https://github.com/werf/nelm/commit/cb96a15b9c26), [nelm@bee47f9cc](https://github.com/werf/nelm/commit/bee47f9ccbfb), [nelm@615df530c](https://github.com/werf/nelm/commit/615df530ca9d), [nelm@62d593ff8](https://github.com/werf/nelm/commit/62d593ff8fb4), [nelm@3abafee78](https://github.com/werf/nelm/commit/3abafee7837e), [nelm@4c91c3a73](https://github.com/werf/nelm/commit/4c91c3a739c5), [nelm@bd6de2280](https://github.com/werf/nelm/commit/bd6de22800ec), [nelm@0b9d576a0](https://github.com/werf/nelm/commit/0b9d576a0c2e), [nelm#816](https://github.com/werf/nelm/pull/816), [nelm#826](https://github.com/werf/nelm/pull/826)
 
 #### Values schema errors are no longer turned into a warning because of service values
 
@@ -1054,16 +1070,6 @@ Before: every rendered manifest was parsed twice, once only to check it.
 Now: each manifest is parsed once, which roughly halves the time and allocations of turning rendered templates into resources; the second parse runs only after decoding fails, so error messages for invalid YAML are unchanged. A few YAML inputs that only the discarded check rejected no longer fail rendering: a tab inside a quoted scalar or a plain scalar starting with `@` now render correctly, while for a `...` document-end marker in the middle of a file the rest of the file is dropped, and a YAML-tagged value becomes empty, without an error. Charts that rendered before render the same. Lint (`nelm chart lint`, `werf lint`) still rejects most of these inputs through resource validation; render does not.
 
 **References:** [nelm#730](https://github.com/werf/nelm/pull/730)
-
-#### Release binaries embed the Deno runtime for TypeScript charts, pinned to Deno 2.9.4 with checksums in the repository
-
-<a id="typescript-deno-embedded"></a>`typescript-deno-embedded` · change · `typescript` `distribution` · products: nelm, werf
-
-Before: rendering TypeScript charts downloaded Deno 2.7.1 from GitHub on first use (into the user cache), verifying it only against the `.sha256sum` file fetched from the same host. A `windows/arm64` download target was also attempted.
-Now: official `nelm` and `werf` release binaries for `linux/amd64`, `linux/arm64`, `darwin/amd64`, `darwin/arm64` and `windows/amd64` include the Deno binary, which is unpacked into the cache on first use, so TypeScript charts render without network access to GitHub. Binaries built without embedding still download Deno, now verified against archive and binary SHA-256 digests pinned in the source. The Deno version is 2.9.4. `windows/arm64` is not supported. An explicit Deno binary path (`--deno-binary-path`) still takes precedence; `werf chart ts init` now accepts `--deno-binary-path` (`$WERF_DENO_BINARY_PATH`) too. In werf, `werf helm package` does not use the embedded Deno and still downloads it for TypeScript subcharts.
-Go API: an embedder can pass a gzipped Deno binary in `common.TypeScriptOptions.EmbeddedDenoCompressed` (set in the context with `ts.NewContextWithTSOptions`); it is used instead of the Deno embedded in the Nelm build and must be the Deno release pinned by Nelm for the platform: Nelm verifies it against its own pinned SHA-256 digest.
-
-**References:** [werf#7725](https://github.com/werf/werf/pull/7725), [nelm@cb96a15b9](https://github.com/werf/nelm/commit/cb96a15b9c26), [nelm@bee47f9cc](https://github.com/werf/nelm/commit/bee47f9ccbfb), [nelm@615df530c](https://github.com/werf/nelm/commit/615df530ca9d), [nelm@62d593ff8](https://github.com/werf/nelm/commit/62d593ff8fb4), [nelm@3abafee78](https://github.com/werf/nelm/commit/3abafee7837e), [nelm@4c91c3a73](https://github.com/werf/nelm/commit/4c91c3a739c5), [nelm@bd6de2280](https://github.com/werf/nelm/commit/bd6de22800ec), [nelm@0b9d576a0](https://github.com/werf/nelm/commit/0b9d576a0c2e)
 
 #### Release history is read from storage metadata and release bodies are streamed, cutting memory use
 

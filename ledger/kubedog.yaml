@@ -1,4 +1,4 @@
-# Every commit of kubedog reachable from nelm-main and not from nelm-v1.31.3, werf-v2.84.1, oldest first.
+# Every commit of kubedog reachable from nelm-main and not from nelm-v1.31.3, oldest first.
 # Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
 - { commit: ba99f6727979, date: 2026-03-28, subject: "feat!: new major release 1.0", skip: internal, note: "kubedog 1.0: removes the kubedog CLI and legacy multitrack/rollout/display packages, moves dyntracker to pkg/dyntracker, bumps client-go; Nelm v2 uses only dyntracker, no behavior change" }
 - { commit: 7742723cb9e9, date: 2026-05-26, subject: "feat: case insensitive gvk for dynamic trackers (#394)", entries: [dependency-annotations-gvk-case-insensitive], note: "enabled in nelm by adf8a42899d5" }
@@ -21,4 +21,4 @@
 - { commit: a20d88c9964e, date: 2026-10-27, subject: "chore: fix errorlint in deployment tracker test harness and document FailureMode field", skip: internal, note: "test lint fix and a doc comment" }
 - { commit: 8bcce864f0ad, date: 2026-10-29, subject: "fix: bound quota quantities parsed from a ReplicaSet failure message", entries: [tracking-deployment-pod-create-failures] }
 - { commit: 97f4f131413e, date: 2026-10-29, subject: "Merge pull request #404 from werf/fix/398-replicaset-pod-create-failures", skip: merge }
-- { commit: 1ed920dee18b, date: 2026-11-03, subject: "fix: stop leaking informers and their caches after tracking ends (#406)", skip: in-old, note: "same subject as f1eefb59d19a in nelm-v1.31.3; werf-v2.84.1 (60827212f828) lacks it, but the leak only matters for long-lived processes that track repeatedly (Nelm Go API users), not for a werf CLI run" }
+- { commit: 1ed920dee18b, date: 2026-11-03, subject: "fix: stop leaking informers and their caches after tracking ends (#406)", skip: in-old, note: "same subject as f1eefb59d19a in nelm-v1.31.3, which werf v2.85.0 also pins" }

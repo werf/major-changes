@@ -1,4 +1,4 @@
-# Every commit of werf reachable from main and not from v2.84.1, oldest first.
+# Every commit of werf reachable from main and not from v2.85.0, oldest first.
 # Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
 - { commit: 301c8f90d859, date: 2026-03-28, subject: "feat: new major release 3.0", entries: [deploy-nelm-v2-engine, cli-werf-helm-deploy-commands-removed, cli-werf-helm-release-inspection-commands-removed, cli-werf-helm-plugins-removed, cli-helm-compatibility-mode-removed, cli-werf-helm-common-flags-removed, cli-werf-helm-registry-credentials-helm-config, cli-dismiss-native-uninstall, kube-run-full-kube-connection-flags, kubectl-embedded-version-1-37, helm-v4-engine, cli-chart-commands-helm-4-flags, cli-repo-update-add-flags-removed], note: "switches werf to Nelm v2 (Helm 4 fork); kubernetes:// synchronization removed here but restored by bfaad7793c99; service values .global changes net-handled by later commits" }
 - { commit: 42f650933e04, date: 2026-03-31, subject: "wip: sync with main", skip: merge, note: "conflict resolution only: takes main side for service values (global values kept, as in v2) and go.mod; v3 later state unchanged" }
@@ -192,7 +192,7 @@
 - { commit: 7a51ef3e89ae, date: 2026-08-05, subject: "Merge branch 'main' into 3", skip: merge, note: "conflict resolution only: agent instructions" }
 - { commit: 383ec476e318, date: 2026-08-05, subject: "chore(3): release 3.1.0 (#7761)", skip: release }
 - { commit: e95d6e93574b, date: 2026-08-05, subject: "chore(docs): add v3 docs deploy routing (#7768)", skip: ci, note: "docs deploy workflows" }
-- { commit: 468ba229e05e, date: 2026-08-06, subject: "feat(deploy): embed deno binary into werf release binaries behind `embedwerfdeno` (#7725)", entries: [typescript-deno-embedded] }
+- { commit: 468ba229e05e, date: 2026-08-06, subject: "feat(deploy): embed deno binary into werf release binaries behind `embedwerfdeno` (#7725)", entries: [typescript-charts] }
 - { commit: 8f7573467459, date: 2026-08-06, subject: "chore(deps): merge main into 3", skip: merge, note: "conflict resolution only: takes the v2 docker CLI race fix (6d6af8d02); buildah import path adapted to go.podman.io" }
 - { commit: 3121ddc286ac, date: 2026-08-06, subject: "chore(deps): merge main into 3 (#7778)", skip: merge }
 - { commit: 9ab81159f2c8, date: 2026-08-06, subject: "fix(storage): prevent concurrent final-stage list access (#7787)", skip: internal, note: "data race in debug logging of final-stage list; no observable behavior change" }
@@ -494,7 +494,7 @@
 - { commit: f3647b5e9db9, date: 2026-10-29, subject: "chore(release): 2 alpha, 3 alpha,beta", skip: release }
 - { commit: ac43631fb536, date: 2026-10-30, subject: "feat(cleanup): keep a stage via its custom tag in --keep-list (#8139)", entries: [cleanup-keep-list-custom-tags] }
 - { commit: eaafa9dad085, date: 2026-11-03, subject: "chore(release): promote weekly channels for 20261103 (#8145)", skip: release }
-- { commit: f374ada561b6, date: 2026-11-06, subject: "fix(build, buildah): stop failed builds leaking working containers (#8146)", entries: [build-buildah-leaked-containers] }
+- { commit: f374ada561b6, date: 2026-11-06, subject: "fix(build, buildah): stop failed builds leaking working containers (#8146)", skip: in-old, note: "backported as a7d140aa4 in v2.85.0" }
 - { commit: a19d6fc8032f, date: 2026-11-07, subject: "feat(bundle): deploy published bundles exactly like converge (#8142)", entries: [charts-werf-data-publish-inputs, bundle-chart-name-from-repository, cli-chart-secret-key-rotate-removed], note: "nelm bump also brings triggers-release, PVC absence wait, kubedog changes: catalogued from the nelm ledger" }
 - { commit: 6f3d006a14dd, date: 2026-11-07, subject: "refactor(bundle): move bundle registry and copy onto Nelm (#8143)", entries: [bundle-copy-oci-layout-archive] }
 - { commit: d8c43ee30820, date: 2026-11-07, subject: "refactor(bundle): pull, push and resolve releases of bundles with Nelm (#8144)", entries: [charts-werf-data-publish-inputs, charts-oci-pull-digest-pinned], note: "bundle download, recorded release defaults and old-bundle annotation precedence moved to Nelm" }
@@ -524,4 +524,12 @@
 - { commit: c4b5ec156dd6, date: 2026-11-10, subject: "fix(deploy): apply publish-time values of a dependency chart that is out of the version range of its alias (#8159)", entries: [charts-werf-data-publish-inputs], note: "effects catalogued from the nelm ledger (nelm 78660276c3de -> charts-werf-data-publish-inputs)" }
 - { commit: 77b7cc26b2e0, date: 2026-11-10, subject: "fix(bundle): warn on publish about export-values skipped because of a non-map value (#8135)", entries: [values-export-import-all-layers], note: "nelm bump + test; effects catalogued from the nelm ledger (nelm e2464b442824); the publish warning is described in values-export-import-all-layers" }
 - { commit: 7e442af0f528, date: 2026-11-10, subject: "docs(deploy): explain that all --set* options form one source for export-values and import-values (#8158)", skip: docs }
-- { commit: f805b27abcf5, date: 2026-11-10, subject: "fix(build): keep git files that differ only by case intact on macOS (#8147)", entries: [build-git-case-insensitive-filesystems] }
+- { commit: f805b27abcf5, date: 2026-11-10, subject: "fix(build): keep git files that differ only by case intact on macOS (#8147)", skip: in-old, note: "backported as 15af8873d in v2.85.0" }
+- { commit: 135f50c98a81, date: 2026-11-11, subject: "fix(build): stop git mappings failing on a stale .gitmodules entry (#8162)", skip: in-old, note: "same subject as bd0be13d7e57 in v2.85.0" }
+- { commit: 0206211b4657, date: 2026-11-11, subject: "fix(build): archive git files and directories that differ only by case on macOS (#8163)", skip: in-old, note: "backported as 15af8873d in v2.85.0" }
+- { commit: e1fc194811e5, date: 2026-11-11, subject: "fix(host-cleanup): remove git archive export directories left by a killed werf (#8165)", skip: in-old, note: "backported as 15af8873d in v2.85.0" }
+- { commit: 8eb35aa8b044, date: 2026-11-12, subject: "feat(deploy): render TypeScript charts with Node.js instead of Deno (#8167)", entries: [typescript-charts] }
+- { commit: 253dc5ca63e2, date: 2026-11-12, subject: "feat(deploy): render TypeScript charts without NELM_FEAT_TYPESCRIPT (#8169)", entries: [typescript-charts] }
+- { commit: bff0b3466ea6, date: 2026-11-12, subject: "chore(main): release 3.13.0 (#8140)", skip: release }
+- { commit: c43382f239e9, date: 2026-11-12, subject: "chore(release): publish werf 2.85.0 and 3.13.0 to alpha (#8170)", skip: release }
+- { commit: 7790174d28f3, date: 2026-11-12, subject: "docs(deploy): describe TypeScript charts on Node.js instead of Deno (#8157)", skip: docs }

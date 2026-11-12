@@ -59,19 +59,19 @@
 - { commit: 0d2b4e06f3a6, date: 2026-07-28, subject: "feat: port --lookup-resources and --no-create-namespace from main (#671)", skip: in-old, note: "ports a984242ee and 3d389efe5 from nelm v1.31.3" }
 - { commit: f6ce79b3fd4c, date: 2026-07-31, subject: "feat: embed kubeconform validation schemas into the binary (#673)", entries: [resource-validation-embedded-schemas, go-api-action-options-removed] }
 - { commit: 2a29517d8d19, date: 2026-07-31, subject: "fix: repair ai lookup tests after helm fork api changes (#676)", skip: test }
-- { commit: cb96a15b9c26, date: 2026-08-04, subject: "feat: embed deno binary into release binaries behind embeddeno tag", entries: [typescript-deno-embedded] }
-- { commit: bee47f9ccbfb, date: 2026-08-04, subject: "refactor: pass embedded Deno by context through TypeScriptOptions", entries: [typescript-deno-embedded] }
-- { commit: 615df530ca9d, date: 2026-08-04, subject: "feat: enhance Deno embedding process and sync platform lists", entries: [typescript-deno-embedded] }
-- { commit: 62d593ff8fb4, date: 2026-08-04, subject: "fix: harden deno embedding per review findings", entries: [typescript-deno-embedded] }
+- { commit: cb96a15b9c26, date: 2026-08-04, subject: "feat: embed deno binary into release binaries behind embeddeno tag", entries: [typescript-charts] }
+- { commit: bee47f9ccbfb, date: 2026-08-04, subject: "refactor: pass embedded Deno by context through TypeScriptOptions", entries: [typescript-charts] }
+- { commit: 615df530ca9d, date: 2026-08-04, subject: "feat: enhance Deno embedding process and sync platform lists", entries: [typescript-charts] }
+- { commit: 62d593ff8fb4, date: 2026-08-04, subject: "fix: harden deno embedding per review findings", entries: [typescript-charts] }
 - { commit: ee84ed77ac0d, date: 2026-08-04, subject: "fix: format taskfile", skip: internal, note: "Taskfile formatting" }
-- { commit: 3abafee7837e, date: 2026-08-04, subject: "fix: remove unsupported os/arch from getDownloadLink", entries: [typescript-deno-embedded] }
+- { commit: 3abafee7837e, date: 2026-08-04, subject: "fix: remove unsupported os/arch from getDownloadLink", entries: [typescript-charts] }
 - { commit: 9b5af8d8c453, date: 2026-08-04, subject: "fix: restore DENO_EMBED_ROOT for werf", skip: internal, note: "build env var for werf embedding" }
-- { commit: 4c91c3a739c5, date: 2026-08-04, subject: "fix: pin deno digests in the repository instead of fetching them", entries: [typescript-deno-embedded] }
-- { commit: bd6de22800ec, date: 2026-08-04, subject: "refactor: move embed-deno to scripts and drop the redundant sha option", entries: [typescript-deno-embedded] }
+- { commit: 4c91c3a739c5, date: 2026-08-04, subject: "fix: pin deno digests in the repository instead of fetching them", entries: [typescript-charts] }
+- { commit: bd6de22800ec, date: 2026-08-04, subject: "refactor: move embed-deno to scripts and drop the redundant sha option", entries: [typescript-charts] }
 - { commit: 0ed2a27bdefc, date: 2026-08-04, subject: "refactor: clear comments", skip: internal, note: "comments" }
 - { commit: 55abe9fe04f0, date: 2026-08-04, subject: "chore: add comment about unsupported platform", skip: internal, note: "comment" }
 - { commit: fa56ffe91cd9, date: 2026-08-04, subject: "refactor: use restify instead of http for denolock client", skip: internal, note: "denolock script HTTP client" }
-- { commit: 0b9d576a0c2e, date: 2026-08-04, subject: "chore: bump deno version and update deno lock", entries: [typescript-deno-embedded], note: "Deno 2.9.4" }
+- { commit: 0b9d576a0c2e, date: 2026-08-04, subject: "chore: bump deno version and update deno lock", entries: [typescript-charts], note: "Deno 2.9.4" }
 - { commit: 45823a46d66c, date: 2026-08-04, subject: "chore: add check_deno_lock_upstream job to CI workflow", skip: ci }
 - { commit: 8b91b6d732f7, date: 2026-08-04, subject: "docs: update deno lock version in README.md", skip: docs }
 - { commit: 79ce86ac06de, date: 2026-08-04, subject: "fix: ignore helm.sh(werf.io)/resource-policy: keep from cluster", entries: [go-api-resource-policy-resolver-removed], note: "the live-resource skip-delete behavior change is reverted by 57f1772f2328; the removal of the exported resource.ResolveResourcePolicies stays" }
@@ -191,3 +191,6 @@
 - { commit: 6342dd9547ac, date: 2026-11-10, subject: "chore: deprecate the Helm fork's chart linter and ProcessDependencies (#800)", entries: [go-api-helm-fork-lint-process-dependencies-deprecated] }
 - { commit: 394d3a8d15d7, date: 2026-11-10, subject: "test: pin that a same-layer export keeps lower user layers under a dependency null (#801)", skip: test }
 - { commit: f9dcbe392e09, date: 2026-11-10, subject: "chore: update README for Nelm v2 (#797)", skip: docs }
+- { commit: 2728bab544be, date: 2026-11-11, subject: "chore: add Nelm-specific code style rules (#824)", skip: internal, note: "code style rules for contributors" }
+- { commit: 2dfe6d3186b7, date: 2026-11-11, subject: "feat: run TypeScript charts with Node.js instead of Deno (#816)", entries: [typescript-charts] }
+- { commit: d5dafa36d8f2, date: 2026-11-12, subject: "feat: enable TypeScript charts by default (#826)", entries: [typescript-charts] }

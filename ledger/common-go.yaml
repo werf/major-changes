@@ -1,4 +1,4 @@
-# Every commit of common-go reachable from nelm-main and not from nelm-v1.31.3, werf-v2.84.1, oldest first.
+# Every commit of common-go reachable from nelm-main and not from nelm-v1.31.3, werf-v2.85.0, oldest first.
 # Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
 - { commit: 7f4a363f201c, date: 2026-08-31, subject: "feat(secret): add versioned AES-GCM format and YAML scalar fidelity (#35)", skip: reverted, note: "reverted by 8924a95d7a6b; re-landed as d8516ceb7568" }
 - { commit: 8924a95d7a6b, date: 2026-08-31, subject: 'Revert "feat(secret): add versioned AES-GCM format and YAML scalar fidelity (#35)" (#36)', skip: reverted, note: "reverts 7f4a363f201c" }

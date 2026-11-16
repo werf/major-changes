@@ -194,3 +194,4 @@
 - { commit: 2728bab544be, date: 2026-11-11, subject: "chore: add Nelm-specific code style rules (#824)", skip: internal, note: "code style rules for contributors" }
 - { commit: 2dfe6d3186b7, date: 2026-11-11, subject: "feat: run TypeScript charts with Node.js instead of Deno (#816)", entries: [typescript-charts] }
 - { commit: d5dafa36d8f2, date: 2026-11-12, subject: "feat: enable TypeScript charts by default (#826)", entries: [typescript-charts] }
+- { commit: 1b75334450a1, date: 2026-11-12, subject: "feat: publish Nelm container images (#825)", entries: [distribution-nelm-container-images] }

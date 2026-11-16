@@ -16,7 +16,7 @@ ranges:
         commit: 4caf990f4a382926ec34ac45366ba561e06b3c37
     new:
       ref: main
-      commit: 7790174d28f3217c3eac625545ab90e37ec94b31
+      commit: af603dba60cf148191318d3842cadad771526698
 
   - name: nelm
     url: https://github.com/werf/nelm
@@ -25,7 +25,7 @@ ranges:
         commit: dc00668ac8a28cf58182e7c9722e781413de6592
     new:
       ref: main
-      commit: d5dafa36d8f227c49503f81f687d35cc2b41322b
+      commit: 1b75334450a19f31a0c6ba3732022eb67a6c0091
 
   # Pinned by go.mod: old by Nelm v1.31.3 and werf v2.85.0, new by Nelm main (werf v3 gets it through Nelm).
   - name: kubedog

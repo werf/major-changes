@@ -1,0 +1,12 @@
+id: distribution-werf-node-images
+title: "werf images get `-node` variants with Node.js for TypeScript charts"
+type: feature
+breaking: false
+products: [werf]
+domain: general
+areas: [distribution, typescript]
+description: |
+  Before: werf images (`registry.werf.io/werf/werf`, `ghcr.io/werf/werf`) and the Argo CD sidecar image had no JavaScript runtime.
+  Now: `ubuntu-node`, `centos-node` and `fedora-node` variants of the werf images, and `ubuntu-node` of `werf-argocd-cmp-sidecar`, carry Node.js 26, npm, pnpm and yarn, so TypeScript charts can be rendered in CI from a werf image. Tags: `<group>-<channel>-<os>-node`, `<version>-<os>-node`, `<group>-<os>-node`; there is no `alpine` `-node` variant and no `-node` tag without the OS. They are published for werf 3.13.0 and newer; existing tags don't change.
+refs:
+  - https://github.com/werf/werf/pull/8168

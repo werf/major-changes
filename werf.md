@@ -6,8 +6,8 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 
 | Repository | Old | New |
 |---|---|---|
-| [werf](https://github.com/werf/werf) | v2.85.0 (`4caf990f4`) | main (`7790174d2`) |
-| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`d5dafa36d`) |
+| [werf](https://github.com/werf/werf) | v2.85.0 (`4caf990f4`) | main (`af603dba6`) |
+| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`1b7533445`) |
 | [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`) | nelm-main (`1ed920dee`) |
 | [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.85.0 (`0558f83ed`) | nelm-main (`993ea4351`) |
 | [lockgate](https://github.com/werf/lockgate) | v0.1.1 (`444ab0618`) | v0.2.1 (`5f579cc25`) |
@@ -17,9 +17,9 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 |---|---|
 | Breaking changes | 95 |
 | Deprecations | 1 |
-| New features | 19 |
+| New features | 20 |
 | Other changes | 15 |
-| Fixes | 37 |
+| Fixes | 38 |
 
 ## Breaking changes
 
@@ -1194,6 +1194,15 @@ Now: `werf kube-run` connects through the Nelm Kubernetes client and accepts the
 
 **References:** [werf@301c8f90d](https://github.com/werf/werf/commit/301c8f90d859)
 
+#### werf images get `-node` variants with Node.js for TypeScript charts
+
+<a id="distribution-werf-node-images"></a>`distribution-werf-node-images` · feature · `distribution` `typescript` · products: werf
+
+Before: werf images (`registry.werf.io/werf/werf`, `ghcr.io/werf/werf`) and the Argo CD sidecar image had no JavaScript runtime.
+Now: `ubuntu-node`, `centos-node` and `fedora-node` variants of the werf images, and `ubuntu-node` of `werf-argocd-cmp-sidecar`, carry Node.js 26, npm, pnpm and yarn, so TypeScript charts can be rendered in CI from a werf image. Tags: `<group>-<channel>-<os>-node`, `<version>-<os>-node`, `<group>-<os>-node`; there is no `alpine` `-node` variant and no `-node` tag without the OS. They are published for werf 3.13.0 and newer; existing tags don't change.
+
+**References:** [werf#8168](https://github.com/werf/werf/pull/8168), <https://github.com/werf/werf/pull/8168>
+
 ### Build
 
 #### Operations reporting covers content digests and the local image list cache
@@ -1595,6 +1604,15 @@ Before: for Dockerfile images built without `staged: true`, the stage digest inc
 Now: sources of context bind mounts (without `from=`) are checksummed, with `ARG`/`ENV` values expanded; an unresolved source tracks the whole context. Digests of Dockerfiles without context bind mounts are unchanged; images using such mounts are rebuilt once.
 
 **References:** [werf#8080](https://github.com/werf/werf/pull/8080), [werf#8115](https://github.com/werf/werf/pull/8115), <https://github.com/werf/werf/issues/6823>
+
+#### Files with special characters in their names that are deleted in Git are removed from Stapel images
+
+<a id="build-git-deleted-quoted-paths"></a>`build-git-deleted-quoted-paths` · fix · `git` `stapel` · products: werf
+
+Before: when a file whose path Git quotes in diffs (non-ASCII characters, spaces at the end, quotes, control characters) was deleted between commits, the Stapel git patch did not remove it from the image: werf parsed the quoted path literally.
+Now: quoted paths of deleted files are unquoted, and such files are removed from the image like any other deleted file.
+
+**References:** [werf#8171](https://github.com/werf/werf/pull/8171)
 
 #### Git mapping `owner` and `group` are applied consistently to all added files and directories
 

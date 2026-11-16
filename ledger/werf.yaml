@@ -533,3 +533,5 @@
 - { commit: bff0b3466ea6, date: 2026-11-12, subject: "chore(main): release 3.13.0 (#8140)", skip: release }
 - { commit: c43382f239e9, date: 2026-11-12, subject: "chore(release): publish werf 2.85.0 and 3.13.0 to alpha (#8170)", skip: release }
 - { commit: 7790174d28f3, date: 2026-11-12, subject: "docs(deploy): describe TypeScript charts on Node.js instead of Deno (#8157)", skip: docs }
+- { commit: 4f38ab0090aa, date: 2026-11-12, subject: "chore(release): add -node images for TypeScript charts (#8168)", entries: [distribution-werf-node-images] }
+- { commit: af603dba60cf, date: 2026-11-12, subject: "fix(build): remove deleted files with quoted git paths (#8171)", entries: [build-git-deleted-quoted-paths] }

@@ -1,0 +1,13 @@
+id: distribution-nelm-container-images
+title: "Nelm is published as container images, including `-node` images for TypeScript charts"
+type: feature
+breaking: false
+products: [nelm]
+domain: general
+areas: [distribution, typescript]
+description: |
+  Before: Nelm had no container images; it was installed as a binary.
+  Now: `ghcr.io/werf/nelm` and `registry.werf.io/werf/nelm` are published for Nelm 2, for linux/amd64 and linux/arm64, running as the non-root user `nelm` (uid 1000). Variants: `alpine` (default), `ubuntu` and `ubuntu-node`. Tags: `<group>-<channel>-<os>`, `<version>-<os>`, plus `<group>`, `<group>-<channel>`, `<version>`, `latest` for `alpine` and `<group>-node`, `<group>-<channel>-node`, `<version>-node`, `latest-node` for `ubuntu-node`; `latest` and `latest-node` follow group 2, stable.
+  `ubuntu-node` adds Node.js 26, npm, pnpm, yarn and `git`, so TypeScript charts can be rendered in CI without installing anything; `-node` tags are published only for Nelm 2.4.0 and newer.
+refs:
+  - https://github.com/werf/nelm/pull/825

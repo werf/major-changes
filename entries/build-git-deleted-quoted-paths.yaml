@@ -1,0 +1,10 @@
+id: build-git-deleted-quoted-paths
+title: "Files with special characters in their names that are deleted in Git are removed from Stapel images"
+type: fix
+breaking: false
+products: [werf]
+domain: build
+areas: [git, stapel]
+description: |
+  Before: when a file whose path Git quotes in diffs (non-ASCII characters, spaces at the end, quotes, control characters) was deleted between commits, the Stapel git patch did not remove it from the image: werf parsed the quoted path literally.
+  Now: quoted paths of deleted files are unquoted, and such files are removed from the image like any other deleted file.

@@ -6,8 +6,8 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 
 | Repository | Old | New |
 |---|---|---|
-| [werf](https://github.com/werf/werf) | v2.85.0 (`4caf990f4`) | main (`7790174d2`) |
-| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`d5dafa36d`) |
+| [werf](https://github.com/werf/werf) | v2.85.0 (`4caf990f4`) | main (`af603dba6`) |
+| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`1b7533445`) |
 | [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`) | nelm-main (`1ed920dee`) |
 | [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.85.0 (`0558f83ed`) | nelm-main (`993ea4351`) |
 | [lockgate](https://github.com/werf/lockgate) | v0.1.1 (`444ab0618`) | v0.2.1 (`5f579cc25`) |
@@ -17,7 +17,7 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 |---|---|
 | Breaking changes | 68 |
 | Deprecations | 1 |
-| New features | 15 |
+| New features | 16 |
 | Other changes | 3 |
 | Fixes | 17 |
 
@@ -894,6 +894,16 @@ Deprecated: `lint.RunAll` and the template lint rules (`rules.Templates`, and `T
 ## New features
 
 ### General
+
+#### Nelm is published as container images, including `-node` images for TypeScript charts
+
+<a id="distribution-nelm-container-images"></a>`distribution-nelm-container-images` · feature · `distribution` `typescript` · products: nelm
+
+Before: Nelm had no container images; it was installed as a binary.
+Now: `ghcr.io/werf/nelm` and `registry.werf.io/werf/nelm` are published for Nelm 2, for linux/amd64 and linux/arm64, running as the non-root user `nelm` (uid 1000). Variants: `alpine` (default), `ubuntu` and `ubuntu-node`. Tags: `<group>-<channel>-<os>`, `<version>-<os>`, plus `<group>`, `<group>-<channel>`, `<version>`, `latest` for `alpine` and `<group>-node`, `<group>-<channel>-node`, `<version>-node`, `latest-node` for `ubuntu-node`; `latest` and `latest-node` follow group 2, stable.
+`ubuntu-node` adds Node.js 26, npm, pnpm, yarn and `git`, so TypeScript charts can be rendered in CI without installing anything; `-node` tags are published only for Nelm 2.4.0 and newer.
+
+**References:** [nelm#825](https://github.com/werf/nelm/pull/825), <https://github.com/werf/nelm/pull/825>
 
 #### `--log-width` sets the width of the log output
 

@@ -6,7 +6,8 @@ products: [nelm, werf]
 domain: deploy
 areas: [charts]
 description: |
-  New: charts with `apiVersion: v3` in `Chart.yaml` (the Helm 4 chart format) can be rendered, linted, packed and deployed, with releases stored in a format Helm reads. For v3 charts:
+  Before: Nelm v1 did not reject `apiVersion: v3` but treated such charts as `apiVersion: v2`.
+  Now: charts with `apiVersion: v3` in `Chart.yaml` (the Helm 4 chart format) are handled as such: they can be rendered, linted, packed and deployed, with releases stored in a format Helm reads. For v3 charts:
   - subcharts get their own `secret-values.yaml` applied, declared in `dependencies` or not, aliased or not;
   - `import-values` apply to every values layer: values.yaml < chart `secret-values.yaml` < `--values` < `--secret-values` < `--set*` < service values;
   - `export-values` are not supported: they are ignored with a warning `Ignoring export-values of dependency "<dep>" of chart "<chart>": export-values are not supported in charts with apiVersion v3`.

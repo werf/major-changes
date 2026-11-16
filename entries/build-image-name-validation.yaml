@@ -7,7 +7,7 @@ domain: build
 areas: [config, validation]
 description: |
   Before: any image name was accepted at config loading; a name that a Go template rendered empty or malformed (for example `/api` or `<no value>`) failed only later in the build phase with an `invalid reference format` error.
-  Now: names are checked when the configuration is loaded and an invalid name is a configuration error pointing at the offending line. Latin letters, digits, `_`, `.`, `-` and `+` are allowed, with optional `/`-separated segments; each segment must start with a letter or digit. For example `modules/controller` and `libstdc++` are valid, while an empty name, whitespace, `/api` and `modules//controller` are not. In `werf compose` and env-file build reports, `+` in an image name is replaced with `_` in environment variable names (`libstdc++` uses the `WERF_LIBSTDC___` prefix).
+  Now: names are checked when the configuration is loaded and an invalid name is a configuration error pointing at the offending line. Latin letters, digits, `_`, `.`, `-` and `+` are allowed, with optional `/`-separated segments; each segment must start with a letter or digit and end with a letter, digit or `+` (so `api-` is invalid). For example `modules/controller` and `libstdc++` are valid, while an empty name, whitespace, `/api` and `modules//controller` are not. In `werf compose` and env-file build reports, `+` in an image name is replaced with `_` in environment variable names (`libstdc++` uses the `WERF_LIBSTDC___` prefix).
 migration: |
   Rename images whose names do not match the rules, including names produced by Go templates.
 refs:

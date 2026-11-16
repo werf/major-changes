@@ -7,6 +7,6 @@ domain: go-api
 areas: [go-api]
 description: |
   Before: `pkg/featgate` exported `FeatGatePreviewV2`, `FeatGateRemoteCharts`, `FeatGateFieldSensitive`, `FeatGateCleanNullFields`, `FeatGateMoreDetailedExitCodeForPlan`, `FeatGateResourceValidation`, `FeatGateNativeReleaseList`, `FeatGateNativeReleaseUninstall` and `FeatGateCaseInsensitiveConditionTracking`, which library users could enable (e.g. through their `NELM_FEAT_*` environment variables) to opt into the corresponding behavior.
-  Now: these variables are removed, and their behavior is always on (see `feature-gate-preview-v2-removed` and `tracking-condition-types-case-insensitive`). `FeatGatePeriodicStackTraces`, `FeatGateTypescript` and `FeatGateAdoptDeckhouseControllerFields` remain.
+  Now: these variables are removed, and their behavior is always on (see `feature-gate-preview-v2-removed` and `tracking-condition-types-case-insensitive`). `FeatGateTypescript` is removed as well (TypeScript charts are always on); only `FeatGatePeriodicStackTraces` and `FeatGateAdoptDeckhouseControllerFields` remain.
 migration: |
   Remove references to the removed `featgate.FeatGate*` variables; code paths that checked them should assume they are enabled.

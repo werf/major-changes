@@ -1,4 +1,4 @@
-# Every commit of werf reachable from main and not from v2.85.0, oldest first.
+# Every commit of werf reachable from main and not from v2.85.1, oldest first.
 # Each row either maps the commit to catalogue entries or says why it is skipped. See ../README.md.
 - { commit: 301c8f90d859, date: 2026-03-28, subject: "feat: new major release 3.0", entries: [deploy-nelm-v2-engine, cli-werf-helm-deploy-commands-removed, cli-werf-helm-release-inspection-commands-removed, cli-werf-helm-plugins-removed, cli-helm-compatibility-mode-removed, cli-werf-helm-common-flags-removed, cli-werf-helm-registry-credentials-helm-config, cli-dismiss-native-uninstall, kube-run-full-kube-connection-flags, kubectl-embedded-version-1-37, helm-v4-engine, cli-chart-commands-helm-4-flags, cli-repo-update-add-flags-removed], note: "switches werf to Nelm v2 (Helm 4 fork); kubernetes:// synchronization removed here but restored by bfaad7793c99; service values .global changes net-handled by later commits" }
 - { commit: 42f650933e04, date: 2026-03-31, subject: "wip: sync with main", skip: merge, note: "conflict resolution only: takes main side for service values (global values kept, as in v2) and go.mod; v3 later state unchanged" }
@@ -535,3 +535,8 @@
 - { commit: 7790174d28f3, date: 2026-11-12, subject: "docs(deploy): describe TypeScript charts on Node.js instead of Deno (#8157)", skip: docs }
 - { commit: 4f38ab0090aa, date: 2026-11-12, subject: "chore(release): add -node images for TypeScript charts (#8168)", entries: [distribution-werf-node-images] }
 - { commit: af603dba60cf, date: 2026-11-12, subject: "fix(build): remove deleted files with quoted git paths (#8171)", entries: [build-git-deleted-quoted-paths] }
+- { commit: aa6969016c5d, date: 2026-11-17, subject: "chore(release): promote weekly channels for 20261117 (#8173)", skip: release }
+- { commit: 21968c6fcfca, date: 2026-11-17, subject: "fix(host-cleanup): stop skipping all images after the first ones in use (#8175)", skip: in-old, note: "same subject as fb0663ed58e9 in v2.85.1" }
+- { commit: b952fd62b2d2, date: 2026-11-18, subject: "chore(main): release 3.13.1 (#8172)", skip: release }
+- { commit: 2a9102109832, date: 2026-11-18, subject: "chore(release): publish werf 2.85.1 and 3.13.1 to alpha (#8177)", skip: release }
+- { commit: babcf3e5c658, date: 2026-11-18, subject: "chore(release, builder): rebuild builder image and repin trdl.yaml (#8180)", skip: ci, note: "builder image rebuild and trdl.yaml repin" }

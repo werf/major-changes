@@ -195,3 +195,5 @@
 - { commit: 2dfe6d3186b7, date: 2026-11-11, subject: "feat: run TypeScript charts with Node.js instead of Deno (#816)", entries: [typescript-charts] }
 - { commit: d5dafa36d8f2, date: 2026-11-12, subject: "feat: enable TypeScript charts by default (#826)", entries: [typescript-charts] }
 - { commit: 1b75334450a1, date: 2026-11-12, subject: "feat: publish Nelm container images (#825)", entries: [distribution-nelm-container-images] }
+- { commit: 07c9ad3125b2, date: 2026-11-17, subject: "chore: run TypeScript chart tests with Node.js from PATH (#829)", skip: test }
+- { commit: 0a4b11d58b52, date: 2026-11-17, subject: "chore: require agents to read contribution naming rules (#830)", skip: internal, note: "agent instructions for contributors" }

@@ -99,6 +99,10 @@ func validate(cat *catalogue) []string {
 		}
 	}
 
+	for _, p := range cat.config.Products {
+		problems = append(problems, validateGuide(cat, p.Name)...)
+	}
+
 	return problems
 }
 
@@ -189,6 +193,64 @@ func validateEntry(e *entry, productNames []string) []string {
 	for _, ref := range e.Refs {
 		if !strings.HasPrefix(ref, "https://") {
 			add("ref %q must be an https URL", ref)
+		}
+	}
+
+	return problems
+}
+
+func validateGuide(cat *catalogue, productName string) []string {
+	g, ok := cat.guides[productName]
+	if !ok {
+		return []string{fmt.Sprintf("guide %s is missing, add %s/%s.yaml", productName, guidesDirName, productName)}
+	}
+
+	var problems []string
+
+	add := func(format string, args ...any) {
+		problems = append(problems, fmt.Sprintf("guide %s: ", productName)+fmt.Sprintf(format, args...))
+	}
+
+	inSection := map[string]bool{}
+
+	for i, s := range g.Sections {
+		if s.Anchor == "" {
+			add("section %d has no anchor", i+1)
+		}
+
+		for _, id := range s.Entries {
+			if _, ok := cat.entries[id]; !ok {
+				problems = append(problems, fmt.Sprintf("guide %s, section %q: unknown entry %q", productName, s.Anchor, id))
+			}
+
+			inSection[id] = true
+		}
+	}
+
+	omittedIDs := lo.Keys(g.Omitted)
+	slices.Sort(omittedIDs)
+
+	for _, id := range omittedIDs {
+		if _, ok := cat.entries[id]; !ok {
+			add("omitted entry %q is unknown", id)
+		}
+
+		if strings.TrimSpace(g.Omitted[id]) == "" {
+			add("omitted entry %s needs a reason", id)
+		}
+
+		if inSection[id] {
+			add("entry %s is both in a section and omitted", id)
+		}
+	}
+
+	for _, e := range sortedEntries(cat) {
+		if e.Breaking == nil || !*e.Breaking || !lo.Contains(e.Products, productName) {
+			continue
+		}
+
+		if _, omitted := g.Omitted[e.ID]; !inSection[e.ID] && !omitted {
+			add("breaking entry %s is neither in a section nor omitted", e.ID)
 		}
 	}
 

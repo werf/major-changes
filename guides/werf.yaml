@@ -1,0 +1,50 @@
+path: https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html
+sections:
+  - anchor: upgrade-to-the-latest-v2-and-preview-v3-defaults
+    entries: [feature-gate-preview-v2-removed]
+  - anchor: stapel-removed-directives
+    entries: [stapel-artifact-removed, stapel-ansible-builder-removed, stapel-docker-directive-removed, build-import-stage-removed, config-nameless-image-removed, build-disable-git-after-patch-removed]
+  - anchor: stapel-references-names-and-paths
+    entries: [build-unified-from-directive, build-image-name-validation, build-trailing-slash-in-to-error, giterminism-strict-schema-validation]
+  - anchor: stapel-git-dependencies-of-stages
+    entries: [build-stage-dependencies-default, build-stage-dependencies-unused-stage-error, build-stapel-git-patches-via-archive]
+  - anchor: stapel-imports
+    entries: [build-multiple-imports-same-target, build-import-cache-source-image]
+  - anchor: dockerfile
+    entries: [build-docker-legacy-builder-removed, build-docker-api-1-40-required, build-staged-dockerfile-v2-only, build-context-ignore-files-unified, build-git-lfs-content]
+  - anchor: buildah
+    entries: [build-buildah-netavark, build-buildah-dockerfile-network-honored]
+  - anchor: charts-templates-and-annotations
+    entries: [values-global-env-removed, render-invalid-annotations-labels-fail, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
+  - anchor: charts-values-schemas-and-secrets
+    entries: [values-secret-values-precedence, values-export-import-all-layers, values-schema-json-schema-2020-12, values-schema-validation-service-values, values-no-global-service-values-experiment-removed, secrets-yaml-value-types-preserved]
+  - anchor: charts-files-werf-now-reads-differently
+    entries: [charts-helmignore-applied, resource-patches]
+  - anchor: ci-werf-helm-commands
+    entries: [cli-werf-helm-deploy-commands-removed, cli-werf-helm-release-inspection-commands-removed, cli-werf-helm-plugins-removed, cli-werf-helm-common-flags-removed, cli-werf-helm-registry-credentials-helm-config, cli-chart-secret-key-rotate-removed, cli-repo-update-add-flags-removed, cli-helm-compatibility-mode-removed]
+  - anchor: ci-flags-variables-and-environment
+    entries: [build-virtual-merge-removed, build-skip-image-spec-stage-removed, values-set-runtime-json-removed, plan-show-verbose-diffs-removed, render-force-adoption-removed, cleanup-registry-api-credential-flags-only-for-deletion, release-storage-werf-helm-driver-env-ignored, charts-helm-path-env-vars-ignored, ci-env-docker-auth-config-auto, logging-color-mode-auto-detected, converge-plan-image-name-args, ci-env-github-legacy-registry-login-removed, kubectl-embedded-version-1-37, distribution-os-requirements-go-1-26]
+  - anchor: ci-exit-codes-and-reports
+    entries: [plan-detailed-exit-code, build-report-stages-skipped, deploy-report-api-version, plan-artifact-format-v2, render-resource-output-order, render-runtime-annotations-and-labels, build-base-image-id-label-removed, build-time-env-not-in-image-config]
+  - anchor: order-of-the-switch
+    entries: [host-cleanup-stale-lock-files]
+  - anchor: first-build-and-cleanup
+    entries: [build-v2-stage-cache-not-reused, build-final-images-only-default]
+  - anchor: first-deploy
+    entries: [deploy-nelm-v2-engine]
+  - anchor: typescript-charts
+    entries: [typescript-charts]
+  - anchor: bundles
+    entries: [charts-werf-data-publish-inputs, bundle-chart-name-from-repository, bundle-publish-without-secret-key, bundle-publish-release-channel-dropped, bundle-copy-oci-layout-archive]
+  - anchor: secrets
+    entries: [secrets-authenticated-encryption-format]
+  - anchor: release-storage
+    entries: [release-storage-sql-annotations-table]
+  - anchor: check-the-changed-defaults
+    entries: [resource-validation-enabled-by-default, resource-validation-embedded-schemas, tracking-condition-types-case-insensitive, dependency-annotations-external-auto, cli-dismiss-native-uninstall, charts-oci-pull-digest-pinned, helm-v4-engine]
+  - anchor: go-module-path
+    entries: [werf-go-module-path-v3]
+  - anchor: flags
+    entries: [cli-werf-noop-deploy-flags-removed, meta-repo-commands-kube-flags-removed, compose-docker-compose-bin-path-removed]
+omitted:
+  plan-use-plan-release-history-limit: Go API callers of Nelm only; for werf users it's a fix with no action needed

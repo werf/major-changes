@@ -83,6 +83,46 @@ func TestValidateAccountsForEveryCommitAndEntry(t *testing.T) {
 	assert.NotContains(t, problems, "entry good-entry")
 }
 
+func TestValidateRequiresGuideForEveryBreakingEntry(t *testing.T) {
+	covered := validEntry("covered")
+	covered.Breaking = lo.ToPtr(true)
+	covered.Migration = "Do x."
+
+	omitted := validEntry("omitted")
+	omitted.Breaking = lo.ToPtr(true)
+	omitted.Migration = "Do y."
+
+	uncovered := validEntry("uncovered")
+	uncovered.Breaking = lo.ToPtr(true)
+	uncovered.Migration = "Do z."
+
+	cat := &catalogue{
+		config: config{Products: []product{{Name: "nelm"}, {Name: "werf"}}},
+		ledgers: map[string][]*ledgerRow{"nelm": {
+			{Commit: "aaa", Entries: []string{"covered", "omitted", "uncovered"}},
+		}},
+		entries: map[string]*entry{"covered": covered, "omitted": omitted, "uncovered": uncovered},
+		guides: map[string]*guide{"nelm": {
+			Sections: []guideSection{
+				{Anchor: "before-upgrade", Entries: []string{"covered", "missing"}},
+				{Anchor: "", Entries: []string{"omitted"}},
+			},
+			Omitted: map[string]string{"omitted": "catalogue only", "missing-too": ""},
+		}},
+	}
+
+	problems := strings.Join(validate(cat), "\n")
+
+	assert.Contains(t, problems, "guide nelm: breaking entry uncovered is neither in a section nor omitted")
+	assert.Contains(t, problems, `guide nelm, section "before-upgrade": unknown entry "missing"`)
+	assert.Contains(t, problems, "guide nelm: section 2 has no anchor")
+	assert.Contains(t, problems, "guide nelm: entry omitted is both in a section and omitted")
+	assert.Contains(t, problems, `guide nelm: omitted entry "missing-too" is unknown`)
+	assert.Contains(t, problems, "guide nelm: omitted entry missing-too needs a reason")
+	assert.Contains(t, problems, "guide werf is missing, add guides/werf.yaml")
+	assert.NotContains(t, problems, "breaking entry covered")
+}
+
 func validEntry(id string) *entry {
 	return &entry{
 		ID:          id,

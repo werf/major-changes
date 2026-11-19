@@ -1,0 +1,27 @@
+path: https://github.com/werf/nelm/blob/main/docs/migration-v1-to-v2.md
+sections:
+  - anchor: preview-v2-defaults-with-feature-gates
+    entries: [feature-gate-preview-v2-removed]
+  - anchor: charts-templates-and-annotations
+    entries: [render-invalid-annotations-labels-fail, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
+  - anchor: charts-values-schemas-and-patches
+    entries: [values-secret-values-precedence, values-export-import-all-layers, values-schema-json-schema-2020-12, values-schema-validation-service-values, resource-patches]
+  - anchor: scripts-commands-and-flags
+    entries: [cli-repo-commands-under-chart, cli-release-history-native, cli-release-list-native, cli-chart-secret-key-rotate-removed, cli-chart-pack-native, cli-chart-upload-native, values-set-runtime-json-removed, plan-show-verbose-diffs-removed, render-force-adoption-removed, cli-save-rollback-graph-to-removed, cli-release-uninstall-native, resource-validation-embedded-schemas, cli-repo-update-add-flags-removed, charts-helm-path-env-vars-ignored]
+  - anchor: scripts-output-formats-and-exit-codes
+    entries: [cli-release-list-output-v2, cli-release-get-resource-specs, plan-detailed-exit-code, deploy-report-api-version, render-resource-output-order, render-runtime-annotations-and-labels]
+  - anchor: order-of-the-switch
+    entries: [plan-artifact-format-v2, helm-v4-engine, distribution-os-requirements-go-1-26]
+  - anchor: typescript-charts
+    entries: [typescript-charts]
+  - anchor: secrets
+    entries: [secrets-authenticated-encryption-format, secrets-yaml-value-types-preserved]
+  - anchor: packed-charts
+    entries: [charts-werf-data-publish-inputs]
+  - anchor: release-storage
+    entries: [release-storage-sql-annotations-table]
+  - anchor: check-the-changed-defaults
+    entries: [resource-validation-enabled-by-default, tracking-condition-types-case-insensitive, dependency-annotations-external-auto, charts-oci-pull-digest-pinned]
+  - anchor: go-api
+    entries: [go-api-action-options-removed, go-api-chart-dir-path-removed, go-api-common-constants-changed, go-api-docker-config-option, go-api-featgate-removed-gates, go-api-helm-fork-packages-restructured, go-api-kube-legacy-client-getter-removed, go-api-kube-new-kube-config-signature, go-api-kubedog-1-types, go-api-legacy-packages-removed, go-api-logging-setup-in-action, go-api-module-path-v2, go-api-plan-artifact-in-action, go-api-release-chart-accessors, go-api-release-storage-interface, go-api-requires-go-1-26, go-api-resource-plan-building-changed, go-api-resource-policy-resolver-removed, go-api-secret-key-env-restored, go-api-secret-key-rotate-removed, plan-use-plan-release-history-limit]
+omitted: {}

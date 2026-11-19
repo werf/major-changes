@@ -15,6 +15,7 @@ import (
 const (
 	configFileName = "config.yaml"
 	entriesDirName = "entries"
+	guidesDirName  = "guides"
 	ledgerDirName  = "ledger"
 	shortSHALength = 12
 )
@@ -23,6 +24,19 @@ type catalogue struct {
 	config  config
 	entries map[string]*entry
 	ledgers map[string][]*ledgerRow
+	guides  map[string]*guide
+}
+
+// guide maps the product's breaking entries to sections of its migration guide, so that the guide cannot silently miss one.
+type guide struct {
+	Path     string            `json:"path"`
+	Sections []guideSection    `json:"sections"`
+	Omitted  map[string]string `json:"omitted"`
+}
+
+type guideSection struct {
+	Anchor  string   `json:"anchor"`
+	Entries []string `json:"entries"`
 }
 
 type config struct {
@@ -76,6 +90,7 @@ func loadCatalogue(dataDir string) (*catalogue, error) {
 	cat := &catalogue{
 		entries: map[string]*entry{},
 		ledgers: map[string][]*ledgerRow{},
+		guides:  map[string]*guide{},
 	}
 
 	if err := readYAML(filepath.Join(dataDir, configFileName), &cat.config); err != nil {
@@ -113,6 +128,22 @@ func loadCatalogue(dataDir string) (*catalogue, error) {
 		}
 
 		cat.entries[e.ID] = e
+	}
+
+	for _, p := range cat.config.Products {
+		path := filepath.Join(dataDir, guidesDirName, p.Name+".yaml")
+		if _, err := os.Stat(path); os.IsNotExist(err) {
+			continue
+		} else if err != nil {
+			return nil, fmt.Errorf("stat %q: %w", path, err)
+		}
+
+		g := &guide{}
+		if err := readYAML(path, g); err != nil {
+			return nil, err
+		}
+
+		cat.guides[p.Name] = g
 	}
 
 	return cat, nil

@@ -1,0 +1,10 @@
+project: werf-dockerfile
+configVersion: 1
+---
+image: app
+context: app
+dockerfile: Dockerfile
+---
+image: worker
+context: worker
+dockerfile: Dockerfile

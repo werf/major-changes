@@ -1,0 +1,58 @@
+project: werf-stapel
+configVersion: 1
+---
+artifact: builder
+from: alpine
+git:
+  - add: /src
+    to: /src/
+shell:
+  install:
+    - mkdir -p /out
+    - cp /src/app.sh /out/app.sh
+    - chmod +x /out/app.sh
+---
+image: base
+from: alpine:3.20
+shell:
+  install:
+    - mkdir -p /etc/base
+    - echo base > /etc/base/marker
+---
+image: tools
+from: alpine:3.20
+ansible:
+  install:
+    - name: create the tools marker
+      shell: mkdir -p /opt/tools && echo tools > /opt/tools/marker.txt
+---
+image: app
+fromImage: base
+disableGitAfterPatch: true
+git:
+  - add: /config
+    to: /app/config
+    stageDependencies:
+      install:
+        - "**/*"
+docker:
+  WORKDIR: /app
+  ENV:
+    APP_ENV: production
+import:
+  - artifact: builder
+    add: /out
+    to: /app/bin/
+    before: setup
+  - image: tools
+    add: /opt/tools
+    to: /app/bin/tools
+    before: setup
+  - image: base
+    add: /etc/base
+    to: /app/meta
+    stage: install
+    after: setup
+shell:
+  setup:
+    - echo setup > /app/setup.txt

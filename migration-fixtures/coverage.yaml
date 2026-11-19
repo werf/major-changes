@@ -1,0 +1,299 @@
+annotations-external-dependency-removed:
+  fixture: werf-chart, nelm-chart
+  how: external-dependency annotation on a pre-created ConfigMap; external-dependency annotation
+annotations-legacy-dependency-werf-io-removed:
+  fixture: werf-chart
+  how: deps.dependency.werf.io annotation
+annotations-lookalike-keys-ignored:
+  fixture: werf-chart
+  how: werf-io/weight annotation
+build-base-image-id-label-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+build-buildah-dockerfile-network-honored:
+  not-exercised: Buildah backend not used
+build-buildah-netavark:
+  not-exercised: Buildah backend not used in the fixtures (Docker backend only)
+build-context-ignore-files-unified:
+  fixture: werf-dockerfile
+  how: worker context has only .containerignore
+build-disable-git-after-patch-removed:
+  fixture: werf-stapel
+  how: app sets disableGitAfterPatch
+build-docker-api-1-40-required:
+  not-exercised: test Docker is 29.x
+build-docker-legacy-builder-removed:
+  not-exercised: Docker 29 in the test environment; legacy builder not exercised
+build-final-images-only-default:
+  fixture: werf-stapel
+  how: config list output with a non-final artifact
+build-git-lfs-content:
+  not-exercised: no fixture uses it; covered by the guide review only
+build-image-name-validation:
+  not-exercised: no realistic invalid name in the fixtures
+build-import-cache-source-image:
+  fixture: werf-stapel
+  how: images import from builder/tools/base
+build-import-stage-removed:
+  fixture: werf-stapel
+  how: 'import from base with stage: install'
+build-multiple-imports-same-target:
+  fixture: werf-stapel
+  how: imports into /app/bin and /app/bin/tools
+build-report-stages-skipped:
+  fixture: werf-stapel, werf-dockerfile
+  how: ci.sh parses the build report; ci.sh requires .Images.app.Stages
+build-skip-image-spec-stage-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+build-stage-dependencies-default:
+  fixture: werf-stapel
+  how: builder git mapping without stageDependencies
+build-stage-dependencies-unused-stage-error:
+  fixture: werf-stapel
+  how: app sets stageDependencies.install without install instructions
+build-staged-dockerfile-v2-only:
+  not-exercised: staged Dockerfiles need Buildah in v2
+build-stapel-git-patches-via-archive:
+  not-exercised: no fixture uses it; covered by the guide review only
+build-time-env-not-in-image-config:
+  not-exercised: no fixture uses it; covered by the guide review only
+build-trailing-slash-in-to-error:
+  fixture: werf-stapel
+  how: 'to: /src/ and to: /app/bin/'
+build-unified-from-directive:
+  fixture: werf-stapel
+  how: 'fromImage, external from: alpine without tag'
+build-v2-stage-cache-not-reused:
+  fixture: werf-stapel
+  how: upgrade rebuilds all stages
+build-virtual-merge-removed:
+  fixture: werf-chart
+  how: werf converge --virtual-merge=false
+bundle-chart-name-from-repository:
+  fixture: werf-bundle
+  how: Chart.yaml name differs from the repository; .Chart.Name in resource names
+bundle-copy-oci-layout-archive:
+  fixture: werf-bundle
+  how: 'bundle copy --to archive:'
+bundle-publish-release-channel-dropped:
+  not-exercised: no fixture uses it; covered by the guide review only
+bundle-publish-without-secret-key:
+  fixture: werf-bundle
+  how: publish with --secret-values
+charts-helm-path-env-vars-ignored:
+  not-exercised: no fixture uses it; covered by the guide review only
+charts-helmignore-applied:
+  fixture: werf-chart
+  how: .helmignore excludes *.txt used by .Files.Get
+charts-oci-pull-digest-pinned:
+  not-exercised: no fixture uses it; covered by the guide review only
+charts-werf-data-publish-inputs:
+  fixture: werf-bundle
+  how: publish with --set/--values/--secret-values, apply
+ci-env-docker-auth-config-auto:
+  not-exercised: no fixture uses it; covered by the guide review only
+ci-env-github-legacy-registry-login-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cleanup-registry-api-credential-flags-only-for-deletion:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-chart-pack-native:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-chart-secret-key-rotate-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-chart-upload-native:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-dismiss-native-uninstall:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-helm-compatibility-mode-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-release-get-resource-specs:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-release-history-native:
+  fixture: nelm-chart
+  how: release history NAME --max -o json
+cli-release-list-native:
+  fixture: nelm-chart
+  how: release list -o json parsed with jq
+cli-release-list-output-v2:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-release-uninstall-native:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-repo-commands-under-chart:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-repo-update-add-flags-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-save-rollback-graph-to-removed:
+  fixture: nelm-chart
+  how: --save-rollback-graph-to
+cli-werf-helm-common-flags-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-werf-helm-deploy-commands-removed:
+  fixture: werf-chart
+  how: ci.sh calls werf helm template
+cli-werf-helm-plugins-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-werf-helm-registry-credentials-helm-config:
+  not-exercised: no fixture uses it; covered by the guide review only
+cli-werf-helm-release-inspection-commands-removed:
+  fixture: werf-chart
+  how: ci.sh calls werf helm list/get
+cli-werf-noop-deploy-flags-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+compose-docker-compose-bin-path-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+config-nameless-image-removed:
+  not-exercised: a nameless image can't coexist with named ones in one fixture
+converge-plan-image-name-args:
+  not-exercised: no fixture uses it; covered by the guide review only
+dependency-annotations-external-auto:
+  fixture: werf-chart
+  how: external dependency migration
+deploy-delete-propagation-background:
+  not-exercised: no fixture uses it; covered by the guide review only
+deploy-nelm-v2-engine:
+  fixture: werf-chart
+  how: render and deploy with v3
+deploy-null-fields-cleaned-by-default:
+  fixture: werf-chart
+  how: 'strategy.rollingUpdate: null'
+deploy-report-api-version:
+  not-exercised: no fixture uses it; covered by the guide review only
+deploy-sensitive-data-and-stringdata-only:
+  fixture: werf-chart
+  how: ConfigMap with werf.io/sensitive
+distribution-os-requirements-go-1-26:
+  not-exercised: host OS requirement
+feature-gate-preview-v2-removed:
+  fixture: nelm-chart
+  how: NELM_FEAT_CLEAN_NULL_FIELDS set
+giterminism-strict-schema-validation:
+  fixture: werf-stapel
+  how: misspelled allowUncommitedFiles key
+go-api-action-options-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-chart-dir-path-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-common-constants-changed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-docker-config-option:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-featgate-removed-gates:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-helm-fork-packages-restructured:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-kube-legacy-client-getter-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-kube-new-kube-config-signature:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-kubedog-1-types:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-legacy-packages-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-logging-setup-in-action:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-module-path-v2:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-plan-artifact-in-action:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-release-chart-accessors:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-release-storage-interface:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-requires-go-1-26:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-resource-plan-building-changed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-resource-policy-resolver-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-secret-key-env-restored:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+go-api-secret-key-rotate-removed:
+  not-exercised: 'Go API: checked against apidiff and werf''s own upgrade, not by fixtures'
+helm-v4-engine:
+  fixture: werf-chart
+  how: render and deploy with v3
+host-cleanup-stale-lock-files:
+  not-exercised: needs concurrent v2/v3 runs on one host
+kubectl-embedded-version-1-37:
+  not-exercised: no fixture uses it; covered by the guide review only
+logging-color-mode-auto-detected:
+  not-exercised: no fixture uses it; covered by the guide review only
+meta-repo-commands-kube-flags-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+plan-artifact-format-v2:
+  not-exercised: no fixture uses it; covered by the guide review only
+plan-detailed-exit-code:
+  fixture: werf-chart, nelm-chart
+  how: ci.sh accepts plan exit codes 0 and 2 only; plan --exit-code
+plan-show-verbose-diffs-removed:
+  fixture: werf-chart, nelm-chart
+  how: werf plan --show-verbose-diffs; --show-verbose-diffs
+plan-use-plan-release-history-limit:
+  not-exercised: no fixture uses it; covered by the guide review only
+release-storage-sql-annotations-table:
+  not-exercised: needs PostgreSQL release storage
+release-storage-werf-helm-driver-env-ignored:
+  fixture: werf-chart
+  how: ci.sh exports HELM_DRIVER
+render-default-kube-version-1-36:
+  not-exercised: no fixture uses it; covered by the guide review only
+render-force-adoption-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+render-invalid-annotations-labels-fail:
+  fixture: werf-chart, nelm-chart
+  how: unquoted int/bool annotations; unquoted int annotation
+render-resource-output-order:
+  fixture: werf-chart
+  how: render output saved
+render-runtime-annotations-and-labels:
+  fixture: werf-chart
+  how: render output compared
+resource-patches:
+  not-exercised: no fixture uses it; covered by the guide review only
+resource-validation-embedded-schemas:
+  not-exercised: no fixture uses it; covered by the guide review only
+resource-validation-enabled-by-default:
+  fixture: werf-chart
+  how: converge validates resources
+secrets-authenticated-encryption-format:
+  fixture: werf-chart, nelm-chart
+  how: secrets encrypted by v2, read by v3; secrets encrypted by v1
+secrets-yaml-value-types-preserved:
+  not-exercised: no fixture uses it; covered by the guide review only
+stapel-ansible-builder-removed:
+  fixture: werf-stapel
+  how: image tools uses ansible
+stapel-artifact-removed:
+  fixture: werf-stapel
+  how: artifact builder with import.artifact
+stapel-docker-directive-removed:
+  fixture: werf-stapel
+  how: app uses docker WORKDIR/ENV
+templates-capabilities-helm-version-v4:
+  not-exercised: no fixture uses it; covered by the guide review only
+tracking-condition-types-case-insensitive:
+  fixture: werf-chart
+  how: tracks Deployment readiness
+typescript-charts:
+  not-exercised: needs Node.js 26 and a TypeScript chart; not in the fixtures
+values-export-import-all-layers:
+  fixture: werf-chart
+  how: export-values to subchart with --set on the child key
+values-global-env-removed:
+  fixture: werf-chart
+  how: .Values.global.env in chart and subchart
+values-no-global-service-values-experiment-removed:
+  not-exercised: no fixture uses it; covered by the guide review only
+values-schema-json-schema-2020-12:
+  fixture: werf-chart
+  how: draft-07 tuple items without $schema
+values-schema-validation-service-values:
+  fixture: werf-chart
+  how: 'additionalProperties: false and a string minReplicas'
+values-secret-values-precedence:
+  fixture: werf-chart, nelm-chart
+  how: chart secret-values.yaml and --secret-values; --secret-values vs --set greeting
+values-set-runtime-json-removed:
+  fixture: werf-chart, nelm-chart
+  how: --set-runtime-json and $.Runtime; --set-runtime-json
+werf-go-module-path-v3:
+  not-exercised: Go module path

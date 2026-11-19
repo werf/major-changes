@@ -1,0 +1,9 @@
+apiVersion: v2
+name: werf-chart
+version: 0.1.0
+dependencies:
+  - name: backend
+    version: 0.1.0
+    export-values:
+      - parent: backendConfig
+        child: config

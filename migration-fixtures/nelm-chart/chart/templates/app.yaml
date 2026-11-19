@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  annotations:
+    example.com/replicas: {{ .Values.replicas }}
+    external.external-dependency.werf.io/resource: configmap/external-config
+spec:
+  replicas: {{ .Values.replicas }}
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.image }}
+          env:
+            - name: GREETING
+              value: {{ .Values.greeting | quote }}
+            - name: BUILD
+              value: {{ dig "build" "id" "local" ($.Runtime | default dict) | quote }}
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: app-secrets
+stringData:
+  db-password: {{ .Values.db.password | quote }}

@@ -1,0 +1,30 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: app
+  annotations:
+    example.com/replicas: {{ .Values.replicas }}
+    example.com/managed: true
+    werf-io/weight: "5"
+    deps.dependency.werf.io: v1:ConfigMap:app-config
+    external.external-dependency.werf.io/resource: configmap/external-config
+spec:
+  replicas: {{ .Values.replicas }}
+  strategy:
+    rollingUpdate: null
+  selector:
+    matchLabels:
+      app: app
+  template:
+    metadata:
+      labels:
+        app: app
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.werf.image.app }}
+          env:
+            - name: ENV
+              value: {{ .Values.global.env | quote }}
+            - name: CI_JOB
+              value: {{ dig "ci" "job" "local" ($.Runtime | default dict) | quote }}

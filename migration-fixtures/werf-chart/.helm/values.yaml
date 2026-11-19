@@ -1,0 +1,5 @@
+replicas: 1
+minReplicas: "1"
+ports: [8080]
+backendConfig:
+  greeting: hello

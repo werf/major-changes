@@ -1,0 +1,3 @@
+app:
+  greeting: default
+  replicas: 1

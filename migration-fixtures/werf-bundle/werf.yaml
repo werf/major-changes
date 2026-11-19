@@ -1,0 +1,5 @@
+project: werf-bundle
+configVersion: 1
+---
+image: app
+dockerfile: Dockerfile

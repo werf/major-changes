@@ -1,0 +1,13 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "replicas": {"type": "integer"},
+    "minReplicas": {"type": "integer"},
+    "ports": {"type": "array", "items": [{"type": "integer"}]},
+    "backendConfig": {"type": "object"},
+    "backend": {"type": "object"},
+    "db": {"type": "object"},
+    "api": {"type": "object"}
+  }
+}

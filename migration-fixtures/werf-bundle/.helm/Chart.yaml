@@ -1,0 +1,3 @@
+apiVersion: v2
+name: werf-bundle
+version: 0.1.0

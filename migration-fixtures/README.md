@@ -14,7 +14,7 @@ Small projects that use werf v2 and Nelm v1 features changed in werf v3 and Nelm
 
 ## Running
 
-Requires Docker, kind, kubectl, jq, and the binaries in `$MIGRATION_DIR/bin` (`werf-2.85.1`, `werf-3.13.1`, `nelm-1.31.3`, `nelm-2-main`; see `run.sh` for the variables).
+Requires Docker, kind, kubectl, jq, and the binaries in `$MIGRATION_DIR/bin` (`MIGRATION_DIR` defaults to `$TMPDIR/werf-migration`) (`werf-2.85.1`, `werf-3.13.1`, `nelm-1.31.3`, `nelm-2-main`; see `run.sh` for the variables).
 
 ```shell
 ./run.sh cluster-up                   # kind cluster "werf-migration" and a local registry

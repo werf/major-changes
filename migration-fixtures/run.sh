@@ -3,7 +3,7 @@
 set -euo pipefail
 
 FIXTURES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MIGRATION_DIR="${MIGRATION_DIR:-/home/user1/.bb/thread-storage/thr_x4cy6wre6t/migration}"
+MIGRATION_DIR="${MIGRATION_DIR:-${TMPDIR:-/tmp}/werf-migration}"
 BIN_DIR="${BIN_DIR:-$MIGRATION_DIR/bin}"
 WORK_DIR="${WORK_DIR:-$MIGRATION_DIR/work}"
 KUBECONFIG_PATH="${KUBECONFIG_PATH:-$MIGRATION_DIR/kubeconfig}"

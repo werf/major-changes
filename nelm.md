@@ -7,7 +7,7 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 | Repository | Old | New |
 |---|---|---|
 | [werf](https://github.com/werf/werf) | v2.85.1 (`048eee72a`) | main (`babcf3e5c`) |
-| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`0a4b11d58`) |
+| [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`241c2b409`) |
 | [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`) | nelm-main (`1ed920dee`) |
 | [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.85.1 (`0558f83ed`) | nelm-main (`993ea4351`) |
 | [lockgate](https://github.com/werf/lockgate) | v0.1.1 (`444ab0618`) | v0.2.1 (`5f579cc25`) |
@@ -17,7 +17,7 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 |---|---|
 | Breaking changes | 68 |
 | Deprecations | 1 |
-| New features | 16 |
+| New features | 18 |
 | Other changes | 3 |
 | Fixes | 17 |
 
@@ -1007,6 +1007,15 @@ Now: `--no-values-schema-validation` (`$NELM_NO_VALUES_SCHEMA_VALIDATION`; werf:
 
 **References:** [werf#7756](https://github.com/werf/werf/pull/7756), [nelm#616](https://github.com/werf/nelm/pull/616)
 
+#### `chart ts init` creates a runnable TypeScript project with tests
+
+<a id="typescript-chart-scaffold-tests"></a>`typescript-chart-scaffold-tests` · feature · `typescript` `cli` · products: nelm, werf
+
+Before: `nelm chart ts init` and `werf chart ts init` generated `ts/src/index.ts` with the Deployment and Service from Go string templates, without tests.
+Now: the scaffold is a runnable Node.js project: `src/index.ts`, `deployment.ts`, `service.ts`, `helpers.ts` and `context.ts`, `src/deployment.test.ts` with `describe`/`it` from `node:test` run by `tsx` on typed render-context fixtures, separate `tsconfig.app.json` and `tsconfig.test.json` projects that editors discover, `npm test`, `npm run typecheck` and `npm run dev:debug` (waits for a debugger with `--inspect-brk`). The rendered Deployment and Service are unchanged; lock files are still created when dependencies are installed.
+
+**References:** [nelm#834](https://github.com/werf/nelm/pull/834), [nelm#835](https://github.com/werf/nelm/pull/835), <https://github.com/werf/nelm/pull/834>
+
 #### `nelm chart copy` copies a chart with its images between registries and archives
 
 <a id="cli-chart-copy"></a>`cli-chart-copy` · feature · `cli` `charts` `oci` `registry` · products: nelm
@@ -1027,6 +1036,16 @@ New: `nelm chart copy FROM TO` (Go API: `action.ChartCopy`) copies a chart toget
 New: `release list --release-label-selector <selector>` (default empty; Go API: `ReleaseListOptions.ReleaseLabelSelector`) takes a Kubernetes label selector, applies it to the labels of the stored revisions together with the release namespace, and lists the latest matching revision of each release. Works with Secret, ConfigMap, SQL and memory release storage.
 
 **References:** [nelm#745](https://github.com/werf/nelm/pull/745)
+
+#### `werf.io/delete-on` controls when resources removed from the chart are deleted
+
+<a id="annotations-delete-on"></a>`annotations-delete-on` · feature · `annotations` `plan` · products: nelm, werf
+
+Before: resources removed from the chart were deleted at a fixed point: before deploying resources on install, upgrade and rollback, and in the main cleanup stage on uninstall.
+Now: `werf.io/delete-on` takes comma-separated `install`, `upgrade`, `rollback` and `delete` (uninstall), or their `pre-`/`post-` variants, one per deploy type, and deletes the resource after that stage. The main-stage choice waits for the deployed resources to become ready, so an obsolete resource can stay until its replacement is ready or post hooks have completed. The annotation is read from the previous release, so it must be deployed before the resource is removed from the chart. Omitted deploy types keep the old timing; `werf.io/delete-policy` and `helm.sh/hook-delete-policy` are unchanged. Library consumers get `DeletableResource.DeleteStages`.
+Limitations: if a deploy fails before the chosen stage, the resource remains; invalid values stored in the latest release can block upgrade, rollback and uninstall until fixed.
+
+**References:** [nelm#832](https://github.com/werf/nelm/pull/832), <https://github.com/werf/nelm/pull/832>
 
 #### `werf.io/triggers-release: "false"` keeps a resource from causing a new release on its own
 

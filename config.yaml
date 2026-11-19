@@ -25,7 +25,7 @@ ranges:
         commit: dc00668ac8a28cf58182e7c9722e781413de6592
     new:
       ref: main
-      commit: 0a4b11d58b521450f9e53c39b10bd8532080e60d
+      commit: 241c2b409a2e85b7d013e690c118277181f89a02
 
   # Pinned by go.mod: old by Nelm v1.31.3 and werf v2.85.1, new by Nelm main (werf v3 gets it through Nelm).
   - name: kubedog

@@ -1,0 +1,12 @@
+id: typescript-chart-scaffold-tests
+title: "`chart ts init` creates a runnable TypeScript project with tests"
+type: feature
+breaking: false
+products: [nelm, werf]
+domain: deploy
+areas: [typescript, cli]
+description: |
+  Before: `nelm chart ts init` and `werf chart ts init` generated `ts/src/index.ts` with the Deployment and Service from Go string templates, without tests.
+  Now: the scaffold is a runnable Node.js project: `src/index.ts`, `deployment.ts`, `service.ts`, `helpers.ts` and `context.ts`, `src/deployment.test.ts` with `describe`/`it` from `node:test` run by `tsx` on typed render-context fixtures, separate `tsconfig.app.json` and `tsconfig.test.json` projects that editors discover, `npm test`, `npm run typecheck` and `npm run dev:debug` (waits for a debugger with `--inspect-brk`). The rendered Deployment and Service are unchanged; lock files are still created when dependencies are installed.
+refs:
+  - https://github.com/werf/nelm/pull/834

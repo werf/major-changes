@@ -197,3 +197,6 @@
 - { commit: 1b75334450a1, date: 2026-11-12, subject: "feat: publish Nelm container images (#825)", entries: [distribution-nelm-container-images] }
 - { commit: 07c9ad3125b2, date: 2026-11-17, subject: "chore: run TypeScript chart tests with Node.js from PATH (#829)", skip: test }
 - { commit: 0a4b11d58b52, date: 2026-11-17, subject: "chore: require agents to read contribution naming rules (#830)", skip: internal, note: "agent instructions for contributors" }
+- { commit: c77ca1698e8a, date: 2026-11-18, subject: "feat: add runnable TypeScript chart scaffold with tests (#834)", entries: [typescript-chart-scaffold-tests] }
+- { commit: fed279ba5fa0, date: 2026-11-19, subject: "refactor: simplify TypeScript scaffold tests (#835)", entries: [typescript-chart-scaffold-tests] }
+- { commit: 241c2b409a2e, date: 2026-11-19, subject: "feat: add `werf.io/delete-on` annotation (#832)", entries: [annotations-delete-on] }

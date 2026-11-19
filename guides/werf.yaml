@@ -5,7 +5,9 @@ sections:
   - anchor: stapel-removed-directives
     entries: [stapel-artifact-removed, stapel-ansible-builder-removed, stapel-docker-directive-removed, build-import-stage-removed, config-nameless-image-removed, build-disable-git-after-patch-removed]
   - anchor: stapel-references-names-and-paths
-    entries: [build-unified-from-directive, build-image-name-validation, build-trailing-slash-in-to-error, giterminism-strict-schema-validation]
+    entries: [build-unified-from-directive, build-image-name-validation, build-trailing-slash-in-to-error]
+  - anchor: giterminism-config
+    entries: [giterminism-strict-schema-validation]
   - anchor: stapel-git-dependencies-of-stages
     entries: [build-stage-dependencies-default, build-stage-dependencies-unused-stage-error, build-stapel-git-patches-via-archive]
   - anchor: stapel-imports

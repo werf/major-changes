@@ -11,7 +11,9 @@ sections:
   - anchor: scripts-output-formats-and-exit-codes
     entries: [cli-release-list-output-v2, cli-release-get-resource-specs, plan-detailed-exit-code, deploy-report-api-version, render-resource-output-order, render-runtime-annotations-and-labels]
   - anchor: order-of-the-switch
-    entries: [plan-artifact-format-v2, helm-v4-engine, distribution-os-requirements-go-1-26]
+    entries: [plan-artifact-format-v2, distribution-os-requirements-go-1-26]
+  - anchor: first-install
+    entries: [helm-v4-engine]
   - anchor: typescript-charts
     entries: [typescript-charts]
   - anchor: secrets

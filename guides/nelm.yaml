@@ -1,6 +1,6 @@
 path: https://github.com/werf/nelm/blob/main/docs/migration-v1-to-v2.md
 sections:
-  - anchor: preview-v2-defaults-with-feature-gates
+  - anchor: clean-up
     entries: [feature-gate-preview-v2-removed]
   - anchor: charts-templates-and-annotations
     entries: [render-invalid-annotations-labels-fail, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]

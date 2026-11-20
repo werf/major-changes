@@ -1,6 +1,6 @@
 path: https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html
 sections:
-  - anchor: upgrade-to-the-latest-v2-and-preview-v3-defaults
+  - anchor: preview-v3-deploy-behavior-with-v2
     entries: [feature-gate-preview-v2-removed]
   - anchor: stapel-removed-directives
     entries: [stapel-artifact-removed, stapel-ansible-builder-removed, stapel-docker-directive-removed, build-import-stage-removed, config-nameless-image-removed, build-disable-git-after-patch-removed]

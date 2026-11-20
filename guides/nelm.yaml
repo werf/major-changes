@@ -2,10 +2,12 @@ path: https://github.com/werf/nelm/blob/main/docs/migration-v1-to-v2.md
 sections:
   - anchor: clean-up
     entries: [feature-gate-preview-v2-removed]
+  - anchor: fix-what-v2-reports
+    entries: [render-invalid-annotations-labels-fail, values-schema-json-schema-2020-12, values-schema-validation-service-values]
   - anchor: charts-templates-and-annotations
-    entries: [render-invalid-annotations-labels-fail, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
-  - anchor: charts-values-schemas-and-patches
-    entries: [values-secret-values-precedence, values-export-import-all-layers, values-schema-json-schema-2020-12, values-schema-validation-service-values, resource-patches]
+    entries: [annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
+  - anchor: charts-values-and-patches
+    entries: [values-secret-values-precedence, values-export-import-all-layers, resource-patches]
   - anchor: scripts-commands-and-flags
     entries: [cli-repo-commands-under-chart, cli-release-history-native, cli-release-list-native, cli-chart-secret-key-rotate-removed, cli-chart-pack-native, cli-chart-upload-native, values-set-runtime-json-removed, plan-show-verbose-diffs-removed, render-force-adoption-removed, cli-save-rollback-graph-to-removed, cli-release-uninstall-native, resource-validation-embedded-schemas, cli-repo-update-add-flags-removed, charts-helm-path-env-vars-ignored]
   - anchor: scripts-output-formats-and-exit-codes

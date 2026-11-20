@@ -2,12 +2,8 @@ path: https://werf.io/docs/v3/resources/migration_from_v2_to_v3.html
 sections:
   - anchor: clean-up
     entries: [feature-gate-preview-v2-removed]
-  - anchor: stapel-removed-directives
-    entries: [stapel-artifact-removed, stapel-ansible-builder-removed, stapel-docker-directive-removed, build-import-stage-removed, config-nameless-image-removed, build-disable-git-after-patch-removed]
-  - anchor: stapel-references-names-and-paths
-    entries: [build-unified-from-directive, build-image-name-validation, build-trailing-slash-in-to-error]
-  - anchor: giterminism-config
-    entries: [giterminism-strict-schema-validation]
+  - anchor: fix-what-v3-reports
+    entries: [stapel-artifact-removed, stapel-ansible-builder-removed, stapel-docker-directive-removed, build-import-stage-removed, config-nameless-image-removed, build-disable-git-after-patch-removed, build-unified-from-directive, build-image-name-validation, build-trailing-slash-in-to-error, giterminism-strict-schema-validation, render-invalid-annotations-labels-fail, values-schema-json-schema-2020-12, values-schema-validation-service-values]
   - anchor: stapel-git-dependencies-of-stages
     entries: [build-stage-dependencies-default, build-stage-dependencies-unused-stage-error, build-stapel-git-patches-via-archive]
   - anchor: stapel-imports
@@ -17,9 +13,9 @@ sections:
   - anchor: buildah
     entries: [build-buildah-netavark, build-buildah-dockerfile-network-honored]
   - anchor: charts-templates-and-annotations
-    entries: [values-global-env-removed, render-invalid-annotations-labels-fail, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
-  - anchor: charts-values-schemas-and-secrets
-    entries: [values-secret-values-precedence, values-export-import-all-layers, values-schema-json-schema-2020-12, values-schema-validation-service-values, values-no-global-service-values-experiment-removed, secrets-yaml-value-types-preserved]
+    entries: [values-global-env-removed, annotations-external-dependency-removed, annotations-legacy-dependency-werf-io-removed, annotations-lookalike-keys-ignored, deploy-null-fields-cleaned-by-default, deploy-sensitive-data-and-stringdata-only, deploy-delete-propagation-background, templates-capabilities-helm-version-v4, render-default-kube-version-1-36]
+  - anchor: charts-values-and-secrets
+    entries: [values-secret-values-precedence, values-export-import-all-layers, values-no-global-service-values-experiment-removed, secrets-yaml-value-types-preserved]
   - anchor: charts-files-werf-now-reads-differently
     entries: [charts-helmignore-applied, resource-patches]
   - anchor: ci-werf-helm-commands

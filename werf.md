@@ -6,7 +6,7 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 
 | Repository | Old | New |
 |---|---|---|
-| [werf](https://github.com/werf/werf) | v2.85.1 (`048eee72a`) | main (`babcf3e5c`) |
+| [werf](https://github.com/werf/werf) | v2.85.1 (`048eee72a`) | main (`fe9dddf6c`) |
 | [nelm](https://github.com/werf/nelm) | v1.31.3 (`dc00668ac`) | main (`241c2b409`) |
 | [kubedog](https://github.com/werf/kubedog) | nelm-v1.31.3 (`f1eefb59d`) | nelm-main (`1ed920dee`) |
 | [common-go](https://github.com/werf/common-go) | nelm-v1.31.3 (`a1a98e909`), werf-v2.85.1 (`0558f83ed`) | nelm-main (`993ea4351`) |
@@ -18,7 +18,7 @@ Every user-visible change found in the commit ranges below. See [README.md](READ
 | Breaking changes | 95 |
 | Deprecations | 1 |
 | New features | 22 |
-| Other changes | 15 |
+| Other changes | 14 |
 | Fixes | 38 |
 
 ## Breaking changes
@@ -1331,7 +1331,7 @@ Now: `--no-values-schema-validation` (`$NELM_NO_VALUES_SCHEMA_VALIDATION`; werf:
 Before: `nelm chart ts init` and `werf chart ts init` generated `ts/src/index.ts` with the Deployment and Service from Go string templates, without tests.
 Now: the scaffold is a runnable Node.js project: `src/index.ts`, `deployment.ts`, `service.ts`, `helpers.ts` and `context.ts`, `src/deployment.test.ts` with `describe`/`it` from `node:test` run by `tsx` on typed render-context fixtures, separate `tsconfig.app.json` and `tsconfig.test.json` projects that editors discover, `npm test`, `npm run typecheck` and `npm run dev:debug` (waits for a debugger with `--inspect-brk`). The rendered Deployment and Service are unchanged; lock files are still created when dependencies are installed.
 
-**References:** [nelm#834](https://github.com/werf/nelm/pull/834), [nelm#835](https://github.com/werf/nelm/pull/835), <https://github.com/werf/nelm/pull/834>
+**References:** [werf#8183](https://github.com/werf/werf/pull/8183), [nelm#834](https://github.com/werf/nelm/pull/834), [nelm#835](https://github.com/werf/nelm/pull/835), <https://github.com/werf/nelm/pull/834>
 
 #### `werf.io/delete-on` controls when resources removed from the chart are deleted
 
@@ -1341,7 +1341,7 @@ Before: resources removed from the chart were deleted at a fixed point: before d
 Now: `werf.io/delete-on` takes comma-separated `install`, `upgrade`, `rollback` and `delete` (uninstall), or their `pre-`/`post-` variants, one per deploy type, and deletes the resource after that stage. The main-stage choice waits for the deployed resources to become ready, so an obsolete resource can stay until its replacement is ready or post hooks have completed. The annotation is read from the previous release, so it must be deployed before the resource is removed from the chart. Omitted deploy types keep the old timing; `werf.io/delete-policy` and `helm.sh/hook-delete-policy` are unchanged. Library consumers get `DeletableResource.DeleteStages`.
 Limitations: if a deploy fails before the chosen stage, the resource remains; invalid values stored in the latest release can block upgrade, rollback and uninstall until fixed.
 
-**References:** [nelm#832](https://github.com/werf/nelm/pull/832), <https://github.com/werf/nelm/pull/832>
+**References:** [werf#8186](https://github.com/werf/werf/pull/8186), [nelm#832](https://github.com/werf/nelm/pull/832), <https://github.com/werf/nelm/pull/832>
 
 #### `werf.io/triggers-release: "false"` keeps a resource from causing a new release on its own
 
@@ -1396,16 +1396,6 @@ Now: when a background host cleanup frees space, the next suitable werf command 
 ## Other changes
 
 ### General
-
-#### Published Linux and Windows binaries of Nelm and werf are compressed with upx
-
-<a id="distribution-upx-compressed-binaries"></a>`distribution-upx-compressed-binaries` · change · `distribution` · products: nelm, werf
-
-Before: Nelm and werf release binaries were published uncompressed (Nelm linux/amd64 about 120 MB).
-Now: the published Linux and Windows binaries are compressed with upx and unpack themselves in memory on start, so they are much smaller to download: Nelm linux/amd64 is about 70 MB; werf `linux-amd64`, `linux-arm64` and `windows-amd64` binaries distributed via trdl are compressed with `upx --best`. macOS binaries are not compressed.
-Some antivirus, EDR or binary-scanning tools flag UPX-packed executables, and tools that inspect the binary (e.g. `go version -m`) cannot read the packed file.
-
-**References:** [werf#7652](https://github.com/werf/werf/pull/7652), [werf#7744](https://github.com/werf/werf/pull/7744), [werf#7753](https://github.com/werf/werf/pull/7753), [nelm#731](https://github.com/werf/nelm/pull/731)
 
 #### `LOCKGATE_DEBUG=1` diagnostics of distributed locks go to stderr
 

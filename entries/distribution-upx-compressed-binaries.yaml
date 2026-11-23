@@ -1,11 +1,11 @@
 id: distribution-upx-compressed-binaries
-title: "Published Linux and Windows binaries of Nelm and werf are compressed with upx"
+title: "Published Linux and Windows binaries of Nelm are compressed with upx"
 type: change
 breaking: false
-products: [nelm, werf]
+products: [nelm]
 domain: general
 areas: [distribution]
 description: |
-  Before: Nelm and werf release binaries were published uncompressed (Nelm linux/amd64 about 120 MB).
-  Now: the published Linux and Windows binaries are compressed with upx and unpack themselves in memory on start, so they are much smaller to download: Nelm linux/amd64 is about 70 MB; werf `linux-amd64`, `linux-arm64` and `windows-amd64` binaries distributed via trdl are compressed with `upx --best`. macOS binaries are not compressed.
+  Before: Nelm release binaries were published uncompressed (linux/amd64 about 120 MB).
+  Now: the published Linux and Windows binaries are compressed with upx and unpack themselves in memory on start, so they are much smaller to download (linux/amd64 about 70 MB). macOS binaries are not compressed. werf binaries stay uncompressed.
   Some antivirus, EDR or binary-scanning tools flag UPX-packed executables, and tools that inspect the binary (e.g. `go version -m`) cannot read the packed file.

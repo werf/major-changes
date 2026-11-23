@@ -16,7 +16,7 @@ ranges:
         commit: 048eee72a6981b9e15ea514c58ea916e190380dd
     new:
       ref: main
-      commit: babcf3e5c6580fdabcb9dfa648957b95c1acde16
+      commit: fe9dddf6cdaa810188ac57b0463d4e9b54530b73
 
   - name: nelm
     url: https://github.com/werf/nelm

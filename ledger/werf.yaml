@@ -118,7 +118,7 @@
 - { commit: 6a813c0ffa54, date: 2026-07-09, subject: "refactor(true_git): drop index line from output patches (#7650)", skip: internal, note: "index line dropped from internal patches; werf's patch pipeline unaffected" }
 - { commit: 27ce586ec3fa, date: 2026-07-10, subject: "chore: update nelm (#7641)", skip: dependency, note: "effects catalogued from the nelm ledger (deploy-delete-propagation-background); bundle publish adapted to Nelm chart accessor API without visible change" }
 - { commit: ab54ef2bbadd, date: 2026-07-10, subject: "refactor: use deploy annotation in testdata charts instead of deprecated annotations (#7653)", skip: test }
-- { commit: 20884da36d72, date: 2026-07-10, subject: "chore(release): compress binaries (#7652)", entries: [distribution-upx-compressed-binaries] }
+- { commit: 20884da36d72, date: 2026-07-10, subject: "chore(release): compress binaries (#7652)", skip: reverted, note: "werf binaries were compressed with upx during v3 development and published uncompressed again by fe9dddf6c, as in v2" }
 - { commit: 66b9b91fdb2c, date: 2026-07-10, subject: "test(config list): align with new --final-images-only default", skip: test }
 - { commit: 5753958be672, date: 2026-07-10, subject: "chore: release 3.0.0-alpha.1", skip: release }
 - { commit: de4885d24d5f, date: 2026-07-10, subject: "chore(3): release 3.0.0-alpha.1 (#7378)", skip: release }
@@ -172,7 +172,7 @@
 - { commit: 2f2a820b05ba, date: 2026-08-03, subject: "chore(dev): require the mutation result in Verification (#7738)", skip: in-old, note: "same subject as 46dbb1bfe in v2.84.1" }
 - { commit: f7c090bb79c0, date: 2026-08-03, subject: "chore(dev): drop dependencies that branch 3 no longer has from skills", skip: internal, note: "agent/developer instructions" }
 - { commit: 73b968d72aa4, date: 2026-08-03, subject: "chore(dev): fix stale dependency claims in AGENTS.md", skip: internal, note: "agent/developer instructions" }
-- { commit: b61ec3024c4e, date: 2026-08-03, subject: "chore(release): disable compression for binaries (#7744)", entries: [distribution-upx-compressed-binaries], note: "temporarily disabled compression, restored by 949a7e1a553f" }
+- { commit: b61ec3024c4e, date: 2026-08-03, subject: "chore(release): disable compression for binaries (#7744)", skip: reverted, note: "werf binaries were compressed with upx during v3 development and published uncompressed again by fe9dddf6c, as in v2" }
 - { commit: e04e16b917d5, date: 2026-08-03, subject: "chore(release): build binaries sequentially (#7745)", skip: internal, note: "release build tooling" }
 - { commit: 544a07d58a4d, date: 2026-08-03, subject: "fix(build, stapel, git): remove git commit ancestry check on reuse (#7746)", entries: [build-git-ancestry-check-removed] }
 - { commit: 0e32778d10d5, date: 2026-08-03, subject: "Merge branch 'main' into 3", skip: merge, note: "conflict resolution only: agent skill file" }
@@ -181,7 +181,7 @@
 - { commit: 01eeb94fd129, date: 2026-08-04, subject: "feat: `--no-values-schema-validation`; don't break values.schema.json with service values (#7756)", entries: [values-schema-validation-disable-option, values-schema-validation-service-values] }
 - { commit: 263e314fd51b, date: 2026-08-04, subject: "docs(dev): document three agent rules for PR review and doc:gen (#7755)", skip: internal, note: "agent/developer instructions" }
 - { commit: 8ff0bf37050b, date: 2026-08-04, subject: "fix(build): stop re-fetching submodules the checkout already has (#7736)", skip: in-old, note: "local-store submodule reuse is in v2.84.1 via 46f0294ed (#8020)" }
-- { commit: 949a7e1a553f, date: 2026-08-05, subject: "chore(release): limit build concurrency and restore binary compression (#7753)", entries: [distribution-upx-compressed-binaries], note: "restores compression disabled in b61ec3024c4e" }
+- { commit: 949a7e1a553f, date: 2026-08-05, subject: "chore(release): limit build concurrency and restore binary compression (#7753)", skip: reverted, note: "werf binaries were compressed with upx during v3 development and published uncompressed again by fe9dddf6c, as in v2" }
 - { commit: 6a4c6c48f9a0, date: 2026-08-05, subject: "fix(deploy): optimize local validation args (#7760)", entries: [resource-validation-embedded-schemas], note: "removes werf --local-resource-validation ($WERF_LOCAL_RESOURCE_VALIDATION)" }
 - { commit: 88f2c553581c, date: 2026-08-05, subject: "docs(dev): validate a verification check before citing its result (#7752)", skip: internal, note: "agent/developer instructions" }
 - { commit: 24eacfd57551, date: 2026-08-05, subject: "docs(dev): audit the PR description against review findings (#7758)", skip: internal, note: "agent/developer instructions" }
@@ -540,3 +540,6 @@
 - { commit: b952fd62b2d2, date: 2026-11-18, subject: "chore(main): release 3.13.1 (#8172)", skip: release }
 - { commit: 2a9102109832, date: 2026-11-18, subject: "chore(release): publish werf 2.85.1 and 3.13.1 to alpha (#8177)", skip: release }
 - { commit: babcf3e5c658, date: 2026-11-18, subject: "chore(release, builder): rebuild builder image and repin trdl.yaml (#8180)", skip: ci, note: "builder image rebuild and trdl.yaml repin" }
+- { commit: 270ca318a49e, date: 2026-11-19, subject: "feat(deploy): generate TypeScript charts with runnable tests (#8183)", entries: [typescript-chart-scaffold-tests] }
+- { commit: c70682f20f24, date: 2026-11-19, subject: "feat(deploy): control resource deletion stages with delete-on (#8186)", entries: [annotations-delete-on] }
+- { commit: fe9dddf6cdaa, date: 2026-11-20, subject: "chore(release): limit build concurrency and drop UPX compression (#8188)", skip: reverted, note: "werf binaries were compressed with upx during v3 development and published uncompressed again by fe9dddf6c, as in v2" }

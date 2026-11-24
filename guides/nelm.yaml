@@ -13,7 +13,7 @@ sections:
   - anchor: scripts-output-formats-and-exit-codes
     entries: [cli-release-list-output-v2, cli-release-get-resource-specs, plan-detailed-exit-code, deploy-report-api-version, render-resource-output-order, render-runtime-annotations-and-labels]
   - anchor: order-of-the-switch
-    entries: [plan-artifact-format-v2, distribution-os-requirements-go-1-26]
+    entries: [plan-artifact-format-v2, distribution-os-requirements-go-1-26, plan-use-plan-release-history-limit]
   - anchor: first-install
     entries: [helm-v4-engine]
   - anchor: typescript-charts
@@ -26,6 +26,24 @@ sections:
     entries: [release-storage-sql-annotations-table]
   - anchor: check-the-changed-defaults
     entries: [resource-validation-enabled-by-default, tracking-condition-types-case-insensitive, dependency-annotations-external-auto, charts-oci-pull-digest-pinned]
-  - anchor: go-api
-    entries: [go-api-action-options-removed, go-api-chart-dir-path-removed, go-api-common-constants-changed, go-api-docker-config-option, go-api-featgate-removed-gates, go-api-helm-fork-packages-restructured, go-api-kube-legacy-client-getter-removed, go-api-kube-new-kube-config-signature, go-api-kubedog-1-types, go-api-legacy-packages-removed, go-api-logging-setup-in-action, go-api-module-path-v2, go-api-plan-artifact-in-action, go-api-release-chart-accessors, go-api-release-storage-interface, go-api-requires-go-1-26, go-api-resource-plan-building-changed, go-api-resource-policy-resolver-removed, go-api-secret-key-env-restored, go-api-secret-key-rotate-removed, plan-use-plan-release-history-limit]
-omitted: {}
+omitted:
+  go-api-action-options-removed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-chart-dir-path-removed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-common-constants-changed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-docker-config-option: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-featgate-removed-gates: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-helm-fork-packages-restructured: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-kube-legacy-client-getter-removed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-kube-new-kube-config-signature: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-kubedog-1-types: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-legacy-packages-removed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-logging-setup-in-action: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-module-path-v2: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-plan-artifact-in-action: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-release-chart-accessors: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-release-storage-interface: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-requires-go-1-26: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-resource-plan-building-changed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-resource-policy-resolver-removed: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-secret-key-env-restored: Go API change; the guide covers CLI users, library users read the catalogue
+  go-api-secret-key-rotate-removed: Go API change; the guide covers CLI users, library users read the catalogue
